@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import STUDENTS from '../../../common/data/STUDENTS.json';
@@ -23,13 +24,11 @@ export class StudentsTableComponent implements OnInit {
     'description',
   ];
 
-  @ViewChild(
-    MatSort,
-    {static: true}
-  )
-  sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 }
