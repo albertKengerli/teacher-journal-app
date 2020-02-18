@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StudentsTableComponent } from './components/students/students-table/students-table.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StudentsTableComponent
   ],
   imports: [
     BrowserModule,
