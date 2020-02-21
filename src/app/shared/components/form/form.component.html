@@ -18,6 +18,9 @@
           [required]="field.required ? true : false"
           placeholder={{field.placeholder}}
         ></textarea>
+
+        <mat-error>{{field.errorMessage}}</mat-error>
+
       </mat-form-field>
 
     </div>

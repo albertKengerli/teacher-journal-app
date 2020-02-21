@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 
 import { Field } from '../../../common/entities/field';
 
@@ -11,9 +11,9 @@ import { Field } from '../../../common/entities/field';
 })
 export class FormComponent implements OnInit {
   @Input() config: Field[];
+  @Output() onAdd = new EventEmitter<Object>();
 
   formGroup: FormGroup;
-  dataReady: boolean = true;
 
   constructor() {}
 
@@ -24,15 +24,27 @@ export class FormComponent implements OnInit {
   formControlInit(): void {
     this.formGroup = new FormGroup({});
     for (let i = 0; i < this.config.length; i++) {
-      let currentField: string = this.config[i].name;
+      let currentConfig = this.config[i];
+      const validators: ValidatorFn[] = [];
+
+      if (currentConfig.required) {
+        validators.push(Validators.required);
+      }
+
+      if (currentConfig.validation) {
+        validators.push(Validators.pattern(currentConfig.expression));
+      }
+
       this.formGroup.addControl(
-        this.config[i].name,
-        new FormControl('')
+        currentConfig.name,
+        new FormControl('', validators)
       );
     }
   }
 
-  onSubmit(): void {
+  onSubmit(): boolean {
+    this.onAdd.emit(this.formGroup.value);
+    return true;
   }
 
 }

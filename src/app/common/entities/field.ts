@@ -4,4 +4,7 @@ export interface Field {
   label: string,
   required: boolean,
   placeholder: string,
+  validation: boolean,
+  expression? : RegExp,
+  errorMessage? : string,
 }
