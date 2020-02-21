@@ -1,0 +1,34 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+
+  <ng-container *ngFor="let field of config">
+    <div>
+
+      <mat-form-field [ngSwitch]="field.type">
+        <mat-label>{{field.label}}</mat-label>
+        <input matInput
+          *ngSwitchCase="'text'"
+          [formControlName]="field.name"
+          [required]="field.required ? true : false"
+          placeholder={{field.placeholder}}
+        >
+
+        <textarea matInput
+          *ngSwitchCase="'text-area'"
+          [formControlName]="field.name"
+          [required]="field.required ? true : false"
+          placeholder={{field.placeholder}}
+        ></textarea>
+      </mat-form-field>
+
+    </div>
+  </ng-container>
+
+  <button mat-raised-button
+    *ngIf="formGroup"
+    type="submit"
+    [disabled]="formGroup.invalid"
+  >
+    Add
+  </button>
+
+</form>
