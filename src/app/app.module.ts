@@ -22,6 +22,7 @@ import { FormComponent } from './shared/components/form/form.component';
 import { SubjectsPageComponent } from './components/subjects/subjects-page/subjects-page.component';
 import { SubjectsListComponent } from './components/subjects/subjects-list/subjects-list.component';
 import { SubjectFormComponent } from './components/subjects/subject-form/subject-form.component';
+import { SubjectDetailsComponent } from './components/subjects/subject-details/subject-details.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SubjectFormComponent } from './components/subjects/subject-form/subject
     SubjectsPageComponent,
     SubjectsListComponent,
     SubjectFormComponent,
+    SubjectDetailsComponent,
   ],
   imports: [
     BrowserModule,

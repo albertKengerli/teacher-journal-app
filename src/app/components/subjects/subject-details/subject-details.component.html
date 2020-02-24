@@ -1,0 +1,9 @@
+<div *ngIf="subject">
+  <h2>{{subject.name}}</h2>
+
+  <mat-form-field>
+    <mat-label>Teacher: </mat-label>
+    <input matInput [(ngModel)]="subject.teacher">
+  </mat-form-field>
+
+</div>
