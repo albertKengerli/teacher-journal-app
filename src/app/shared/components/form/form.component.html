@@ -19,7 +19,8 @@
           placeholder={{field.placeholder}}
         ></textarea>
 
-        <mat-error>{{field.errorMessage}}</mat-error>
+        <mat-error *ngIf="formGroup.get(field.name)?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="formGroup.get(field.name)?.hasError('pattern')">{{field.errorMessage}}</mat-error>
 
       </mat-form-field>
 
