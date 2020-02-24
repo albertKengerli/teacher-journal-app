@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { StudentService } from '../../../common/services/student.service';
+
+import { Student } from '../../../common/entities/student';
 import { Field } from '../../../common/entities/field';
 import { studentsFormConfig } from '../../../common/configs/studentsFormConfig';
 
@@ -12,13 +15,12 @@ export class StudentsFormComponent implements OnInit {
 
   config: Field[] = studentsFormConfig;
 
-  constructor() { }
+  constructor(private studentService: StudentService) { }
 
   ngOnInit(): void {
   }
 
-  onAdd(event: object) {
-    console.log(event);
+  onAdd(student: Student) {
+    this.studentService.addStudent(student);
   }
-
 }
