@@ -31,7 +31,17 @@ export class StudentsTableComponent implements OnInit {
   constructor(private studentService: StudentService) {}
 
   ngOnInit(): void {
+    this.dataSourceInit();
+    this.getStudents();
+    setInterval(this.getStudents.bind(this), 5000);
+  }
+
+  getStudents(): void {
     this.students = this.studentService.getStudents();
+    this.dataSource.data = this.students;
+  }
+
+  dataSourceInit(): void {
     this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
