@@ -42,9 +42,16 @@ export class FormComponent implements OnInit {
     }
   }
 
-  onSubmit(): boolean {
+  onSubmit(): void {
     this.onAdd.emit(this.formGroup.value);
-    return true;
+    this.resetForm();
+  }
+
+  resetForm(): void {
+    this.formGroup.reset();
+    Object.keys(this.formGroup.controls).forEach(key => {
+      this.formGroup.controls[key].setErrors(null)
+    });
   }
 
 }
