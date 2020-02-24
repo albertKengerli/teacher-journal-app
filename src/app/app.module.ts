@@ -10,6 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root/app.component';
@@ -18,6 +19,9 @@ import { StudentsTableComponent } from './components/students/students-table/stu
 import { StudentsPageComponent } from './components/students/students-page/students-page.component';
 import { StudentsFormComponent } from './components/students/students-form/students-form.component';
 import { FormComponent } from './shared/components/form/form.component';
+import { SubjectsPageComponent } from './components/subjects/subjects-page/subjects-page.component';
+import { SubjectsListComponent } from './components/subjects/subjects-list/subjects-list.component';
+import { SubjectFormComponent } from './components/subjects/subject-form/subject-form.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,9 @@ import { FormComponent } from './shared/components/form/form.component';
     StudentsPageComponent,
     StudentsFormComponent,
     FormComponent,
+    SubjectsPageComponent,
+    SubjectsListComponent,
+    SubjectFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +48,7 @@ import { FormComponent } from './shared/components/form/form.component';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
