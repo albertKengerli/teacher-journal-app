@@ -33,11 +33,15 @@ export class StudentsTableComponent implements OnInit {
   ngOnInit(): void {
     this.dataSourceInit();
     this.getStudents();
-    setInterval(this.getStudents.bind(this), 5000);
   }
 
   getStudents(): void {
-    this.students = this.studentService.getStudents();
+    this.studentService.getStudents()
+      .subscribe(students => this.updateStudents(students));
+  }
+
+  updateStudents(students: Student[]): void {
+    this.students = students;
     this.dataSource.data = this.students;
   }
 

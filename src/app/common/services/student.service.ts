@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Student } from '../entities/student';
 
@@ -8,19 +9,19 @@ import STUDENTS from '../data/STUDENTS.json';
   providedIn: 'root'
 })
 export class StudentService {
-  students: Student[];
+  studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject(STUDENTS);
 
   constructor() { }
 
-  getStudents(): Student[] {
-    this.students = STUDENTS;
-    return this.students;
+  getStudents(): Observable<Student[]> {
+    return this.studentsSubject.asObservable();
   }
 
   addStudent(student: Student): void {
     if (!student.id) {
-      student.id = this.students.length + 1;
+      student.id = STUDENTS.length;
     }
-    this.students.push(student);
+    STUDENTS.push(student);
+    this.studentsSubject.next(STUDENTS);
   }
 }
