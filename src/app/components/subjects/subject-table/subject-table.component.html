@@ -1,0 +1,10 @@
+<p>{{subject.name}}</p>
+
+<div *ngFor="let student of students">
+  <div>
+    <p>{{student.name}} {{student.surname}}</p>
+    <ul *ngFor="let grade of grades[student.id]">
+      <li>{{grade.date}} - {{grade.mark}}</li>
+    </ul>
+  </div>
+</div>

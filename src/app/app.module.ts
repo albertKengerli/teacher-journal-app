@@ -23,6 +23,7 @@ import { SubjectsPageComponent } from './components/subjects/subjects-page/subje
 import { SubjectsListComponent } from './components/subjects/subjects-list/subjects-list.component';
 import { SubjectFormComponent } from './components/subjects/subject-form/subject-form.component';
 import { SubjectDetailsComponent } from './components/subjects/subject-details/subject-details.component';
+import { SubjectTableComponent } from './components/subjects/subject-table/subject-table.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SubjectDetailsComponent } from './components/subjects/subject-details/s
     SubjectsListComponent,
     SubjectFormComponent,
     SubjectDetailsComponent,
+    SubjectTableComponent,
   ],
   imports: [
     BrowserModule,
