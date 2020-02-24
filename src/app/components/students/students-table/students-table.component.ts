@@ -4,8 +4,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
-import STUDENTS from '../../../common/data/STUDENTS.json';
 import { Student } from '../../../common/entities/student';
+
+import { StudentService } from '../../../common/services/student.service';
 
 @Component({
   selector: 'app-students-table',
@@ -13,8 +14,8 @@ import { Student } from '../../../common/entities/student';
   styleUrls: ['./students-table.component.scss']
 })
 export class StudentsTableComponent implements OnInit {
-  students: Student[] = STUDENTS;
-  dataSource = new MatTableDataSource(this.students);
+  students: Student[];
+  dataSource: MatTableDataSource<Student>;
 
   columnsToDisplay: String[] = [
     'id',
@@ -27,7 +28,11 @@ export class StudentsTableComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  constructor(private studentService: StudentService) {}
+
   ngOnInit(): void {
+    this.students = this.studentService.getStudents();
+    this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
