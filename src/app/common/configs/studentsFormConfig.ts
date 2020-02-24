@@ -9,7 +9,7 @@ export const studentsFormConfig: Field[] = [
     required: true,
     validation: true,
     expression: /^[a-z ,.'-]+$/i,
-    errorMessage: 'Only a-z, and special characters are allowed. Field shouldn\'t be empty',
+    errorMessage: 'Only a-z, and special characters are allowed.',
   },
   {
     name: "surname",
@@ -19,7 +19,7 @@ export const studentsFormConfig: Field[] = [
     required: true,
     validation: true,
     expression: /^[a-z ,.'-]+$/i,
-    errorMessage: 'Only a-z, and special characters are allowed. Field shouldn\'t be empty',
+    errorMessage: 'Only a-z, and special characters are allowed.',
   },
   {
     name: "address",

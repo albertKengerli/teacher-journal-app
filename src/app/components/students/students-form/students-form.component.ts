@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Field } from '../../../common/entities/field';
-import { studentsFormConfig } from '../../../common/data/studentsFormConfig';
+import { studentsFormConfig } from '../../../common/configs/studentsFormConfig';
 
 @Component({
   selector: 'app-students-form',
