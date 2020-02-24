@@ -15,6 +15,10 @@ export class SubjectService {
     return SUBJECTS;
   }
 
+  getSubjectByName(name: string): Subject {
+    return SUBJECTS.find( element => element.name = name);
+  }
+
   addSubject(subject: Subject): void {
     console.log(subject);
   }
