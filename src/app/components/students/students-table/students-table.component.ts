@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { Subscription } from 'rxjs';
 
 import { Student } from '../../../common/entities/student';
 
@@ -13,9 +15,10 @@ import { StudentService } from '../../../common/services/student.service';
   templateUrl: './students-table.component.html',
   styleUrls: ['./students-table.component.scss']
 })
-export class StudentsTableComponent implements OnInit {
+export class StudentsTableComponent implements OnInit, OnDestroy {
   students: Student[];
   dataSource: MatTableDataSource<Student>;
+  studentServiceSubscription: Subscription;
 
   columnsToDisplay: String[] = [
     'id',
@@ -35,8 +38,12 @@ export class StudentsTableComponent implements OnInit {
     this.getStudents();
   }
 
+  ngOnDestroy(): void {
+    this.studentServiceSubscription.unsubscribe();
+  }
+
   getStudents(): void {
-    this.studentService.getStudents()
+    this.studentServiceSubscription = this.studentService.getStudents()
       .subscribe(students => this.updateStudents(students));
   }
 

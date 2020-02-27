@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
+
+import { Subscription } from 'rxjs';
 
 import { SubjectTableService } from '../../../common/services/subject-table.service';
 
@@ -15,8 +17,9 @@ import { calculateAverageGrade } from '../../../common/helpers/average';
   templateUrl: './subject-table.component.html',
   styleUrls: ['./subject-table.component.scss']
 })
-export class SubjectTableComponent implements OnInit {
+export class SubjectTableComponent implements OnInit, OnDestroy {
   @Input() subject: Subject;
+  subjectTableServiceSubscription: Subscription;
   data: StudentWithGrades[];
   dataSource: MatTableDataSource<StudentWithGrades>;
   columnsToDisplay: string[];
@@ -47,10 +50,14 @@ export class SubjectTableComponent implements OnInit {
 
     this.subjectTableService.serviceInit(this.subject.id);
 
-    this.subjectTableService.getStudentsWithGrades()
+    this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
       .subscribe( data => this.updateData(data));
 
     this.tableInit();
+  }
+
+  ngOnDestroy(): void {
+    this.subjectTableServiceSubscription.unsubscribe();
   }
 
   tableInit(): void {
