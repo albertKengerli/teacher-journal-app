@@ -1,1450 +1,1320 @@
 {
-  "0": {
-    "0": [
-      {
-        "date": "01/03",
-        "mark": 8
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 3
-      }
-    ],
-    "1": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "2": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 9
-      },
-      {
-        "date": "03/03",
-        "mark": 7
-      },
-      {
-        "date": "04/03",
-        "mark": 5
-      }
-    ],
-    "3": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 10
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "4": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 1
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "5": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 6
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 3
-      }
-    ],
-    "6": [
-      {
-        "date": "01/03",
-        "mark": 3
-      },
-      {
-        "date": "02/03",
-        "mark": 10
-      },
-      {
-        "date": "03/03",
-        "mark": 8
-      },
-      {
-        "date": "04/03",
-        "mark": 10
-      }
-    ],
-    "7": [
-      {
-        "date": "01/03",
-        "mark": 2
-      },
-      {
-        "date": "02/03",
-        "mark": 3
-      },
-      {
-        "date": "03/03",
-        "mark": 9
-      },
-      {
-        "date": "04/03",
-        "mark": 10
-      }
-    ],
-    "8": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": 1
-      }
-    ],
-    "9": [
-      {
-        "date": "01/03",
-        "mark": 6
-      },
-      {
-        "date": "02/03",
-        "mark": 3
-      },
-      {
-        "date": "03/03",
-        "mark": 4
-      },
-      {
-        "date": "04/03",
-        "mark": 2
-      }
-    ],
-    "10": [
-      {
-        "date": "01/03",
-        "mark": 10
-      },
-      {
-        "date": "02/03",
-        "mark": 5
-      },
-      {
-        "date": "03/03",
-        "mark": 6
-      },
-      {
-        "date": "04/03",
-        "mark": 2
-      }
-    ],
-    "11": [
-      {
-        "date": "01/03",
-        "mark": 6
-      },
-      {
-        "date": "02/03",
-        "mark": 7
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "12": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 5
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 1
-      }
-    ],
-    "13": [
-      {
-        "date": "01/03",
-        "mark": 9
-      },
-      {
-        "date": "02/03",
-        "mark": 7
-      },
-      {
-        "date": "03/03",
-        "mark": 8
-      },
-      {
-        "date": "04/03",
-        "mark": 5
-      }
-    ],
-    "14": [
-      {
-        "date": "01/03",
-        "mark": 1
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 6
-      },
-      {
-        "date": "04/03",
-        "mark": 3
-      }
-    ],
-    "15": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 8
-      },
-      {
-        "date": "03/03",
-        "mark": 10
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "16": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": 2
-      }
-    ],
-    "17": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "18": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 2
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 2
-      }
-    ],
-    "19": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 2
-      },
-      {
-        "date": "04/03",
-        "mark": 8
-      }
-    ]
-  },
-  "1": {
-    "0": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 7
-      },
-      {
-        "date": "03/03",
-        "mark": 1
-      },
-      {
-        "date": "04/03",
-        "mark": 6
-      }
-    ],
-    "1": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 10
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "2": [
-      {
-        "date": "01/03",
-        "mark": 3
-      },
-      {
-        "date": "02/03",
-        "mark": 5
-      },
-      {
-        "date": "03/03",
-        "mark": 8
-      },
-      {
-        "date": "04/03",
-        "mark": 2
-      }
-    ],
-    "3": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 9
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 3
-      }
-    ],
-    "4": [
-      {
-        "date": "01/03",
-        "mark": 6
-      },
-      {
-        "date": "02/03",
-        "mark": 9
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 9
-      }
-    ],
-    "5": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 6
-      }
-    ],
-    "6": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 6
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": 8
-      }
-    ],
-    "7": [
-      {
-        "date": "01/03",
-        "mark": 3
-      },
-      {
-        "date": "02/03",
-        "mark": 10
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 1
-      }
-    ],
-    "8": [
-      {
-        "date": "01/03",
-        "mark": 8
-      },
-      {
-        "date": "02/03",
-        "mark": 1
-      },
-      {
-        "date": "03/03",
-        "mark": 5
-      },
-      {
-        "date": "04/03",
-        "mark": 3
-      }
-    ],
-    "9": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 6
-      },
-      {
-        "date": "04/03",
-        "mark": 1
-      }
-    ],
-    "10": [
-      {
-        "date": "01/03",
-        "mark": 8
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 7
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "11": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 2
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "12": [
-      {
-        "date": "01/03",
-        "mark": 8
-      },
-      {
-        "date": "02/03",
-        "mark": 10
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": 6
-      }
-    ],
-    "13": [
-      {
-        "date": "01/03",
-        "mark": 9
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "14": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": 9
-      },
-      {
-        "date": "03/03",
-        "mark": 7
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "15": [
-      {
-        "date": "01/03",
-        "mark": 9
-      },
-      {
-        "date": "02/03",
-        "mark": 1
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "16": [
-      {
-        "date": "01/03",
-        "mark": 3
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 8
-      }
-    ],
-    "17": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 9
-      },
-      {
-        "date": "03/03",
-        "mark": 7
-      },
-      {
-        "date": "04/03",
-        "mark": 6
-      }
-    ],
-    "18": [
-      {
-        "date": "01/03",
-        "mark": 3
-      },
-      {
-        "date": "02/03",
-        "mark": 6
-      },
-      {
-        "date": "03/03",
-        "mark": 2
-      },
-      {
-        "date": "04/03",
-        "mark": 8
-      }
-    ],
-    "19": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": 7
-      },
-      {
-        "date": "03/03",
-        "mark": 8
-      },
-      {
-        "date": "04/03",
-        "mark": 8
-      }
-    ]
-  },
-  "2": {
-    "0": [
-      {
-        "date": "01/03",
-        "mark": 9
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "1": [
-      {
-        "date": "01/03",
-        "mark": 10
-      },
-      {
-        "date": "02/03",
-        "mark": 2
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 5
-      }
-    ],
-    "2": [
-      {
-        "date": "01/03",
-        "mark": 8
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "3": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 6
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "4": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 9
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "5": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "6": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": 7
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "7": [
-      {
-        "date": "01/03",
-        "mark": 2
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "8": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "9": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "10": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": 7
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "11": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 2
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "12": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": 2
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "13": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "14": [
-      {
-        "date": "01/03",
-        "mark": 5
-      },
-      {
-        "date": "02/03",
-        "mark": 2
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "15": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "16": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 7
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "17": [
-      {
-        "date": "01/03",
-        "mark": 2
-      },
-      {
-        "date": "02/03",
-        "mark": 2
-      },
-      {
-        "date": "03/03",
-        "mark": 9
-      },
-      {
-        "date": "04/03",
-        "mark": 2
-      }
-    ],
-    "18": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 6
-      },
-      {
-        "date": "04/03",
-        "mark": 8
-      }
-    ],
-    "19": [
-      {
-        "date": "01/03",
-        "mark": 10
-      },
-      {
-        "date": "02/03",
-        "mark": 2
-      },
-      {
-        "date": "03/03",
-        "mark": 4
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ]
-  },
-  "3": {
-    "0": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 5
-      }
-    ],
-    "1": [
-      {
-        "date": "01/03",
-        "mark": 6
-      },
-      {
-        "date": "02/03",
-        "mark": 3
-      },
-      {
-        "date": "03/03",
-        "mark": 5
-      },
-      {
-        "date": "04/03",
-        "mark": 4
-      }
-    ],
-    "2": [
-      {
-        "date": "01/03",
-        "mark": 1
-      },
-      {
-        "date": "02/03",
-        "mark": 3
-      },
-      {
-        "date": "03/03",
-        "mark": 4
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "3": [
-      {
-        "date": "01/03",
-        "mark": 6
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": 1
-      }
-    ],
-    "4": [
-      {
-        "date": "01/03",
-        "mark": 7
-      },
-      {
-        "date": "02/03",
-        "mark": 7
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 10
-      }
-    ],
-    "5": [
-      {
-        "date": "01/03",
-        "mark": 8
-      },
-      {
-        "date": "02/03",
-        "mark": 2
-      },
-      {
-        "date": "03/03",
-        "mark": 10
-      },
-      {
-        "date": "04/03",
-        "mark": 9
-      }
-    ],
-    "6": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "7": [
-      {
-        "date": "01/03",
-        "mark": 8
-      },
-      {
-        "date": "02/03",
-        "mark": 5
-      },
-      {
-        "date": "03/03",
-        "mark": 3
-      },
-      {
-        "date": "04/03",
-        "mark": 8
-      }
-    ],
-    "8": [
-      {
-        "date": "01/03",
-        "mark": 3
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 9
-      }
-    ],
-    "9": [
-      {
-        "date": "01/03",
-        "mark": 6
-      },
-      {
-        "date": "02/03",
-        "mark": 3
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "10": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 3
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 7
-      }
-    ],
-    "11": [
-      {
-        "date": "01/03",
-        "mark": 2
-      },
-      {
-        "date": "02/03",
-        "mark": 2
-      },
-      {
-        "date": "03/03",
-        "mark": 4
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "12": [
-      {
-        "date": "01/03",
-        "mark": 5
-      },
-      {
-        "date": "02/03",
-        "mark": 8
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 5
-      }
-    ],
-    "13": [
-      {
-        "date": "01/03",
-        "mark": 4
-      },
-      {
-        "date": "02/03",
-        "mark": 3
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "14": [
-      {
-        "date": "01/03",
-        "mark": 10
-      },
-      {
-        "date": "02/03",
-        "mark": 8
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 2
-      }
-    ],
-    "15": [
-      {
-        "date": "01/03",
-        "mark": 6
-      },
-      {
-        "date": "02/03",
-        "mark": 7
-      },
-      {
-        "date": "03/03",
-        "mark": 10
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "16": [
-      {
-        "date": "01/03",
-        "mark": 1
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ],
-    "17": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": 4
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 2
-      }
-    ],
-    "18": [
-      {
-        "date": "01/03",
-        "mark": null
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": null
-      },
-      {
-        "date": "04/03",
-        "mark": 1
-      }
-    ],
-    "19": [
-      {
-        "date": "01/03",
-        "mark": 6
-      },
-      {
-        "date": "02/03",
-        "mark": null
-      },
-      {
-        "date": "03/03",
-        "mark": 2
-      },
-      {
-        "date": "04/03",
-        "mark": null
-      }
-    ]
-  }
+  "0":[
+    {
+      "student":"0",
+      "date":"01/03",
+      "grade":9
+    },
+    {
+      "student":"0",
+      "date":"02/03",
+      "grade":4
+    },
+    {
+      "student":"0",
+      "date":"03/03",
+      "grade":10
+    },
+    {
+      "student":"0",
+      "date":"05/03",
+      "grade":1
+    },
+    {
+      "student":"1",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"1",
+      "date":"02/03",
+      "grade":5
+    },
+    {
+      "student":"1",
+      "date":"04/03",
+      "grade":9
+    },
+    {
+      "student":"1",
+      "date":"05/03",
+      "grade":4
+    },
+    {
+      "student":"2",
+      "date":"03/03",
+      "grade":7
+    },
+    {
+      "student":"2",
+      "date":"04/03",
+      "grade":1
+    },
+    {
+      "student":"3",
+      "date":"03/03",
+      "grade":6
+    },
+    {
+      "student":"3",
+      "date":"04/03",
+      "grade":5
+    },
+    {
+      "student":"3",
+      "date":"05/03",
+      "grade":2
+    },
+    {
+      "student":"4",
+      "date":"02/03",
+      "grade":1
+    },
+    {
+      "student":"4",
+      "date":"03/03",
+      "grade":5
+    },
+    {
+      "student":"4",
+      "date":"04/03",
+      "grade":4
+    },
+    {
+      "student":"5",
+      "date":"02/03",
+      "grade":6
+    },
+    {
+      "student":"5",
+      "date":"04/03",
+      "grade":8
+    },
+    {
+      "student":"5",
+      "date":"05/03",
+      "grade":6
+    },
+    {
+      "student":"6",
+      "date":"01/03",
+      "grade":10
+    },
+    {
+      "student":"6",
+      "date":"03/03",
+      "grade":8
+    },
+    {
+      "student":"6",
+      "date":"05/03",
+      "grade":10
+    },
+    {
+      "student":"7",
+      "date":"03/03",
+      "grade":3
+    },
+    {
+      "student":"7",
+      "date":"04/03",
+      "grade":7
+    },
+    {
+      "student":"7",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"8",
+      "date":"01/03",
+      "grade":6
+    },
+    {
+      "student":"8",
+      "date":"03/03",
+      "grade":7
+    },
+    {
+      "student":"8",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"9",
+      "date":"01/03",
+      "grade":1
+    },
+    {
+      "student":"9",
+      "date":"02/03",
+      "grade":1
+    },
+    {
+      "student":"9",
+      "date":"03/03",
+      "grade":6
+    },
+    {
+      "student":"9",
+      "date":"05/03",
+      "grade":1
+    },
+    {
+      "student":"10",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"10",
+      "date":"02/03",
+      "grade":2
+    },
+    {
+      "student":"10",
+      "date":"03/03",
+      "grade":8
+    },
+    {
+      "student":"10",
+      "date":"04/03",
+      "grade":7
+    },
+    {
+      "student":"11",
+      "date":"03/03",
+      "grade":10
+    },
+    {
+      "student":"11",
+      "date":"04/03",
+      "grade":6
+    },
+    {
+      "student":"11",
+      "date":"05/03",
+      "grade":2
+    },
+    {
+      "student":"12",
+      "date":"01/03",
+      "grade":5
+    },
+    {
+      "student":"12",
+      "date":"02/03",
+      "grade":9
+    },
+    {
+      "student":"12",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"13",
+      "date":"02/03",
+      "grade":4
+    },
+    {
+      "student":"13",
+      "date":"04/03",
+      "grade":10
+    },
+    {
+      "student":"13",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"14",
+      "date":"02/03",
+      "grade":6
+    },
+    {
+      "student":"14",
+      "date":"04/03",
+      "grade":8
+    },
+    {
+      "student":"14",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"15",
+      "date":"03/03",
+      "grade":8
+    },
+    {
+      "student":"16",
+      "date":"02/03",
+      "grade":3
+    },
+    {
+      "student":"16",
+      "date":"04/03",
+      "grade":8
+    },
+    {
+      "student":"16",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"17",
+      "date":"01/03",
+      "grade":10
+    },
+    {
+      "student":"17",
+      "date":"02/03",
+      "grade":10
+    },
+    {
+      "student":"17",
+      "date":"03/03",
+      "grade":8
+    },
+    {
+      "student":"17",
+      "date":"04/03",
+      "grade":7
+    },
+    {
+      "student":"18",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"18",
+      "date":"02/03",
+      "grade":5
+    },
+    {
+      "student":"18",
+      "date":"03/03",
+      "grade":10
+    },
+    {
+      "student":"18",
+      "date":"04/03",
+      "grade":10
+    },
+    {
+      "student":"18",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"19",
+      "date":"02/03",
+      "grade":9
+    },
+    {
+      "student":"19",
+      "date":"03/03",
+      "grade":8
+    },
+    {
+      "student":"19",
+      "date":"04/03",
+      "grade":9
+    },
+    {
+      "student":"19",
+      "date":"05/03",
+      "grade":6
+    }
+  ],
+  "1":[
+    {
+      "student":"0",
+      "date":"01/03",
+      "grade":10
+    },
+    {
+      "student":"0",
+      "date":"02/03",
+      "grade":3
+    },
+    {
+      "student":"0",
+      "date":"03/03",
+      "grade":7
+    },
+    {
+      "student":"1",
+      "date":"02/03",
+      "grade":8
+    },
+    {
+      "student":"1",
+      "date":"03/03",
+      "grade":4
+    },
+    {
+      "student":"1",
+      "date":"05/03",
+      "grade":1
+    },
+    {
+      "student":"2",
+      "date":"01/03",
+      "grade":1
+    },
+    {
+      "student":"2",
+      "date":"02/03",
+      "grade":6
+    },
+    {
+      "student":"2",
+      "date":"04/03",
+      "grade":6
+    },
+    {
+      "student":"2",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"3",
+      "date":"02/03",
+      "grade":3
+    },
+    {
+      "student":"3",
+      "date":"04/03",
+      "grade":1
+    },
+    {
+      "student":"3",
+      "date":"05/03",
+      "grade":8
+    },
+    {
+      "student":"4",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"4",
+      "date":"03/03",
+      "grade":10
+    },
+    {
+      "student":"4",
+      "date":"04/03",
+      "grade":5
+    },
+    {
+      "student":"4",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"5",
+      "date":"01/03",
+      "grade":5
+    },
+    {
+      "student":"5",
+      "date":"02/03",
+      "grade":10
+    },
+    {
+      "student":"5",
+      "date":"03/03",
+      "grade":2
+    },
+    {
+      "student":"6",
+      "date":"01/03",
+      "grade":6
+    },
+    {
+      "student":"6",
+      "date":"03/03",
+      "grade":4
+    },
+    {
+      "student":"6",
+      "date":"04/03",
+      "grade":4
+    },
+    {
+      "student":"7",
+      "date":"01/03",
+      "grade":6
+    },
+    {
+      "student":"7",
+      "date":"02/03",
+      "grade":1
+    },
+    {
+      "student":"7",
+      "date":"03/03",
+      "grade":5
+    },
+    {
+      "student":"7",
+      "date":"04/03",
+      "grade":3
+    },
+    {
+      "student":"7",
+      "date":"05/03",
+      "grade":2
+    },
+    {
+      "student":"8",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"8",
+      "date":"02/03",
+      "grade":10
+    },
+    {
+      "student":"8",
+      "date":"05/03",
+      "grade":4
+    },
+    {
+      "student":"9",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"9",
+      "date":"03/03",
+      "grade":2
+    },
+    {
+      "student":"9",
+      "date":"04/03",
+      "grade":6
+    },
+    {
+      "student":"10",
+      "date":"03/03",
+      "grade":9
+    },
+    {
+      "student":"10",
+      "date":"04/03",
+      "grade":2
+    },
+    {
+      "student":"10",
+      "date":"05/03",
+      "grade":3
+    },
+    {
+      "student":"11",
+      "date":"01/03",
+      "grade":1
+    },
+    {
+      "student":"11",
+      "date":"03/03",
+      "grade":7
+    },
+    {
+      "student":"11",
+      "date":"04/03",
+      "grade":6
+    },
+    {
+      "student":"12",
+      "date":"01/03",
+      "grade":1
+    },
+    {
+      "student":"12",
+      "date":"02/03",
+      "grade":9
+    },
+    {
+      "student":"12",
+      "date":"03/03",
+      "grade":2
+    },
+    {
+      "student":"13",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"13",
+      "date":"02/03",
+      "grade":2
+    },
+    {
+      "student":"13",
+      "date":"03/03",
+      "grade":3
+    },
+    {
+      "student":"13",
+      "date":"05/03",
+      "grade":4
+    },
+    {
+      "student":"14",
+      "date":"02/03",
+      "grade":4
+    },
+    {
+      "student":"14",
+      "date":"03/03",
+      "grade":1
+    },
+    {
+      "student":"14",
+      "date":"04/03",
+      "grade":2
+    },
+    {
+      "student":"14",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"15",
+      "date":"01/03",
+      "grade":5
+    },
+    {
+      "student":"15",
+      "date":"02/03",
+      "grade":9
+    },
+    {
+      "student":"15",
+      "date":"05/03",
+      "grade":3
+    },
+    {
+      "student":"16",
+      "date":"01/03",
+      "grade":2
+    },
+    {
+      "student":"16",
+      "date":"03/03",
+      "grade":4
+    },
+    {
+      "student":"16",
+      "date":"04/03",
+      "grade":8
+    },
+    {
+      "student":"16",
+      "date":"05/03",
+      "grade":2
+    },
+    {
+      "student":"17",
+      "date":"03/03",
+      "grade":2
+    },
+    {
+      "student":"17",
+      "date":"04/03",
+      "grade":6
+    },
+    {
+      "student":"17",
+      "date":"05/03",
+      "grade":4
+    },
+    {
+      "student":"18",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"18",
+      "date":"02/03",
+      "grade":8
+    },
+    {
+      "student":"19",
+      "date":"01/03",
+      "grade":9
+    },
+    {
+      "student":"19",
+      "date":"02/03",
+      "grade":7
+    },
+    {
+      "student":"19",
+      "date":"03/03",
+      "grade":10
+    },
+    {
+      "student":"19",
+      "date":"04/03",
+      "grade":2
+    },
+    {
+      "student":"19",
+      "date":"05/03",
+      "grade":5
+    }
+  ],
+  "2":[
+    {
+      "student":"0",
+      "date":"01/03",
+      "grade":10
+    },
+    {
+      "student":"0",
+      "date":"02/03",
+      "grade":4
+    },
+    {
+      "student":"0",
+      "date":"03/03",
+      "grade":10
+    },
+    {
+      "student":"0",
+      "date":"04/03",
+      "grade":4
+    },
+    {
+      "student":"1",
+      "date":"03/03",
+      "grade":5
+    },
+    {
+      "student":"1",
+      "date":"05/03",
+      "grade":2
+    },
+    {
+      "student":"2",
+      "date":"01/03",
+      "grade":5
+    },
+    {
+      "student":"2",
+      "date":"03/03",
+      "grade":9
+    },
+    {
+      "student":"2",
+      "date":"04/03",
+      "grade":2
+    },
+    {
+      "student":"2",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"3",
+      "date":"01/03",
+      "grade":5
+    },
+    {
+      "student":"3",
+      "date":"02/03",
+      "grade":1
+    },
+    {
+      "student":"3",
+      "date":"03/03",
+      "grade":6
+    },
+    {
+      "student":"3",
+      "date":"05/03",
+      "grade":3
+    },
+    {
+      "student":"4",
+      "date":"01/03",
+      "grade":9
+    },
+    {
+      "student":"4",
+      "date":"02/03",
+      "grade":6
+    },
+    {
+      "student":"4",
+      "date":"03/03",
+      "grade":6
+    },
+    {
+      "student":"5",
+      "date":"02/03",
+      "grade":4
+    },
+    {
+      "student":"5",
+      "date":"04/03",
+      "grade":7
+    },
+    {
+      "student":"6",
+      "date":"02/03",
+      "grade":7
+    },
+    {
+      "student":"6",
+      "date":"03/03",
+      "grade":9
+    },
+    {
+      "student":"7",
+      "date":"02/03",
+      "grade":5
+    },
+    {
+      "student":"7",
+      "date":"04/03",
+      "grade":10
+    },
+    {
+      "student":"7",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"8",
+      "date":"01/03",
+      "grade":9
+    },
+    {
+      "student":"8",
+      "date":"03/03",
+      "grade":1
+    },
+    {
+      "student":"8",
+      "date":"04/03",
+      "grade":10
+    },
+    {
+      "student":"9",
+      "date":"01/03",
+      "grade":2
+    },
+    {
+      "student":"9",
+      "date":"02/03",
+      "grade":10
+    },
+    {
+      "student":"9",
+      "date":"03/03",
+      "grade":4
+    },
+    {
+      "student":"9",
+      "date":"05/03",
+      "grade":2
+    },
+    {
+      "student":"10",
+      "date":"01/03",
+      "grade":5
+    },
+    {
+      "student":"10",
+      "date":"03/03",
+      "grade":7
+    },
+    {
+      "student":"10",
+      "date":"04/03",
+      "grade":3
+    },
+    {
+      "student":"11",
+      "date":"01/03",
+      "grade":5
+    },
+    {
+      "student":"11",
+      "date":"02/03",
+      "grade":2
+    },
+    {
+      "student":"11",
+      "date":"03/03",
+      "grade":5
+    },
+    {
+      "student":"11",
+      "date":"04/03",
+      "grade":6
+    },
+    {
+      "student":"11",
+      "date":"05/03",
+      "grade":10
+    },
+    {
+      "student":"12",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"12",
+      "date":"02/03",
+      "grade":5
+    },
+    {
+      "student":"12",
+      "date":"04/03",
+      "grade":3
+    },
+    {
+      "student":"12",
+      "date":"05/03",
+      "grade":10
+    },
+    {
+      "student":"13",
+      "date":"02/03",
+      "grade":1
+    },
+    {
+      "student":"13",
+      "date":"05/03",
+      "grade":1
+    },
+    {
+      "student":"14",
+      "date":"01/03",
+      "grade":5
+    },
+    {
+      "student":"14",
+      "date":"03/03",
+      "grade":4
+    },
+    {
+      "student":"14",
+      "date":"04/03",
+      "grade":6
+    },
+    {
+      "student":"15",
+      "date":"03/03",
+      "grade":10
+    },
+    {
+      "student":"15",
+      "date":"04/03",
+      "grade":9
+    },
+    {
+      "student":"16",
+      "date":"03/03",
+      "grade":2
+    },
+    {
+      "student":"16",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"17",
+      "date":"02/03",
+      "grade":8
+    },
+    {
+      "student":"17",
+      "date":"03/03",
+      "grade":9
+    },
+    {
+      "student":"17",
+      "date":"04/03",
+      "grade":1
+    },
+    {
+      "student":"17",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"18",
+      "date":"01/03",
+      "grade":9
+    },
+    {
+      "student":"18",
+      "date":"03/03",
+      "grade":9
+    },
+    {
+      "student":"18",
+      "date":"04/03",
+      "grade":8
+    },
+    {
+      "student":"18",
+      "date":"05/03",
+      "grade":6
+    },
+    {
+      "student":"19",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"19",
+      "date":"02/03",
+      "grade":2
+    },
+    {
+      "student":"19",
+      "date":"03/03",
+      "grade":1
+    },
+    {
+      "student":"19",
+      "date":"04/03",
+      "grade":7
+    }
+  ],
+  "3":[
+    {
+      "student":"0",
+      "date":"02/03",
+      "grade":6
+    },
+    {
+      "student":"0",
+      "date":"03/03",
+      "grade":6
+    },
+    {
+      "student":"0",
+      "date":"04/03",
+      "grade":9
+    },
+    {
+      "student":"0",
+      "date":"05/03",
+      "grade":10
+    },
+    {
+      "student":"1",
+      "date":"02/03",
+      "grade":5
+    },
+    {
+      "student":"1",
+      "date":"03/03",
+      "grade":10
+    },
+    {
+      "student":"1",
+      "date":"04/03",
+      "grade":3
+    },
+    {
+      "student":"1",
+      "date":"05/03",
+      "grade":5
+    },
+    {
+      "student":"2",
+      "date":"02/03",
+      "grade":8
+    },
+    {
+      "student":"2",
+      "date":"03/03",
+      "grade":1
+    },
+    {
+      "student":"3",
+      "date":"01/03",
+      "grade":7
+    },
+    {
+      "student":"3",
+      "date":"03/03",
+      "grade":4
+    },
+    {
+      "student":"3",
+      "date":"04/03",
+      "grade":4
+    },
+    {
+      "student":"3",
+      "date":"05/03",
+      "grade":8
+    },
+    {
+      "student":"4",
+      "date":"01/03",
+      "grade":7
+    },
+    {
+      "student":"4",
+      "date":"03/03",
+      "grade":6
+    },
+    {
+      "student":"4",
+      "date":"05/03",
+      "grade":6
+    },
+    {
+      "student":"5",
+      "date":"01/03",
+      "grade":9
+    },
+    {
+      "student":"5",
+      "date":"02/03",
+      "grade":8
+    },
+    {
+      "student":"5",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"6",
+      "date":"01/03",
+      "grade":10
+    },
+    {
+      "student":"6",
+      "date":"02/03",
+      "grade":3
+    },
+    {
+      "student":"6",
+      "date":"03/03",
+      "grade":2
+    },
+    {
+      "student":"6",
+      "date":"04/03",
+      "grade":4
+    },
+    {
+      "student":"6",
+      "date":"05/03",
+      "grade":7
+    },
+    {
+      "student":"7",
+      "date":"01/03",
+      "grade":8
+    },
+    {
+      "student":"7",
+      "date":"02/03",
+      "grade":2
+    },
+    {
+      "student":"7",
+      "date":"04/03",
+      "grade":2
+    },
+    {
+      "student":"8",
+      "date":"01/03",
+      "grade":8
+    },
+    {
+      "student":"8",
+      "date":"04/03",
+      "grade":9
+    },
+    {
+      "student":"8",
+      "date":"05/03",
+      "grade":5
+    },
+    {
+      "student":"9",
+      "date":"02/03",
+      "grade":4
+    },
+    {
+      "student":"9",
+      "date":"03/03",
+      "grade":4
+    },
+    {
+      "student":"9",
+      "date":"04/03",
+      "grade":9
+    },
+    {
+      "student":"10",
+      "date":"02/03",
+      "grade":9
+    },
+    {
+      "student":"10",
+      "date":"03/03",
+      "grade":6
+    },
+    {
+      "student":"10",
+      "date":"04/03",
+      "grade":3
+    },
+    {
+      "student":"11",
+      "date":"01/03",
+      "grade":1
+    },
+    {
+      "student":"11",
+      "date":"02/03",
+      "grade":7
+    },
+    {
+      "student":"11",
+      "date":"03/03",
+      "grade":8
+    },
+    {
+      "student":"11",
+      "date":"04/03",
+      "grade":1
+    },
+    {
+      "student":"12",
+      "date":"02/03",
+      "grade":3
+    },
+    {
+      "student":"12",
+      "date":"05/03",
+      "grade":6
+    },
+    {
+      "student":"13",
+      "date":"05/03",
+      "grade":10
+    },
+    {
+      "student":"14",
+      "date":"01/03",
+      "grade":10
+    },
+    {
+      "student":"14",
+      "date":"02/03",
+      "grade":7
+    },
+    {
+      "student":"14",
+      "date":"04/03",
+      "grade":3
+    },
+    {
+      "student":"14",
+      "date":"05/03",
+      "grade":4
+    },
+    {
+      "student":"15",
+      "date":"01/03",
+      "grade":3
+    },
+    {
+      "student":"15",
+      "date":"02/03",
+      "grade":10
+    },
+    {
+      "student":"15",
+      "date":"03/03",
+      "grade":8
+    },
+    {
+      "student":"15",
+      "date":"04/03",
+      "grade":7
+    },
+    {
+      "student":"15",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"16",
+      "date":"01/03",
+      "grade":8
+    },
+    {
+      "student":"16",
+      "date":"03/03",
+      "grade":3
+    },
+    {
+      "student":"16",
+      "date":"04/03",
+      "grade":5
+    },
+    {
+      "student":"16",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"17",
+      "date":"03/03",
+      "grade":6
+    },
+    {
+      "student":"17",
+      "date":"04/03",
+      "grade":8
+    },
+    {
+      "student":"17",
+      "date":"05/03",
+      "grade":9
+    },
+    {
+      "student":"18",
+      "date":"02/03",
+      "grade":5
+    },
+    {
+      "student":"18",
+      "date":"04/03",
+      "grade":7
+    },
+    {
+      "student":"19",
+      "date":"01/03",
+      "grade":10
+    },
+    {
+      "student":"19",
+      "date":"02/03",
+      "grade":8
+    },
+    {
+      "student":"19",
+      "date":"03/03",
+      "grade":9
+    }
+  ]
 }

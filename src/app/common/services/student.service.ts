@@ -19,7 +19,7 @@ export class StudentService {
 
   addStudent(student: Student): void {
     if (!student.id) {
-      student.id = STUDENTS.length;
+      student.id = STUDENTS.length.toString();
     }
     STUDENTS.push(student);
     this.studentsSubject.next(STUDENTS);
