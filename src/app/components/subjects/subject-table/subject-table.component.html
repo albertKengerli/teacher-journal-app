@@ -1,10 +1,13 @@
 <p>{{subject.name}}</p>
 
-<div *ngFor="let student of students">
-  <div>
-    <p>{{student.name}} {{student.surname}}</p>
-    <ul *ngFor="let grade of grades[student.id]">
-      <li>{{grade.date}} - {{grade.mark}}</li>
-    </ul>
-  </div>
-</div>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+
+  <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
+    <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
+    <mat-cell *matCellDef="let student">{{column.value(student)}}</mat-cell>
+  </ng-container>
+
+</mat-table>
