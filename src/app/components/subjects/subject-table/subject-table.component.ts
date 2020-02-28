@@ -26,13 +26,14 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   data: StudentWithGrades[];
   dataSource: MatTableDataSource<StudentWithGrades>;
   columnsToDisplay: string[];
-  columns: Column[] = defaultColumns;
+  columns: Column[];
 
   constructor(
     private subjectTableService: SubjectTableService
   ) { }
 
   ngOnInit(): void {
+    this.columns = [...defaultColumns];
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
 
@@ -42,10 +43,6 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
       .subscribe( data => this.updateData(data));
 
     this.tableInit();
-  }
-
-  ngOnDestroy(): void {
-    this.subjectTableServiceSubscription.unsubscribe();
   }
 
   tableInit(): void {
@@ -72,5 +69,9 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   updateData(data: StudentWithGrades[]): void {
     this.data = data;
     this.dataSource.data = this.data;
+  }
+
+  ngOnDestroy(): void {
+    this.subjectTableServiceSubscription.unsubscribe();
   }
 }
