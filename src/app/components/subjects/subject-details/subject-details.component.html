@@ -1,6 +1,8 @@
 <div *ngIf="subject">
   <h2>{{subject.name}}</h2>
+
   <app-subject-table [subject]="subject"></app-subject-table>
+
   <mat-form-field>
     <mat-label>Teacher: </mat-label>
     <input matInput [(ngModel)]="subject.teacher">

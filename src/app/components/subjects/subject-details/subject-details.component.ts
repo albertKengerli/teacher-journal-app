@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { SubjectService } from '../../../common/services/subject.service';
 
@@ -11,12 +12,18 @@ import { Subject } from '../../../common/entities/subject';
 })
 export class SubjectDetailsComponent implements OnInit {
   subject: Subject;
-  @Input() subjectName: string;
 
-  constructor(private subjectService: SubjectService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private subjectService: SubjectService
+  ) { }
 
   ngOnInit(): void {
-    this.subject = this.subjectService.getSubjectByName(this.subjectName);
+    this.getSubject();
   }
 
+  getSubject(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.subject = this.subjectService.getSubjectById(id);
+  }
 }

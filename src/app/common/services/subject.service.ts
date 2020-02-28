@@ -17,8 +17,8 @@ export class SubjectService {
     return this.subjectsSubject.asObservable();
   }
 
-  getSubjectByName(name: string): Subject {
-    return SUBJECTS.find( element => element.name = name);
+  getSubjectById(id: string): Subject {
+    return SUBJECTS.find( subject => subject.id === id);
   }
 
   addSubject(subject: Subject): void {
