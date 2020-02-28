@@ -30,6 +30,7 @@ import { SubjectTableComponent } from './components/subjects/subject-table/subje
 import { NotFoundComponent } from './components/misc/not-found/not-found.component';
 import { StatisticsPageComponent } from './components/statistics/statistics-page/statistics-page.component';
 import { ExportPageComponent } from './components/export/export-page/export-page.component';
+import { SubjectTableValuePipe } from './common/pipes/subject-table-value/subject-table-value.pipe';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ExportPageComponent } from './components/export/export-page/export-page
     NotFoundComponent,
     StatisticsPageComponent,
     ExportPageComponent,
+    SubjectTableValuePipe,
   ],
   imports: [
     BrowserModule,

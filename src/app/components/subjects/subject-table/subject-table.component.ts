@@ -9,9 +9,10 @@ import { SubjectTableService } from '../../../common/services/subject-table/subj
 
 import { StudentWithGrades } from '../../../common/entities/student';
 import { Subject } from '../../../common/entities/subject';
+import { Column } from '../../../common/entities/column';
 
+import { defaultColumns } from "../../../common/constants/subjectTableDefaultColumns";
 import { dateStringCompare } from '../../../common/helpers/sorting';
-import { calculateAverageGrade } from '../../../common/helpers/average';
 
 @Component({
   selector: 'app-subject-table',
@@ -25,23 +26,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   data: StudentWithGrades[];
   dataSource: MatTableDataSource<StudentWithGrades>;
   columnsToDisplay: string[];
-  columns = [
-    {
-      name: 'name',
-      header: 'Name',
-      value: (student: StudentWithGrades) => student.name,
-    },
-    {
-      name: 'surname',
-      header: 'Last name',
-      value: (student: StudentWithGrades) => student.surname,
-    },
-    {
-      name: 'averageGrade',
-      header: 'Average Mark',
-      value: (student: StudentWithGrades) => calculateAverageGrade(student.grades),
-    }
-  ];
+  columns: Column[] = defaultColumns;
 
   constructor(
     private subjectTableService: SubjectTableService
@@ -77,11 +62,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
       const newColumn = {
         name: date,
         header: date,
-        value: (student: StudentWithGrades) => {
-          return student.grades.hasOwnProperty(date) ?
-            student.grades[date].toString() :
-            "";
-        },
+        pipe: 'studentGrade',
       }
 
       this.columns.push(newColumn);

@@ -5,7 +5,7 @@
 
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
     <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
-    <mat-cell *matCellDef="let student">{{column.value(student)}}</mat-cell>
+    <mat-cell *matCellDef="let student">{{student | subjectTableValue: column.pipe : column.name}}</mat-cell>
   </ng-container>
 
 </mat-table>
