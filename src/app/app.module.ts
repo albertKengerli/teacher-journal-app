@@ -11,6 +11,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root/app.component';
@@ -24,6 +27,9 @@ import { SubjectsListComponent } from './components/subjects/subjects-list/subje
 import { SubjectFormComponent } from './components/subjects/subject-form/subject-form.component';
 import { SubjectDetailsComponent } from './components/subjects/subject-details/subject-details.component';
 import { SubjectTableComponent } from './components/subjects/subject-table/subject-table.component';
+import { NotFoundComponent } from './components/misc/not-found/not-found.component';
+import { StatisticsPageComponent } from './components/statistics/statistics-page/statistics-page.component';
+import { ExportPageComponent } from './components/export/export-page/export-page.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +43,9 @@ import { SubjectTableComponent } from './components/subjects/subject-table/subje
     SubjectFormComponent,
     SubjectDetailsComponent,
     SubjectTableComponent,
+    NotFoundComponent,
+    StatisticsPageComponent,
+    ExportPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +62,9 @@ import { SubjectTableComponent } from './components/subjects/subject-table/subje
     MatInputModule,
     MatCardModule,
     MatGridListModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
