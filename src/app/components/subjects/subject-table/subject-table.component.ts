@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 import { Subscription } from 'rxjs';
 
@@ -19,6 +20,7 @@ import { calculateAverageGrade } from '../../../common/helpers/average';
 })
 export class SubjectTableComponent implements OnInit, OnDestroy {
   @Input() subject: Subject;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   subjectTableServiceSubscription: Subscription;
   data: StudentWithGrades[];
   dataSource: MatTableDataSource<StudentWithGrades>;
@@ -47,6 +49,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
+    this.dataSource.paginator = this.paginator;
 
     this.subjectTableService.serviceInit(this.subject.id);
 

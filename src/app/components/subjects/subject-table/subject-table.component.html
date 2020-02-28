@@ -1,5 +1,3 @@
-<p>{{subject.name}}</p>
-
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
@@ -11,3 +9,4 @@
   </ng-container>
 
 </mat-table>
+<mat-paginator [pageSizeOptions]="[10, 20]"></mat-paginator>
