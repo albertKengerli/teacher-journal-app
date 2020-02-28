@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Location } from '@angular/common';
 
 import { FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 
@@ -15,7 +16,7 @@ export class FormComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  constructor() {}
+  constructor(private location: Location) {}
 
   ngOnInit(): void {
     this.formControlInit();
@@ -42,9 +43,13 @@ export class FormComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
+  submit(): void {
     this.onAdd.emit(this.formGroup.value);
-    this.resetForm();
+    this.location.back();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   resetForm(): void {
