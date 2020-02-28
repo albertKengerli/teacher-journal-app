@@ -1,4 +1,10 @@
-<h1> Teacher Journal </h1>
-
-<app-subjects-page></app-subjects-page>
-<app-students-page></app-students-page>
+<mat-toolbar color="primary" class="navbar mat-elevation-z8">
+  <h1 routerLink="/students"> Teacher Journal </h1>
+  <nav>
+    <a mat-button routerLink="/students" routerLinkActive="active">Students</a>
+    <a mat-button routerLink="/subjects" routerLinkActive="active">Subjects</a>
+    <a mat-button routerLink="/statistics" routerLinkActive="active">Statistics</a>
+    <a mat-button routerLink="/export" routerLinkActive="active">Export</a>
+  </nav>
+</mat-toolbar>
+<router-outlet></router-outlet>
