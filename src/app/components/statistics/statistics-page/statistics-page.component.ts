@@ -4,8 +4,8 @@ import { Subscription } from "rxjs";
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
 
-import { StudentService } from "../../../common/services/student.service";
-import { SubjectService } from "../../../common/services/subject.service";
+import { StudentService } from "../../../common/services/student/student.service";
+import { SubjectService } from "../../../common/services/subject/subject.service";
 
 @Component({
   selector: 'app-statistics-page',

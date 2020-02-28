@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import GRADES from '../data/GRADES.json';
+import GRADES from '../../data/GRADES.json';
 
-import { GradesObject, Grade } from '../entities/grades';
+import { GradesObject, Grade } from '../../entities/grades';
 
 @Injectable({
   providedIn: 'root'

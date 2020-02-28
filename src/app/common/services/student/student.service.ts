@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Student } from '../entities/student';
+import { Student } from '../../entities/student';
 
-import STUDENTS from '../data/STUDENTS.json';
+import STUDENTS from '../../data/STUDENTS.json';
 
 @Injectable({
   providedIn: 'root'

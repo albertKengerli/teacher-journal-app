@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SubjectService } from '../../../common/services/subject.service';
+import { SubjectService } from '../../../common/services/subject/subject.service';
 
 import { Subject } from '../../../common/entities/subject';
 import { Field } from '../../../common/entities/field';

@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 
 import { Student } from '../../../common/entities/student';
 
-import { StudentService } from '../../../common/services/student.service';
+import { StudentService } from '../../../common/services/student/student.service';
 
 @Component({
   selector: 'app-students-table',

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 
-import { StudentWithGrades, Student } from '../entities/student';
-import { GradesObject } from '../entities/grades';
+import { StudentWithGrades, Student } from '../../entities/student';
+import { GradesObject } from '../../entities/grades';
 
-import { GradesService } from '../services/grades.service';
-import { StudentService } from '../services/student.service';
+import { GradesService } from '../grades/grades.service';
+import { StudentService } from '../student/student.service';
 
 @Injectable({
   providedIn: 'root'

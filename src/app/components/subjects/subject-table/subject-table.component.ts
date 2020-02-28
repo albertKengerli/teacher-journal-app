@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 
 import { Subscription } from 'rxjs';
 
-import { SubjectTableService } from '../../../common/services/subject-table.service';
+import { SubjectTableService } from '../../../common/services/subject-table/subject-table.service';
 
 import { StudentWithGrades } from '../../../common/entities/student';
 import { Subject } from '../../../common/entities/subject';
