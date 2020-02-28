@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+  max-height: 500px;
+}
+
+mat-list-item.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+mat-card {
+  width: 400px;
+}
+
+.rating-container, .graph-container {
+  margin: 30px auto;
+  text-align: center;
+}
+
+img {
+  max-width: 200px;
+}

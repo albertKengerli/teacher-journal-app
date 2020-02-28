@@ -1,0 +1,62 @@
+<div class="container" style="background-color: rgba(255,255,255,0.1)">
+
+  <mat-tab-group>
+    <mat-tab #studentsTab label="Students">
+      <mat-nav-list>
+        <mat-list-item
+          *ngFor="let student of students"
+          [class.active]="student === selectedStudent"
+          (click)="selectStudent(student)"
+        >
+          {{student.name}} {{student.surname}}
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-tab>
+
+    <mat-tab #subjectsTab label="Subjects">
+      <mat-nav-list>
+        <mat-list-item
+          *ngFor="let subject of subjects"
+          [class.active]="subject === selectedSubject"
+          (click)="selectSubject(subject)"
+        >
+          {{subject.name}}
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-tab>
+  </mat-tab-group>
+
+  <mat-card *ngIf="studentsTab.isActive">
+    <ng-container *ngIf="selectedStudent">
+      <mat-card-title>{{selectedStudent.name}} {{selectedStudent.surname}}</mat-card-title>
+      <mat-card-subtitle>{{selectedStudent.description}}</mat-card-subtitle>
+
+      <div class="rating-container">
+        <img src="./assets/rating-placeholder.png" alt="Student rating">
+        <p class="mat-body-strong">Rating</p>
+      </div>
+
+      <div class="graph-container">
+        <img src="./assets/graph-placeholder.png" alt="Students graph">
+        <p class="mat-body-strong">Graphic</p>
+      </div>
+    </ng-container>
+  </mat-card>
+
+  <mat-card *ngIf="subjectsTab.isActive">
+    <ng-container *ngIf="selectedSubject">
+      <mat-card-title>{{selectedSubject.name}}</mat-card-title>
+      <mat-card-subtitle>{{selectedSubject.description}}</mat-card-subtitle>
+      <div>
+        <h3>Best performing student</h3>
+        <p>
+          Kurt Cobain
+        </p>
+        <h3>Worst performing student</h3>
+        <p>
+          Joe Rogan
+        </p>
+      </div>
+    </ng-container>
+  </mat-card>
+</div>
