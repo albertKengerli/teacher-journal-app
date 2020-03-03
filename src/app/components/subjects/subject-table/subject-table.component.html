@@ -3,16 +3,32 @@
   <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
   <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
 
-  <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
-    <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let student">{{student.name}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="surname">
+    <mat-header-cell *matHeaderCellDef>Surname</mat-header-cell>
+    <mat-cell *matCellDef="let student">{{student.surname}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="averageGrade">
+    <mat-header-cell *matHeaderCellDef>Average Grade</mat-header-cell>
+    <mat-cell *matCellDef="let student">{{student.averageGrade}}</mat-cell>
+  </ng-container>
+
+  <ng-container *ngFor="let date of dates" [matColumnDef]="date">
+    <mat-header-cell *matHeaderCellDef>{{date}}</mat-header-cell>
     <mat-cell *matCellDef="let student">
-        <span
-          [class.table-cell__grade]="column.gradeColumn"
-          [attr.contenteditable]="column.gradeColumn ? true : false"
-          (focus)="saveEditingCell($event)"
-          (blur)="updateCellData(student.id, column.name, $event)"
-        >
-          {{student | subjectTableValue: column.pipe : column.name}}</span>
+      <span
+        class="table-cell__grade"
+        contenteditable="true"
+        (focus)="saveEditingCell($event)"
+        (blur)="updateCellData(student.id, date, $event)"
+      >
+        {{student[date]}}
+      </span>
     </mat-cell>
   </ng-container>
 

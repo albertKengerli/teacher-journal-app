@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { SubjectService } from "../../../common/services/subject/subject.service";
 
 import { Subject } from "../../../common/entities/subject";
-import { StudentWithGrades } from "../../../common/entities/student";
+import { Student } from "../../../common/entities/student";
 
 @Component({
   selector: "app-subject-details",
@@ -12,7 +12,7 @@ import { StudentWithGrades } from "../../../common/entities/student";
   styleUrls: ["./subject-details.component.scss"]
 })
 export class SubjectDetailsComponent implements OnInit {
-  private dataToSend: StudentWithGrades[];
+  private dataToSend: Student[];
 
   public subject: Subject;
   public teacherChanged: boolean;
@@ -33,7 +33,7 @@ export class SubjectDetailsComponent implements OnInit {
     this.getSubject();
   }
 
-  public saveNewGrades(data: StudentWithGrades[]): void {
+  public saveNewGrades(data: Student[]): void {
     if (!this.gradesChanged) {
       this.gradesChanged = true;
     }
