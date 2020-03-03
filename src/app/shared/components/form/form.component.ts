@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 
 import { FormControl, FormGroup, Validators, ValidatorFn } from "@angular/forms";
 
-import { Field } from "../../../common/entities/field";
+import { FormField } from "../../../common/entities/field";
 
 @Component({
   selector: "app-form",
@@ -11,7 +11,7 @@ import { Field } from "../../../common/entities/field";
   styleUrls: ["./form.component.scss"]
 })
 export class FormComponent implements OnInit {
-  @Input() public config: Field[];
+  @Input() public config: FormField[];
   @Output() public onAdd: EventEmitter<Object> = new EventEmitter<Object>();
 
   public formGroup: FormGroup;
@@ -21,7 +21,7 @@ export class FormComponent implements OnInit {
   private formControlInit(): void {
     this.formGroup = new FormGroup({});
     for (let i: number = 0; i < this.config.length; i++) {
-      let currentConfig: Field = this.config[i];
+      let currentConfig: FormField = this.config[i];
       const validators: ValidatorFn[] = [];
 
       if (currentConfig.required) {

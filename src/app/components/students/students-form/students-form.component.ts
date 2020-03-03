@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { StudentService } from "../../../common/services/student/student.service";
 
 import { Student } from "../../../common/entities/student";
-import { Field } from "../../../common/entities/field";
+import { FormField } from "../../../common/entities/field";
 import { studentsFormConfig } from "../../../common/configs/studentsFormConfig";
 
 @Component({
@@ -12,7 +12,7 @@ import { studentsFormConfig } from "../../../common/configs/studentsFormConfig";
   styleUrls: ["./students-form.component.scss"]
 })
 export class StudentsFormComponent {
-  public config: Field[] = studentsFormConfig;
+  public config: FormField[] = studentsFormConfig;
 
   constructor(private studentService: StudentService) { }
 

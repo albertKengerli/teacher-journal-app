@@ -1,6 +1,6 @@
-import { Field } from "../entities/field";
+import { FormField } from "../entities/field";
 
-export const subjectsFormConfig: Field[] = [
+export const subjectsFormConfig: FormField[] = [
   {
     name: "name",
     type: "text",
