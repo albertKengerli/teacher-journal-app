@@ -31,7 +31,6 @@ import { SubjectTableComponent } from "./components/subjects/subject-table/subje
 import { NotFoundComponent } from "./components/misc/not-found/not-found.component";
 import { StatisticsPageComponent } from "./components/statistics/statistics-page/statistics-page.component";
 import { ExportPageComponent } from "./components/export/export-page/export-page.component";
-import { SubjectTableValuePipe } from "./common/pipes/subject-table-value/subject-table-value.pipe";
 import { BreadcrumbsComponent } from "./components/misc/breadcrumbs/breadcrumbs.component";
 import { StudentsRootComponent } from "./components/students/students-root/students-root.component";
 import { SubjectsRootComponent } from "./components/subjects/subjects-root/subjects-root.component";
@@ -51,7 +50,6 @@ import { SubjectsRootComponent } from "./components/subjects/subjects-root/subje
     NotFoundComponent,
     StatisticsPageComponent,
     ExportPageComponent,
-    SubjectTableValuePipe,
     BreadcrumbsComponent,
     StudentsRootComponent,
     SubjectsRootComponent,
