@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -21,12 +21,14 @@ import { dateStringCompare } from '../../../common/helpers/sorting';
 })
 export class SubjectTableComponent implements OnInit, OnDestroy {
   @Input() subject: Subject;
+  @Output() onNewData = new EventEmitter<StudentWithGrades[]>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   subjectTableServiceSubscription: Subscription;
   data: StudentWithGrades[];
   dataSource: MatTableDataSource<StudentWithGrades>;
   columnsToDisplay: string[];
   columns: Column[];
+  editingValue: string;
 
   constructor(
     private subjectTableService: SubjectTableService
@@ -40,17 +42,18 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.subjectTableService.serviceInit(this.subject.id);
 
     this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
-      .subscribe( data => this.updateData(data));
+      .subscribe( data => this.updateDataSource(data));
+    this.subjectTableServiceSubscription.unsubscribe();
 
     this.tableInit();
   }
 
-  tableInit(): void {
+  private tableInit(): void {
     this.addDateColumns();
     this.columnsToDisplay = this.columns.map(column => column.name);
   }
 
-  addDateColumns(): void {
+  private addDateColumns(): void {
     const dates = this.subjectTableService.getDates();
 
     dates.sort(dateStringCompare);
@@ -60,15 +63,42 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
         name: date,
         header: date,
         pipe: 'studentGrade',
+        gradeColumn: true,
       }
 
       this.columns.push(newColumn);
     })
   }
 
-  updateData(data: StudentWithGrades[]): void {
+  private updateDataSource(data: StudentWithGrades[]): void {
     this.data = data;
     this.dataSource.data = this.data;
+  }
+
+  saveEditingCell(event: Event) {
+    const input = event.target as HTMLElement;
+    this.editingValue = input.textContent;
+  }
+
+  updateCellData(id: string, date: string, event: Event): void {
+    const input = event.target as HTMLElement;
+
+    if (input.textContent !== this.editingValue) {
+      const newValue = Number(input.textContent);
+
+      if ( isNaN(newValue) || newValue < 1 || newValue > 10 ) {
+        console.log('Put a number from 1 to 10 to the table');
+        input.textContent = '-';
+        this.data[id].grades[date] = null;
+        this.editingValue = null;
+        this.onNewData.emit(this.data);
+        return;
+      }
+
+      this.data[id].grades[date] = Number(newValue);
+      this.editingValue = null;
+      this.onNewData.emit(this.data);
+    }
   }
 
   ngOnDestroy(): void {

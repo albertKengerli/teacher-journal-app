@@ -5,7 +5,15 @@
 
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
     <mat-header-cell *matHeaderCellDef> {{column.header}} </mat-header-cell>
-    <mat-cell *matCellDef="let student">{{student | subjectTableValue: column.pipe : column.name}}</mat-cell>
+    <mat-cell *matCellDef="let student">
+        <span
+          [class.table-cell__grade]="column.gradeColumn"
+          [attr.contenteditable]="column.gradeColumn ? true : false"
+          (focus)="saveEditingCell($event)"
+          (blur)="updateCellData(student.id, column.name, $event)"
+        >
+          {{student | subjectTableValue: column.pipe : column.name}}</span>
+    </mat-cell>
   </ng-container>
 
 </mat-table>
