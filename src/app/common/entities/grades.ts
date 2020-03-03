@@ -4,10 +4,6 @@ export interface Grade {
   grade: number;
 }
 
-export interface SimpleGradesObject {
-  [date: string]: number;
-}
-
 export interface GradesObject {
   [key: string]: Grade[];
 }
