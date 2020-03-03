@@ -11,8 +11,6 @@ import { GradesObject, Grade } from '../../entities/grades';
 export class GradesService {
   gradesSubject: BehaviorSubject<GradesObject> = new BehaviorSubject(GRADES);
 
-  constructor() { }
-
   getGrades(): Observable<GradesObject> {
     return this.gradesSubject.asObservable();
   }

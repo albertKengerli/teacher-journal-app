@@ -30,7 +30,7 @@ export class SubjectTableService {
     ).subscribe((data) => this.dataInit(data)).unsubscribe();
   }
 
-  dataInit([students, grades]: [Student[], GradesObject]): void {
+  private dataInit([students, grades]: [Student[], GradesObject]): void {
     this.studentsWithGrades = new BehaviorSubject({} as StudentWithGrades[])
 
     const subjectGrades = GradesService.getSubjectGrades(grades, this.subjectID);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { StudentService } from '../../../common/services/student/student.service';
 
@@ -11,16 +11,13 @@ import { studentsFormConfig } from '../../../common/configs/studentsFormConfig';
   templateUrl: './students-form.component.html',
   styleUrls: ['./students-form.component.scss']
 })
-export class StudentsFormComponent implements OnInit {
+export class StudentsFormComponent {
 
   config: Field[] = studentsFormConfig;
 
   constructor(private studentService: StudentService) { }
 
-  ngOnInit(): void {
-  }
-
-  onAdd(student: Student) {
+  addStudent(student: Student) {
     this.studentService.addStudent(student);
   }
 }

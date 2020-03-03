@@ -45,8 +45,4 @@ export class StatisticsPageComponent implements OnInit, OnDestroy {
     this.studentSubscription.unsubscribe();
     this.subjectSubscription.unsubscribe();
   }
-
-  test(): void {
-    console.log(this);
-  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { SubjectService } from '../../../common/services/subject/subject.service';
 
@@ -11,16 +11,13 @@ import { subjectsFormConfig } from '../../../common/configs/subjectsFormConfig';
   templateUrl: './subject-form.component.html',
   styleUrls: ['./subject-form.component.scss']
 })
-export class SubjectFormComponent implements OnInit {
+export class SubjectFormComponent {
 
   config: Field[] = subjectsFormConfig;
 
   constructor(private subjectService: SubjectService) { }
 
-  ngOnInit(): void {
-  }
-
-  onAdd(subject: Subject) {
+  addSubject(subject: Subject) {
     this.subjectService.addSubject(subject);
   }
 

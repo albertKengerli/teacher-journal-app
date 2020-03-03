@@ -11,8 +11,6 @@ import STUDENTS from '../../data/STUDENTS.json';
 export class StudentService {
   studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject(STUDENTS);
 
-  constructor() { }
-
   getStudents(): Observable<Student[]> {
     return this.studentsSubject.asObservable();
   }

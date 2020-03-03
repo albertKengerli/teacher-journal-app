@@ -11,14 +11,16 @@ import { Subject } from '../../entities/subject';
 export class SubjectService {
   subjectsSubject: BehaviorSubject<Subject[]> = new BehaviorSubject(SUBJECTS);
 
-  constructor() { }
-
   getSubjects(): Observable<Subject[]> {
     return this.subjectsSubject.asObservable();
   }
 
   getSubjectById(id: string): Subject {
     return SUBJECTS.find( subject => subject.id === id);
+  }
+
+  getSubjectByName(name: string): Subject {
+    return SUBJECTS.find( subject => subject.name === name);
   }
 
   addSubject(subject: Subject): void {

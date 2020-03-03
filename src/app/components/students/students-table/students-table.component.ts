@@ -42,17 +42,17 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
     this.studentServiceSubscription.unsubscribe();
   }
 
-  getStudents(): void {
+  private getStudents(): void {
     this.studentServiceSubscription = this.studentService.getStudents()
       .subscribe(students => this.updateStudents(students));
   }
 
-  updateStudents(students: Student[]): void {
+  private updateStudents(students: Student[]): void {
     this.students = students;
     this.dataSource.data = this.students;
   }
 
-  dataSourceInit(): void {
+  private dataSourceInit(): void {
     this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
