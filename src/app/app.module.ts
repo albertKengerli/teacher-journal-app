@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BreadcrumbModule } from "angular-crumbs";
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,6 +32,9 @@ import { NotFoundComponent } from './components/misc/not-found/not-found.compone
 import { StatisticsPageComponent } from './components/statistics/statistics-page/statistics-page.component';
 import { ExportPageComponent } from './components/export/export-page/export-page.component';
 import { SubjectTableValuePipe } from './common/pipes/subject-table-value/subject-table-value.pipe';
+import { BreadcrumbsComponent } from './components/misc/breadcrumbs/breadcrumbs.component';
+import { StudentsRootComponent } from './components/students/students-root/students-root.component';
+import { SubjectsRootComponent } from './components/subjects/subjects-root/subjects-root.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +52,9 @@ import { SubjectTableValuePipe } from './common/pipes/subject-table-value/subjec
     StatisticsPageComponent,
     ExportPageComponent,
     SubjectTableValuePipe,
+    BreadcrumbsComponent,
+    StudentsRootComponent,
+    SubjectsRootComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +74,7 @@ import { SubjectTableValuePipe } from './common/pipes/subject-table-value/subjec
     MatToolbarModule,
     MatTabsModule,
     MatListModule,
+    BreadcrumbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
