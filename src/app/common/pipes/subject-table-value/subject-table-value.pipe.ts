@@ -18,7 +18,7 @@ export class SubjectTableValuePipe implements PipeTransform {
       case 'averageGrade' :
         return calculateAverageGrade(student.grades);
       case 'studentGrade' :
-        return student.grades.hasOwnProperty(date) ? student.grades[date].toString() : '';
+        return student.grades.hasOwnProperty(date) ? student.grades[date].toString() : '-';
       default:
         return 'Pipe is broken';
     }
