@@ -9,7 +9,7 @@ import { Subject } from "../../entities/subject";
   providedIn: "root"
 })
 export class SubjectService {
-  public subjectsSubject: BehaviorSubject<Subject[]> = new BehaviorSubject(SUBJECTS);
+  private subjectsSubject: BehaviorSubject<Subject[]> = new BehaviorSubject(SUBJECTS);
 
   public getSubjects(): Observable<Subject[]> {
     return this.subjectsSubject.asObservable();

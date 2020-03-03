@@ -9,7 +9,7 @@ import STUDENTS from "../../data/STUDENTS.json";
   providedIn: "root"
 })
 export class StudentService {
-  public studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject(STUDENTS);
+  private studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject(STUDENTS);
 
   public getStudents(): Observable<Student[]> {
     return this.studentsSubject.asObservable();

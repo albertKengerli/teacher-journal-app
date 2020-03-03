@@ -9,7 +9,7 @@ import { GradesObject, Grade } from "../../entities/grades";
   providedIn: "root"
 })
 export class GradesService {
-  public gradesSubject: BehaviorSubject<GradesObject> = new BehaviorSubject(GRADES);
+  private gradesSubject: BehaviorSubject<GradesObject> = new BehaviorSubject(GRADES);
 
   public getGrades(): Observable<GradesObject> {
     return this.gradesSubject.asObservable();
