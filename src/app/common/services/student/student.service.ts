@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Observable, BehaviorSubject } from "rxjs";
 
-import { Student } from '../../entities/student';
+import { Student } from "../../entities/student";
 
-import STUDENTS from '../../data/STUDENTS.json';
+import STUDENTS from "../../data/STUDENTS.json";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class StudentService {
-  studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject(STUDENTS);
+  public studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject(STUDENTS);
 
-  getStudents(): Observable<Student[]> {
+  public getStudents(): Observable<Student[]> {
     return this.studentsSubject.asObservable();
   }
 
-  addStudent(student: Student): void {
+  public addStudent(student: Student): void {
     if (!student.id) {
       student.id = STUDENTS.length.toString();
     }

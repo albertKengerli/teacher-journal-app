@@ -1,23 +1,22 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
-import { StudentService } from '../../../common/services/student/student.service';
+import { StudentService } from "../../../common/services/student/student.service";
 
-import { Student } from '../../../common/entities/student';
-import { Field } from '../../../common/entities/field';
-import { studentsFormConfig } from '../../../common/configs/studentsFormConfig';
+import { Student } from "../../../common/entities/student";
+import { Field } from "../../../common/entities/field";
+import { studentsFormConfig } from "../../../common/configs/studentsFormConfig";
 
 @Component({
-  selector: 'app-students-form',
-  templateUrl: './students-form.component.html',
-  styleUrls: ['./students-form.component.scss']
+  selector: "app-students-form",
+  templateUrl: "./students-form.component.html",
+  styleUrls: ["./students-form.component.scss"]
 })
 export class StudentsFormComponent {
-
-  config: Field[] = studentsFormConfig;
+  public config: Field[] = studentsFormConfig;
 
   constructor(private studentService: StudentService) { }
 
-  addStudent(student: Student) {
+  public addStudent(student: Student): void {
     this.studentService.addStudent(student);
   }
 }

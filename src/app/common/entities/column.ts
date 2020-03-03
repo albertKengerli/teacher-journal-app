@@ -1,6 +1,6 @@
 export interface Column {
-  name: string,
-  header: string,
-  pipe: string,
-  gradeColumn? : boolean,
+  name: string;
+  header: string;
+  pipe: string;
+  gradeColumn?: boolean;
 }

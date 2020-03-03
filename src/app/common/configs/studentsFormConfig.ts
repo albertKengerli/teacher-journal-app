@@ -1,4 +1,4 @@
-import { Field } from '../entities/field';
+import { Field } from "../entities/field";
 
 export const studentsFormConfig: Field[] = [
   {
@@ -9,7 +9,7 @@ export const studentsFormConfig: Field[] = [
     required: true,
     validation: true,
     expression: /^[a-z ,.'-]+$/i,
-    errorMessage: 'Only a-z, and special characters are allowed.',
+    errorMessage: "Only a-z, and special characters are allowed.",
   },
   {
     name: "surname",
@@ -19,7 +19,7 @@ export const studentsFormConfig: Field[] = [
     required: true,
     validation: true,
     expression: /^[a-z ,.'-]+$/i,
-    errorMessage: 'Only a-z, and special characters are allowed.',
+    errorMessage: "Only a-z, and special characters are allowed.",
   },
   {
     name: "address",

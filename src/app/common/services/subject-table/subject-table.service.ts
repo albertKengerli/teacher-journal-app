@@ -1,41 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Observable, BehaviorSubject, combineLatest } from "rxjs";
 
-import { StudentWithGrades, Student } from '../../entities/student';
-import { GradesObject } from '../../entities/grades';
+import { StudentWithGrades, Student } from "../../entities/student";
+import { Grade, GradesObject, SimpleGradesObject } from "../../entities/grades";
 
-import { GradesService } from '../grades/grades.service';
-import { StudentService } from '../student/student.service';
+import { GradesService } from "../grades/grades.service";
+import { StudentService } from "../student/student.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SubjectTableService {
-  subjectID: string;
-  dates: string[] = [];
+  public subjectID: string;
+  public dates: string[] = [];
 
-  studentsWithGrades: BehaviorSubject<StudentWithGrades[]>;
+  public studentsWithGrades: BehaviorSubject<StudentWithGrades[]>;
 
   constructor(
     private gradesService: GradesService,
     private studentService: StudentService,
   ) {}
 
-  serviceInit(subjectID: string): void {
-    this.subjectID = subjectID;
-
-    combineLatest(
-      this.studentService.getStudents(),
-      this.gradesService.getGrades()
-    ).subscribe((data) => this.dataInit(data)).unsubscribe();
-  }
-
   private dataInit([students, grades]: [Student[], GradesObject]): void {
-    this.studentsWithGrades = new BehaviorSubject({} as StudentWithGrades[])
+    this.studentsWithGrades = new BehaviorSubject({} as StudentWithGrades[]);
 
-    const subjectGrades = GradesService.getSubjectGrades(grades, this.subjectID);
+    const subjectGrades: Grade[] = GradesService.getSubjectGrades(grades, this.subjectID);
 
-    const studentsGrades = subjectGrades.reduce( (acc, grade) => {
+    const studentsGrades: SimpleGradesObject = subjectGrades.reduce( (acc, grade) => {
       if (!acc[grade.student]) {
         acc[grade.student] = {};
       }
@@ -46,7 +37,7 @@ export class SubjectTableService {
       }
 
       return acc;
-    }, {});
+    },                                           {});
 
     const studentsWithGrades: StudentWithGrades[] = students.map( student => {
       const currentStudent: StudentWithGrades = {
@@ -56,16 +47,25 @@ export class SubjectTableService {
         grades: studentsGrades[student.id],
       };
       return currentStudent;
-    })
+    });
 
     this.studentsWithGrades.next(studentsWithGrades);
   }
 
-  getStudentsWithGrades(): Observable<StudentWithGrades[]> {
+  public serviceInit(subjectID: string): void {
+    this.subjectID = subjectID;
+
+    combineLatest(
+      this.studentService.getStudents(),
+      this.gradesService.getGrades()
+    ).subscribe((data) => this.dataInit(data)).unsubscribe();
+  }
+
+  public getStudentsWithGrades(): Observable<StudentWithGrades[]> {
     return this.studentsWithGrades.asObservable();
   }
 
-  getDates(): string[] {
+  public getDates(): string[] {
     return this.dates;
   }
 

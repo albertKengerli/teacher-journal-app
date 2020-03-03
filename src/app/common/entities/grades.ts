@@ -1,13 +1,13 @@
 export interface Grade {
-  student: string,
-  date: string,
-  grade: number,
+  student: string;
+  date: string;
+  grade: number;
 }
 
 export interface SimpleGradesObject {
-  [date: string]: number,
+  [date: string]: number;
 }
 
 export interface GradesObject {
-  [key: string]: Grade[],
+  [key: string]: Grade[];
 }

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-subjects-root',
-  templateUrl: './subjects-root.component.html',
-  styleUrls: ['./subjects-root.component.scss']
+  selector: "app-subjects-root",
+  templateUrl: "./subjects-root.component.html",
+  styleUrls: ["./subjects-root.component.scss"]
 })
 export class SubjectsRootComponent {
 }

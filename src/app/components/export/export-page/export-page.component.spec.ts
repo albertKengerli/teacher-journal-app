@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ExportPageComponent } from './export-page.component';
+import { ExportPageComponent } from "./export-page.component";
 
-describe('ExportPageComponent', () => {
+describe("ExportPageComponent", () => {
   let component: ExportPageComponent;
   let fixture: ComponentFixture<ExportPageComponent>;
 
@@ -19,7 +19,7 @@ describe('ExportPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

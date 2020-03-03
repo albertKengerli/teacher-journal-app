@@ -1,4 +1,4 @@
-import { Field } from '../entities/field';
+import { Field } from "../entities/field";
 
 export const subjectsFormConfig: Field[] = [
   {
@@ -9,7 +9,7 @@ export const subjectsFormConfig: Field[] = [
     required: true,
     validation: true,
     expression: /^[a-z .-]+$/i,
-    errorMessage: 'Only a-z, space, ., - are allowed',
+    errorMessage: "Only a-z, space, ., - are allowed",
   },
   {
     name: "teacher",
@@ -19,7 +19,7 @@ export const subjectsFormConfig: Field[] = [
     required: true,
     validation: true,
     expression: /^[a-z ,.'-]+$/i,
-    errorMessage: 'Only a-z, and special characters are allowed.',
+    errorMessage: "Only a-z, and special characters are allowed.",
   },
   {
     name: "address",
@@ -29,7 +29,7 @@ export const subjectsFormConfig: Field[] = [
     required: false,
     validation: true,
     expression: /[0-9]*/i,
-    errorMessage: 'Only 0-9 without spaces is valid room',
+    errorMessage: "Only 0-9 without spaces is valid room",
   },
   {
     name: "description",
@@ -39,4 +39,4 @@ export const subjectsFormConfig: Field[] = [
     required: false,
     validation: false,
   },
-]
+];
