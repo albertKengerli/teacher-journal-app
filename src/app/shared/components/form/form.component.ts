@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 
 import { FormControl, FormGroup, Validators, ValidatorFn } from "@angular/forms";
 
-import { FormField } from "../../../common/entities/field";
+import { FormField } from "../../../common/entities/formField";
 
 @Component({
   selector: "app-form",
