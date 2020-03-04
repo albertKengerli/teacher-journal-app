@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 
 import { BreadcrumbModule } from "angular-crumbs";
 
@@ -17,6 +18,7 @@ import { NotFoundComponent } from "../../components/misc/not-found/not-found.com
     CommonModule,
     SharedModule,
     BreadcrumbModule,
+    RouterModule,
   ],
   exports: [
     BreadcrumbsComponent,

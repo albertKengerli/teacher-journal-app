@@ -11,6 +11,8 @@ import { SubjectFormComponent } from "../../components/subjects/subject-form/sub
 import { SubjectDetailsComponent } from "../../components/subjects/subject-details/subject-details.component";
 import { SubjectTableComponent } from "../../components/subjects/subject-table/subject-table.component";
 
+import { SubjectsRoutingModule } from "./subjects-routing.module";
+
 @NgModule({
   declarations: [
     SubjectsRootComponent,
@@ -23,6 +25,7 @@ import { SubjectTableComponent } from "../../components/subjects/subject-table/s
   imports: [
     CommonModule,
     SharedModule,
+    SubjectsRoutingModule,
   ],
   providers: [DatePipe],
 })

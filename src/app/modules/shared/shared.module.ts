@@ -16,8 +16,6 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
-import { AppRoutingModule } from "../../app-routing.module";
-
 import { FormComponent } from "../../shared/components/form/form.component";
 
 @NgModule({
@@ -34,7 +32,6 @@ import { FormComponent } from "../../shared/components/form/form.component";
   ],
   exports: [
     FormComponent,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
