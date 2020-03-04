@@ -1,6 +1,6 @@
 export interface Grade {
   student: string;
-  date: string;
+  date: Date;
   grade: number;
 }
 

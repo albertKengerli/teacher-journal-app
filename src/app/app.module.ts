@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DatePipe } from "@angular/common";
 import { BreadcrumbModule } from "angular-crumbs";
 
 import { MatButtonModule } from "@angular/material/button";
@@ -74,7 +75,7 @@ import { SubjectsRootComponent } from "./components/subjects/subjects-root/subje
     MatListModule,
     BreadcrumbModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

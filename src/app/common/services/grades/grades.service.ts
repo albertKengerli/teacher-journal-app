@@ -9,15 +9,30 @@ import { GradesObject, Grade } from "../../entities/grades";
   providedIn: "root"
 })
 export class GradesService {
-  private gradesSubject: BehaviorSubject<GradesObject> = new BehaviorSubject(GRADES);
+  private gradesSubject: BehaviorSubject<GradesObject>;
+  private grades: GradesObject = {} as GradesObject;
+
+  constructor() {
+    for (const key of Object.keys(GRADES)) {
+      this.grades[key] = GRADES[key].map((grade: Grade) => {
+        return {
+          student: grade.student,
+          date: new Date(grade.date),
+          grade: grade.grade,
+        };
+      });
+    }
+
+    this.gradesSubject = new BehaviorSubject(this.grades);
+  }
 
   public getGrades(): Observable<GradesObject> {
     return this.gradesSubject.asObservable();
   }
 
   public addGrade(subject: string, grade: Grade): void {
-    GRADES[subject].push(grade);
-    this.gradesSubject.next(GRADES);
+    this.grades[subject].push(grade);
+    this.gradesSubject.next(this.grades);
   }
 
   public static getStudentGrades(grades: Grade[], id: string): Grade[] {

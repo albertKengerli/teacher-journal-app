@@ -18,7 +18,7 @@
     <mat-cell *matCellDef="let student">{{student.averageGrade}}</mat-cell>
   </ng-container>
 
-  <ng-container *ngFor="let date of dates" [matColumnDef]="date">
+  <ng-container *ngFor="let date of stringDates" [matColumnDef]="date">
     <mat-header-cell *matHeaderCellDef>{{date}}</mat-header-cell>
     <mat-cell *matCellDef="let student">
       <span

@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, combineLatest } from "rxjs";
+import { DatePipe } from "@angular/common";
 
 import { Student } from "../../entities/student";
 import { Grade, GradesObject } from "../../entities/grades";
@@ -13,11 +14,13 @@ import { StudentService } from "../student/student.service";
 export class SubjectTableService {
   private studentsWithGrades: BehaviorSubject<Student[]> = new BehaviorSubject([]);
   private subjectID: string;
-  private dates: string[] = [];
+  private dates: Date[] = [];
+  private datesList: string[] = [];
 
   constructor(
     private gradesService: GradesService,
     private studentService: StudentService,
+    private datePipe: DatePipe,
   ) {}
 
   private dataInit([students, grades]: [Student[], GradesObject]): void {
@@ -29,7 +32,8 @@ export class SubjectTableService {
         }
         acc[grade.student][grade.date] = grade.grade;
 
-        if (!this.dates.includes(grade.date)) {
+        if (!this.datesList.includes(grade.date.toString())) {
+          this.datesList.push(grade.date.toString());
           this.dates.push(grade.date);
         }
 
@@ -47,10 +51,11 @@ export class SubjectTableService {
 
       this.dates.forEach( date => {
         const grade: number = studentsGrades[currentStudent.id][date];
+        const dateString: string = this.datePipe.transform(date, "LL/dd");
         if (grade) {
-          modifiedStudent[date] = grade.toString();
+          modifiedStudent[dateString] = grade.toString();
         } else {
-          modifiedStudent[date] = undefined;
+          modifiedStudent[dateString] = undefined;
         }
       });
 
@@ -73,7 +78,7 @@ export class SubjectTableService {
     return this.studentsWithGrades.asObservable();
   }
 
-  public getDates(): string[] {
+  public getDates(): Date[] {
     return this.dates;
   }
 

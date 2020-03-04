@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, Output, EventEmitter } from "@angular/core";
+import { DatePipe } from "@angular/common";
 
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
@@ -10,7 +11,7 @@ import { SubjectTableService } from "../../../common/services/subject-table/subj
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
 
-import { dateStringCompare } from "../../../common/helpers/sorting";
+import { compareDates } from "../../../common/helpers/sorting";
 
 @Component({
   selector: "app-subject-table",
@@ -21,6 +22,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private subjectTableServiceSubscription: Subscription;
   private data: Student[];
   private editingValue: string;
+  private dates: Date[];
 
   @Input() public subject: Subject;
   @Output() public onNewData: EventEmitter<Student[]> = new EventEmitter<Student[]>();
@@ -29,17 +31,21 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   public columnsToDisplay: string[] = [
     "name", "surname", "averageGrade"
   ];
-  public dates: string[];
+  public stringDates: string[];
 
   constructor(
-    private subjectTableService: SubjectTableService
+    private subjectTableService: SubjectTableService,
+    private datePipe: DatePipe,
   ) { }
 
   private tableInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dates = this.subjectTableService.getDates();
-    this.dates.sort(dateStringCompare);
-    this.columnsToDisplay = [...this.columnsToDisplay, ...this.dates];
+    this.dates.sort(compareDates);
+
+    this.stringDates = this.dates.map(date => this.datePipe.transform(date, "LL/dd"));
+
+    this.columnsToDisplay = [...this.columnsToDisplay, ...this.stringDates];
   }
 
   private updateDataSource(data: Student[]): void {
