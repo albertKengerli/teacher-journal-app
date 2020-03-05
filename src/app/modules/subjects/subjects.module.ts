@@ -13,6 +13,8 @@ import { SubjectTableComponent } from "../../components/subjects/subject-table/s
 
 import { SubjectsRoutingModule } from "./subjects-routing.module";
 
+import { GradeHighlightDirective } from "../../common/directives/grade-highlight.directive";
+
 @NgModule({
   declarations: [
     SubjectsRootComponent,
@@ -21,6 +23,7 @@ import { SubjectsRoutingModule } from "./subjects-routing.module";
     SubjectFormComponent,
     SubjectDetailsComponent,
     SubjectTableComponent,
+    GradeHighlightDirective,
   ],
   imports: [
     CommonModule,

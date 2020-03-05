@@ -14,9 +14,15 @@
       <mat-cell *matCellDef="let student">{{student.surname}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="averageGrade">
+    <ng-container matColumnDef="averageGrade" >
       <mat-header-cell *matHeaderCellDef>Average Grade</mat-header-cell>
-      <mat-cell *matCellDef="let student">{{student.averageGrade}}</mat-cell>
+      <mat-cell
+        *matCellDef="let student"
+        appGradeHighlight
+        [averageGrade]="student.averageGrade"
+      >
+        {{student.averageGrade}}
+      </mat-cell>
     </ng-container>
 
     <ng-container *ngFor="let date of stringDates" [matColumnDef]="date">
@@ -34,5 +40,5 @@
     </ng-container>
 
   </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  <mat-paginator class="mat-elevation-z8" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
 </div>

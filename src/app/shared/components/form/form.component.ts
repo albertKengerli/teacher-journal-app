@@ -12,7 +12,6 @@ import { FormField } from "../../../common/entities/formField";
 })
 export class FormComponent implements OnInit {
   @Input() public config: FormField[];
-  @Input() public title: string;
   @Output() public onAdd: EventEmitter<Object> = new EventEmitter<Object>();
 
   public formGroup: FormGroup;

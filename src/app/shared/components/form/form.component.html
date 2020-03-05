@@ -1,5 +1,7 @@
 <mat-card class="form">
-  <mat-card-title class="form-title">{{title}}</mat-card-title>
+  <mat-card-title class="form-title">
+    <ng-content></ng-content>
+  </mat-card-title>
   <form [formGroup]="formGroup">
 
     <ng-container *ngFor="let field of config">

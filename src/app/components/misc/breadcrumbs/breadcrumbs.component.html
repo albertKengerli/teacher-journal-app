@@ -1,8 +1,23 @@
-<div class="container">
+<div class="breadcrumb-container">
   <breadcrumb #parent>
-      <span class="breadcrumb" *ngFor="let route of parent.breadcrumbs">
-          <a mat-button *ngIf="!route.terminal" href="" [routerLink]="[route.url]">{{route.displayName}}</a>
-          <a mat-button *ngIf="route.terminal">{{route.displayName}}</a>
-      </span>
+    <span
+      *ngFor="let route of parent.breadcrumbs"
+    >
+      <a mat-flat-button
+        *ngIf="!route.terminal"
+        class="breadcrumb-item"
+        color="accent"
+        [routerLink]="[route.url]"
+      >
+        {{route.displayName}}
+      </a>
+      <a mat-flat-button
+        *ngIf="route.terminal"
+        class="breadcrumb-item"
+        color="primary"
+      >
+        {{route.displayName}}
+      </a>
+    </span>
   </breadcrumb>
 </div>
