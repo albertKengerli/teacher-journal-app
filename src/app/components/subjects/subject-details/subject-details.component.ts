@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
 
 import { SubjectService } from "../../../common/services/subject/subject.service";
+import { DialogService } from "../../../common/services/dialog/dialog.service";
 
 import { Subject } from "../../../common/entities/subject";
 import { Student } from "../../../common/entities/student";
@@ -22,6 +24,7 @@ export class SubjectDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private subjectService: SubjectService,
+    private dialogService: DialogService,
   ) { }
 
   private getSubject(): void {
@@ -50,11 +53,21 @@ export class SubjectDetailsComponent implements OnInit {
   }
 
   public save(): void {
-    this.router.navigate(["subjects"]);
     console.log(this.dataToSend);
+    [ this.teacherChanged, this.gradesChanged ] = [ false, false ];
+    this.router.navigate(["subjects"]);
   }
 
   public cancel(): void {
     this.router.navigate(["subjects"]);
   }
+
+  public canDeactivate(): Observable<boolean> | boolean {
+    if (!this.teacherChanged && !this.gradesChanged) {
+      return true;
+    } else {
+      return this.dialogService.confirmLeaving(`Do you want to leave ${this.subject.name}? All changes will be discarded.`);
+    }
+  }
+
 }

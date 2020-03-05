@@ -6,6 +6,8 @@ import { SubjectsPageComponent } from "../../components/subjects/subjects-page/s
 import { SubjectFormComponent } from "../../components/subjects/subject-form/subject-form.component";
 import { SubjectDetailsComponent } from "../../components/subjects/subject-details/subject-details.component";
 
+import { CanDeactivateGuard } from "../../common/guards/can-deactivate.guard";
+
 const subjectsRoutes: Routes = [
   {
     path: "subjects",
@@ -25,6 +27,7 @@ const subjectsRoutes: Routes = [
         path: ":name",
         component: SubjectDetailsComponent,
         data: { breadcrumb: "Subject page"},
+        canDeactivate: [CanDeactivateGuard],
       },
     ],
   },
