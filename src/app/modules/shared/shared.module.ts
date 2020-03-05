@@ -29,6 +29,7 @@ import { FormComponent } from "../../shared/components/form/form.component";
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatCardModule,
   ],
   exports: [
     FormComponent,

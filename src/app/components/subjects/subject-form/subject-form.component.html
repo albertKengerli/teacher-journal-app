@@ -1,5 +1,5 @@
-<mat-card>
-  <mat-card-title>Add new subject</mat-card-title>
-
-  <app-form [config]="config" (onAdd)="addSubject($event)"></app-form>
-</mat-card>
+<app-form
+  title="Add new subject"
+  [config]="config"
+  (onAdd)="addSubject($event)">
+</app-form>
