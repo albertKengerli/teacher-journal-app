@@ -1,12 +1,16 @@
-import { Directive, ElementRef, HostListener, Input } from "@angular/core";
+import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@angular/core";
 
 @Directive({
   selector: "[appGradeHighlight]"
 })
-export class GradeHighlightDirective {
+export class GradeHighlightDirective implements OnInit {
   @Input() private averageGrade: string;
+  private parentNode: Node;
 
-  constructor(private element: ElementRef) { }
+  constructor(
+    private element: ElementRef,
+    private renderer: Renderer2,
+  ) { }
 
   @HostListener("mouseenter")
     private onMouseEnter(): void {
@@ -24,6 +28,10 @@ export class GradeHighlightDirective {
     }
 
   private highlight(color: string): void {
-      this.element.nativeElement.parentNode.style.backgroundColor = color;
+      this.renderer.setStyle(this.parentNode, "backgroundColor", color);
+  }
+
+  public ngOnInit(): void {
+    this.parentNode = this.renderer.parentNode(this.element.nativeElement);
   }
 }
