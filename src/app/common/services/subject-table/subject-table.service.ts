@@ -1,27 +1,71 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Observable, BehaviorSubject, combineLatest } from "rxjs";
+import { DatePipe } from "@angular/common";
 
-import { StudentWithGrades, Student } from '../../entities/student';
-import { GradesObject } from '../../entities/grades';
+import { Student } from "../../entities/student";
+import { Grade, GradesObject } from "../../entities/grades";
 
-import { GradesService } from '../grades/grades.service';
-import { StudentService } from '../student/student.service';
+import { GradesService } from "../grades/grades.service";
+import { StudentService } from "../student/student.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SubjectTableService {
-  subjectID: string;
-  dates: string[] = [];
-
-  studentsWithGrades: BehaviorSubject<StudentWithGrades[]>;
+  private studentsWithGrades: BehaviorSubject<Student[]> = new BehaviorSubject([]);
+  private subjectID: string;
+  private dates: Date[] = [];
+  private datesList: string[] = [];
 
   constructor(
     private gradesService: GradesService,
     private studentService: StudentService,
+    private datePipe: DatePipe,
   ) {}
 
-  serviceInit(subjectID: string): void {
+  private dataInit([students, grades]: [Student[], GradesObject]): void {
+    const subjectGrades: Grade[] = GradesService.getSubjectGrades(grades, this.subjectID);
+    const studentsGrades: object = subjectGrades.reduce(
+      (acc, grade) => {
+        if (!acc[grade.student]) {
+          acc[grade.student] = {};
+        }
+        acc[grade.student][grade.date] = grade.grade;
+
+        if (!this.datesList.includes(grade.date.toString())) {
+          this.datesList.push(grade.date.toString());
+          this.dates.push(grade.date);
+        }
+
+        return acc;
+      },
+      {}
+    );
+
+    const studentsWithGrades: Student[] = students.map( currentStudent => {
+      const modifiedStudent: Student = Object.assign({}, currentStudent);
+
+      const currentStudentGrades: number[] = Object.values(studentsGrades[currentStudent.id]);
+      const gradesSum: number = currentStudentGrades.reduce( (acc, grade) => acc += grade, 0);
+      modifiedStudent.averageGrade = (gradesSum / currentStudentGrades.length).toFixed(1);
+
+      this.dates.forEach( date => {
+        const grade: number = studentsGrades[currentStudent.id][date];
+        const dateString: string = this.datePipe.transform(date, "LL/dd");
+        if (grade) {
+          modifiedStudent[dateString] = grade.toString();
+        } else {
+          modifiedStudent[dateString] = undefined;
+        }
+      });
+
+      return modifiedStudent;
+    });
+
+    this.studentsWithGrades.next(studentsWithGrades);
+  }
+
+  public serviceInit(subjectID: string): void {
     this.subjectID = subjectID;
 
     combineLatest(
@@ -30,42 +74,11 @@ export class SubjectTableService {
     ).subscribe((data) => this.dataInit(data)).unsubscribe();
   }
 
-  dataInit([students, grades]: [Student[], GradesObject]): void {
-    this.studentsWithGrades = new BehaviorSubject({} as StudentWithGrades[])
-
-    const subjectGrades = GradesService.getSubjectGrades(grades, this.subjectID);
-
-    const studentsGrades = subjectGrades.reduce( (acc, grade) => {
-      if (!acc[grade.student]) {
-        acc[grade.student] = {};
-      }
-      acc[grade.student][grade.date] = grade.grade;
-
-      if (!this.dates.includes(grade.date)) {
-        this.dates.push(grade.date);
-      }
-
-      return acc;
-    }, {});
-
-    const studentsWithGrades: StudentWithGrades[] = students.map( student => {
-      const currentStudent: StudentWithGrades = {
-        id: student.id,
-        name: student.name,
-        surname: student.surname,
-        grades: studentsGrades[student.id],
-      };
-      return currentStudent;
-    })
-
-    this.studentsWithGrades.next(studentsWithGrades);
-  }
-
-  getStudentsWithGrades(): Observable<StudentWithGrades[]> {
+  public getStudentsWithGrades(): Observable<Student[]> {
     return this.studentsWithGrades.asObservable();
   }
 
-  getDates(): string[] {
+  public getDates(): Date[] {
     return this.dates;
   }
 

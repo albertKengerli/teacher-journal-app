@@ -1,0 +1,28 @@
+h2 {
+  text-align: center;
+}
+
+mat-form-field {
+  display: block;
+  margin: 1rem auto 0 auto;
+  max-width: 200px;
+
+  font-size: 1.2rem;
+}
+
+.subjectTable {
+  &-container {
+    margin-top: 1rem;
+  }
+}
+
+.exitButtons {
+  &-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-button {
+    margin: 0 1rem;
+  }
+}

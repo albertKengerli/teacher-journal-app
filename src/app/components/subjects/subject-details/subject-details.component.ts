@@ -1,29 +1,73 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
 
-import { SubjectService } from '../../../common/services/subject/subject.service';
+import { SubjectService } from "../../../common/services/subject/subject.service";
+import { DialogService } from "../../../common/services/dialog/dialog.service";
 
-import { Subject } from '../../../common/entities/subject';
+import { Subject } from "../../../common/entities/subject";
+import { Student } from "../../../common/entities/student";
 
 @Component({
-  selector: 'app-subject-details',
-  templateUrl: './subject-details.component.html',
-  styleUrls: ['./subject-details.component.scss']
+  selector: "app-subject-details",
+  templateUrl: "./subject-details.component.html",
+  styleUrls: ["./subject-details.component.scss"]
 })
 export class SubjectDetailsComponent implements OnInit {
-  subject: Subject;
+  private dataToSend: Student[];
+
+  public subject: Subject;
+  public teacherChanged: boolean;
+  public gradesChanged: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private subjectService: SubjectService
+    private router: Router,
+    private subjectService: SubjectService,
+    private dialogService: DialogService,
   ) { }
 
-  ngOnInit(): void {
+  private getSubject(): void {
+    const name: string = this.route.snapshot.paramMap.get("name");
+    this.subject = this.subjectService.getSubjectByName(name);
+  }
+
+  public ngOnInit(): void {
     this.getSubject();
   }
 
-  getSubject(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.subject = this.subjectService.getSubjectById(id);
+  public saveNewGrades(data: Student[]): void {
+    if (!this.gradesChanged) {
+      this.gradesChanged = true;
+    }
+    this.dataToSend = data;
   }
+
+  public renameTeacher(event: Event): void {
+    if (!this.teacherChanged) {
+      this.teacherChanged = true;
+    }
+    const input: HTMLInputElement = event.target as HTMLInputElement;
+    const newValue: string = input.value;
+    this.subject.teacher = newValue;
+  }
+
+  public save(): void {
+    console.log(this.dataToSend);
+    [ this.teacherChanged, this.gradesChanged ] = [ false, false ];
+    this.router.navigate(["subjects"]);
+  }
+
+  public cancel(): void {
+    this.router.navigate(["subjects"]);
+  }
+
+  public canDeactivate(): Observable<boolean> | boolean {
+    if (!this.teacherChanged && !this.gradesChanged) {
+      return true;
+    } else {
+      return this.dialogService.confirmLeaving(`Do you want to leave ${this.subject.name}? All changes will be discarded.`);
+    }
+  }
+
 }

@@ -1,38 +1,51 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Observable, BehaviorSubject } from "rxjs";
 
-import GRADES from '../../data/GRADES.json';
+import GRADES from "../../data/GRADES.json";
 
-import { GradesObject, Grade } from '../../entities/grades';
+import { GradesObject, Grade } from "../../entities/grades";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class GradesService {
-  gradesSubject: BehaviorSubject<GradesObject> = new BehaviorSubject(GRADES);
+  private gradesSubject: BehaviorSubject<GradesObject>;
+  private grades: GradesObject = {} as GradesObject;
 
-  constructor() { }
+  constructor() {
+    for (const key of Object.keys(GRADES)) {
+      this.grades[key] = GRADES[key].map((grade: Grade) => {
+        return {
+          student: grade.student,
+          date: new Date(grade.date),
+          grade: grade.grade,
+        };
+      });
+    }
 
-  getGrades(): Observable<GradesObject> {
+    this.gradesSubject = new BehaviorSubject(this.grades);
+  }
+
+  public getGrades(): Observable<GradesObject> {
     return this.gradesSubject.asObservable();
   }
 
-  addGrade(subject: string, grade: Grade):void {
-    GRADES[subject].push(grade);
-    this.gradesSubject.next(GRADES);
+  public addGrade(subject: string, grade: Grade): void {
+    this.grades[subject].push(grade);
+    this.gradesSubject.next(this.grades);
   }
 
-  static getStudentGrades(grades: Grade[], id: string): Grade[] {
+  public static getStudentGrades(grades: Grade[], id: string): Grade[] {
     return grades.filter( grade => grade.student === id);
   }
 
-  static getSubjectGrades(grades: GradesObject, subjectID: string): Grade[] {
+  public static getSubjectGrades(grades: GradesObject, subjectID: string): Grade[] {
     return grades[subjectID];
   }
 
-  static getAverageGrade(grades: Grade[]): string {
-    const sum = grades.reduce( (acc, grade) => acc += grade.grade, 0);
-    const average = sum / grades.length;
+  public static getAverageGrade(grades: Grade[]): string {
+    const sum: number = grades.reduce( (acc, grade) => acc += grade.grade, 0);
+    const average: number = sum / grades.length;
     return average.toFixed(1);
   }
 }

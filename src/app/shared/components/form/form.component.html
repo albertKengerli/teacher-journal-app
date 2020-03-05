@@ -1,45 +1,50 @@
-<form [formGroup]="formGroup">
+<mat-card class="form">
+  <mat-card-title class="form-title">{{title}}</mat-card-title>
+  <form [formGroup]="formGroup">
 
-  <ng-container *ngFor="let field of config">
-    <div>
+    <ng-container *ngFor="let field of config">
+      <div class="form-field">
 
-      <mat-form-field [ngSwitch]="field.type">
-        <mat-label>{{field.label}}</mat-label>
-        <input matInput
-          *ngSwitchCase="'text'"
-          [formControlName]="field.name"
-          [required]="field.required ? true : false"
-          placeholder={{field.placeholder}}
-        >
+        <mat-form-field [ngSwitch]="field.type">
+          <mat-label>{{field.label}}</mat-label>
+          <input matInput
+            *ngSwitchCase="'text'"
+            [formControlName]="field.name"
+            [required]="field.required ? true : false"
+            placeholder={{field.placeholder}}
+          >
 
-        <textarea matInput
-          *ngSwitchCase="'text-area'"
-          [formControlName]="field.name"
-          [required]="field.required ? true : false"
-          placeholder={{field.placeholder}}
-        ></textarea>
+          <textarea matInput
+            *ngSwitchCase="'text-area'"
+            [formControlName]="field.name"
+            [required]="field.required ? true : false"
+            placeholder={{field.placeholder}}
+          ></textarea>
 
-        <mat-error *ngIf="formGroup.get(field.name)?.hasError('required')">This field is required!</mat-error>
-        <mat-error *ngIf="formGroup.get(field.name)?.hasError('pattern')">{{field.errorMessage}}</mat-error>
+          <mat-error *ngIf="formGroup.get(field.name)?.hasError('required')">This field is required!</mat-error>
+          <mat-error *ngIf="formGroup.get(field.name)?.hasError('pattern')">{{field.errorMessage}}</mat-error>
 
-      </mat-form-field>
+        </mat-form-field>
 
+      </div>
+    </ng-container>
+    <div class="exitButtons-container">
+      <button mat-raised-button
+        class="exitButtons-button"
+        color="primary"
+        [disabled]="formGroup.invalid"
+        (click)="submit()"
+      >
+        Add
+      </button>
+
+      <button mat-raised-button
+      class="exitButtons-button"
+        color="accent"
+        (click)="goBack()"
+      >
+        Back
+      </button>
     </div>
-  </ng-container>
-
-  <button mat-raised-button
-    color="primary"
-    [disabled]="formGroup.invalid"
-    (click)="submit()"
-  >
-    Add
-  </button>
-
-  <button mat-raised-button
-    color="accent"
-    (click)="goBack()"
-  >
-    Back
-  </button>
-
-</form>
+  </form>
+</mat-card>

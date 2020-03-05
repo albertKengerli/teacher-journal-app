@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 
 import { Student } from "../../../common/entities/student";
@@ -8,45 +8,41 @@ import { StudentService } from "../../../common/services/student/student.service
 import { SubjectService } from "../../../common/services/subject/subject.service";
 
 @Component({
-  selector: 'app-statistics-page',
-  templateUrl: './statistics-page.component.html',
-  styleUrls: ['./statistics-page.component.scss']
+  selector: "app-statistics-page",
+  templateUrl: "./statistics-page.component.html",
+  styleUrls: ["./statistics-page.component.scss"]
 })
 export class StatisticsPageComponent implements OnInit, OnDestroy {
-  selectedStudent: Student;
-  selectedSubject: Subject;
-  students: Student[];
-  subjects: Subject[];
+  private studentSubscription: Subscription;
+  private subjectSubscription: Subscription;
 
-  studentSubscription: Subscription;
-  subjectSubscription: Subscription;
+  public selectedStudent: Student;
+  public selectedSubject: Subject;
+  public students: Student[];
+  public subjects: Subject[];
 
   constructor(
     private studentService: StudentService,
     private subjectService: SubjectService,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.studentSubscription = this.studentService.getStudents()
       .subscribe(students => this.students = students);
     this.subjectSubscription = this.subjectService.getSubjects()
       .subscribe(subjects => this.subjects = subjects);
   }
 
-  selectStudent(student: Student):void {
+  public selectStudent(student: Student): void {
     this.selectedStudent = student;
   }
 
-  selectSubject(subject: Subject): void {
+  public selectSubject(subject: Subject): void {
     this.selectedSubject = subject;
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.studentSubscription.unsubscribe();
     this.subjectSubscription.unsubscribe();
-  }
-
-  test(): void {
-    console.log(this);
   }
 }

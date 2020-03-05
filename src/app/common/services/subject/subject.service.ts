@@ -1,27 +1,29 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Observable, BehaviorSubject } from "rxjs";
 
-import SUBJECTS from '../../data/SUBJECTS.json';
+import SUBJECTS from "../../data/SUBJECTS.json";
 
-import { Subject } from '../../entities/subject';
+import { Subject } from "../../entities/subject";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SubjectService {
-  subjectsSubject: BehaviorSubject<Subject[]> = new BehaviorSubject(SUBJECTS);
+  private subjectsSubject: BehaviorSubject<Subject[]> = new BehaviorSubject(SUBJECTS);
 
-  constructor() { }
-
-  getSubjects(): Observable<Subject[]> {
+  public getSubjects(): Observable<Subject[]> {
     return this.subjectsSubject.asObservable();
   }
 
-  getSubjectById(id: string): Subject {
+  public getSubjectById(id: string): Subject {
     return SUBJECTS.find( subject => subject.id === id);
   }
 
-  addSubject(subject: Subject): void {
+  public getSubjectByName(name: string): Subject {
+    return SUBJECTS.find( subject => subject.name === name);
+  }
+
+  public addSubject(subject: Subject): void {
     if (!subject.id) {
       subject.id = SUBJECTS.length.toString();
     }
