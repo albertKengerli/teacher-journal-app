@@ -1,4 +1,7 @@
-.table {
+.subjectsTable {
+  margin: 1rem auto;
+  max-width: 50rem;
+
   &-cell {
     &__grade {
       padding: 1rem 1rem;

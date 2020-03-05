@@ -11,7 +11,19 @@
     >
   </mat-form-field>
 
-  <div *ngIf="teacherChanged || gradesChanged" class="saveData-container">
-    <button mat-flat-button color="warn" (click)="save()">Save</button>
+  <div class="exitButtons-container">
+    <button mat-flat-button class="exitButtons-button"
+      color="accent"
+      (click)="cancel()"
+    >
+      Go back
+    </button>
+    <button mat-flat-button class="exitButtons-button"
+      *ngIf="teacherChanged || gradesChanged"
+      color="warn"
+      (click)="save()"
+    >
+      Save
+    </button>
   </div>
 </div>

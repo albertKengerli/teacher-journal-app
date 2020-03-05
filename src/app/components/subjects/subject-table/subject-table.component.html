@@ -1,36 +1,38 @@
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="subjectsTable">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
 
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-    <mat-cell *matCellDef="let student">{{student.name}}</mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let student">{{student.name}}</mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="surname">
-    <mat-header-cell *matHeaderCellDef>Surname</mat-header-cell>
-    <mat-cell *matCellDef="let student">{{student.surname}}</mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef>Surname</mat-header-cell>
+      <mat-cell *matCellDef="let student">{{student.surname}}</mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="averageGrade">
-    <mat-header-cell *matHeaderCellDef>Average Grade</mat-header-cell>
-    <mat-cell *matCellDef="let student">{{student.averageGrade}}</mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="averageGrade">
+      <mat-header-cell *matHeaderCellDef>Average Grade</mat-header-cell>
+      <mat-cell *matCellDef="let student">{{student.averageGrade}}</mat-cell>
+    </ng-container>
 
-  <ng-container *ngFor="let date of stringDates" [matColumnDef]="date">
-    <mat-header-cell *matHeaderCellDef>{{date}}</mat-header-cell>
-    <mat-cell *matCellDef="let student">
-      <span
-        class="table-cell__grade"
-        contenteditable="true"
-        (focus)="saveEditingCell($event)"
-        (blur)="updateCellData(student.id, date, $event)"
-      >
-        {{student[date]}}
-      </span>
-    </mat-cell>
-  </ng-container>
+    <ng-container *ngFor="let date of stringDates" [matColumnDef]="date">
+      <mat-header-cell *matHeaderCellDef>{{date}}</mat-header-cell>
+      <mat-cell *matCellDef="let student">
+        <span
+          class="subjectsTable-cell__grade"
+          contenteditable="true"
+          (focus)="saveEditingCell($event)"
+          (blur)="updateCellData(student.id, date, $event)"
+        >
+          {{student[date]}}
+        </span>
+      </mat-cell>
+    </ng-container>
 
-</mat-table>
-<mat-paginator [pageSizeOptions]="[10, 20]"></mat-paginator>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</div>

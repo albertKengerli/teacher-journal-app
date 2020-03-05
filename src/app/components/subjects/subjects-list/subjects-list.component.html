@@ -1,10 +1,18 @@
 <mat-grid-list
+  class="subjectsList"
   cols="2"
   rowHeight="50px"
 >
   <mat-grid-tile
+    class="subjectsList-item"
     *ngFor="let subject of subjects"
   >
-    <a routerLink="/subjects/{{subject.name}}" mat-raised-button>{{subject.name}}</a>
+    <a
+      class="subjectsList-link"
+      routerLink="/subjects/{{subject.name}}"
+      mat-raised-button
+    >
+      {{subject.name}}
+    </a>
   </mat-grid-tile>
 </mat-grid-list>
