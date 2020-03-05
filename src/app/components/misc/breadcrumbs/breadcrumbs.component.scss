@@ -1,3 +1,9 @@
-.container {
-  background-color: #607d8b;
+.breadcrumb {
+  &-container {
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+  &-item {
+    margin-right: 1rem;
+  }
 }
