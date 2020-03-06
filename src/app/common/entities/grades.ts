@@ -1,9 +1,7 @@
 export interface Grade {
-  student: string;
-  date: Date;
+  id: number;
+  studentID: number;
+  subjectID: number;
+  date: number;
   grade: number;
-}
-
-export interface GradesObject {
-  [key: string]: Grade[];
 }
