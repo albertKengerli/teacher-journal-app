@@ -1,25 +1,22 @@
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 import { Student } from "../../entities/student";
-
-import STUDENTS from "../../data/STUDENTS.json";
 
 @Injectable({
   providedIn: "root"
 })
 export class StudentService {
-  private studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject(STUDENTS);
+  private url: string = "http://localhost:3004/students";
+
+  constructor(private http: HttpClient) { }
 
   public getStudents(): Observable<Student[]> {
-    return this.studentsSubject.asObservable();
+    return this.http.get<Student[]>(this.url);
   }
 
-  public addStudent(student: Student): void {
-    if (!student.id) {
-      student.id = STUDENTS.length.toString();
-    }
-    STUDENTS.push(student);
-    this.studentsSubject.next(STUDENTS);
+  public addStudent(student: Student): Observable<Student> {
+    return this.http.post<Student>(this.url, student);
   }
 }

@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./root/app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -17,6 +18,7 @@ import { MiscModule } from "./modules/misc/misc.module";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     SharedModule,
     StudentsModule,
     SubjectsModule,

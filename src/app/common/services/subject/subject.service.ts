@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject } from "rxjs";
-
-import SUBJECTS from "../../data/SUBJECTS.json";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 import { Subject } from "../../entities/subject";
 
@@ -9,25 +8,25 @@ import { Subject } from "../../entities/subject";
   providedIn: "root"
 })
 export class SubjectService {
-  private subjectsSubject: BehaviorSubject<Subject[]> = new BehaviorSubject(SUBJECTS);
+  private url: string = "http://localhost:3004/subjects";
+
+  constructor(private http: HttpClient) { }
 
   public getSubjects(): Observable<Subject[]> {
-    return this.subjectsSubject.asObservable();
+    return this.http.get<Subject[]>(this.url);
   }
 
-  public getSubjectById(id: string): Subject {
-    return SUBJECTS.find( subject => subject.id === id);
+  public getSubjectById(id: string): Observable<Subject> {
+    const currentUrl: string = `${this.url}/${id}`;
+    return this.http.get<Subject>(currentUrl);
   }
 
-  public getSubjectByName(name: string): Subject {
-    return SUBJECTS.find( subject => subject.name === name);
+  public getSubjectByName(name: string): Observable<Subject> {
+    const currentUrl: string = `${this.url}?name=${name}`;
+    return this.http.get<Subject>(currentUrl);
   }
 
-  public addSubject(subject: Subject): void {
-    if (!subject.id) {
-      subject.id = SUBJECTS.length.toString();
-    }
-    SUBJECTS.push(subject);
-    this.subjectsSubject.next(SUBJECTS);
+  public addSubject(subject: Subject): Observable<Subject> {
+    return this.http.post<Subject>(this.url, subject);
   }
 }
