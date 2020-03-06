@@ -59,7 +59,7 @@ export class SubjectFormComponent {
   }
 
   public addSubject(subject: Subject): void {
-    this.subjectService.addSubject(subject);
+    this.subjectService.addSubject(subject).subscribe();
   }
 
 }

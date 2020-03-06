@@ -29,7 +29,8 @@ export class SubjectDetailsComponent implements OnInit {
 
   private getSubject(): void {
     const name: string = this.route.snapshot.paramMap.get("name");
-    this.subject = this.subjectService.getSubjectByName(name);
+    this.subjectService.getSubjectByName(name)
+      .subscribe(subject => this.subject = subject[0]);
   }
 
   public ngOnInit(): void {

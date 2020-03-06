@@ -25,8 +25,8 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container *ngFor="let date of stringDates" [matColumnDef]="date">
-      <mat-header-cell *matHeaderCellDef>{{date}}</mat-header-cell>
+    <ng-container *ngFor="let date of datesObject" [matColumnDef]="date.string">
+      <mat-header-cell *matHeaderCellDef>{{date.string}}</mat-header-cell>
       <mat-cell *matCellDef="let student">
         <span
           class="subjectsTable-cell__grade"
@@ -34,7 +34,7 @@
           (focus)="saveEditingCell($event)"
           (blur)="updateCellData(student.id, date, $event)"
         >
-          {{student[date]}}
+          {{student[date.number]}}
         </span>
       </mat-cell>
     </ng-container>

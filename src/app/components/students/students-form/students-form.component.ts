@@ -55,6 +55,6 @@ export class StudentsFormComponent {
   }
 
   public addStudent(student: Student): void {
-    this.studentService.addStudent(student);
+    this.studentService.addStudent(student).subscribe();
   }
 }
