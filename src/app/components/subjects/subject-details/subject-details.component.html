@@ -1,7 +1,10 @@
 <div *ngIf="subject" class="subjectTable-container">
   <h2>{{subject.name}}</h2>
 
-  <app-subject-table [subject]="subject" (onNewData)="saveNewGrades($event)"></app-subject-table>
+  <app-subject-table
+    [subject]="subject"
+    (onNewData)="addGradeToSend($event)">
+  </app-subject-table>
 
   <mat-form-field>
     <mat-label>Teacher</mat-label>

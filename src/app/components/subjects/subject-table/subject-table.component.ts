@@ -10,6 +10,7 @@ import { SubjectTableService } from "../../../common/services/subject-table/subj
 
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
+import { Grade } from "../../../common/entities/grades";
 
 import { compareDates } from "../../../common/helpers/sorting";
 
@@ -29,7 +30,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private dates: Date[];
 
   @Input() public subject: Subject;
-  @Output() public onNewData: EventEmitter<Student[]> = new EventEmitter<Student[]>();
+  @Output() public onNewData: EventEmitter<Grade> = new EventEmitter<Grade>();
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
   public dataSource: MatTableDataSource<Student> = new MatTableDataSource();
   public columnsToDisplay: string[];
@@ -76,25 +77,30 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.editingValue = input.textContent;
   }
 
-  public updateCellData(id: string, date: string, event: Event): void {
+  public handleGradeChange(studentID: string, date: number, event: Event): void {
     const input: HTMLElement = event.target as HTMLElement;
 
     if (input.textContent !== this.editingValue) {
       const newValue: string = input.textContent.trim();
 
       if ( isNaN(+newValue) || +newValue < 1 || +newValue > 10 ) {
-        console.log("Put a number from 1 to 10 to the table");
         input.textContent = "";
-        this.data[id][date] = undefined;
-        this.editingValue = undefined;
-        this.onNewData.emit(this.data);
-        return;
+        this.editingValue = null;
+        const alertMessage: string = "Put a number from 1 to 10 to the table";
+        window.alert(alertMessage);
+        throw alertMessage;
       }
 
-      this.data[id][date] = newValue;
+      const newGrade: Grade = {
+        studentID: +studentID,
+        subjectID: this.subject.id,
+        date: date,
+        grade: +newValue,
+      };
+
       input.textContent = newValue;
-      this.editingValue = undefined;
-      this.onNewData.emit(this.data);
+      this.editingValue = null;
+      this.onNewData.emit(newGrade);
     }
   }
 
