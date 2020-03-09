@@ -21,9 +21,9 @@ export class SubjectService {
     return this.http.get<Subject>(currentUrl);
   }
 
-  public getSubjectByName(name: string): Observable<Subject> {
+  public getSubjectByName(name: string): Observable<Subject[]> {
     const currentUrl: string = `${this.url}?name=${name}`;
-    return this.http.get<Subject>(currentUrl);
+    return this.http.get<Subject[]>(currentUrl);
   }
 
   public addSubject(subject: Subject): Observable<Subject> {
