@@ -34,4 +34,9 @@ export class SubjectService {
     const currentURL: string = `${this.url}/${subjectID}`;
     return this.http.delete<object>(currentURL);
   }
+
+  public updateSubject(subjectID: number, subject: Subject): Observable<Subject> {
+    const updateURL: string = `${this.url}/${subjectID}`;
+    return this.http.put<Subject>(updateURL, subject);
+  }
 }
