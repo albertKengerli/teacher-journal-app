@@ -55,6 +55,20 @@ export class GradesService {
       });
   }
 
+  public updateGrade(gradeID: number, grade: Grade): Observable<Grade> {
+    const updateURL: string = `${this.url}/${gradeID}`;
+    return this.http.put<Grade>(updateURL, grade);
+  }
+
+  public getGradeByStudentSubjectDate(
+    studentID: number,
+    subjectID: number,
+    date: number
+  ): Observable<Grade[]> {
+    const findGradeURL: string = `${this.url}?studentID=${studentID}&subjectID=${subjectID}&date=${date}`;
+    return this.http.get<Grade[]>(findGradeURL);
+  }
+
   public static getAverageGrade(grades: Grade[]): string {
     const sum: number = grades.reduce( (acc, grade) => acc += grade.grade, 0);
     const average: number = sum / grades.length;

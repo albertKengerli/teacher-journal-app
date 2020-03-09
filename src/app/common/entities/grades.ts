@@ -1,5 +1,5 @@
 export interface Grade {
-  id: number;
+  id?: number;
   studentID: number;
   subjectID: number;
   date: number;
