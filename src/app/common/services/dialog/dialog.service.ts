@@ -6,7 +6,7 @@ import { Observable, of } from "rxjs";
 })
 export class DialogService {
 
-  public confirmLeaving(message?: string): Observable<boolean> {
+  public confirmAction(message?: string): Observable<boolean> {
     const confirmation: boolean = window.confirm(message || "Is it OK?");
 
     return of(confirmation);

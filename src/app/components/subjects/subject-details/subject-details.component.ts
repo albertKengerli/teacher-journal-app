@@ -67,7 +67,7 @@ export class SubjectDetailsComponent implements OnInit {
     if (!this.teacherChanged && !this.gradesChanged) {
       return true;
     } else {
-      return this.dialogService.confirmLeaving(`Do you want to leave ${this.subject.name}? All changes will be discarded.`);
+      return this.dialogService.confirmAction(`Do you want to leave ${this.subject.name}? All changes will be discarded.`);
     }
   }
 
