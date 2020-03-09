@@ -18,7 +18,7 @@
       <mat-header-cell *matHeaderCellDef>Average Grade</mat-header-cell>
       <mat-cell
         *matCellDef="let student"
-        appGradeHighlight
+        appGradeRowHighlight
         [averageGrade]="student.averageGrade"
       >
         {{student.averageGrade}}
@@ -27,8 +27,12 @@
 
     <ng-container *ngFor="let date of datesObject" [matColumnDef]="date.string">
       <mat-header-cell *matHeaderCellDef>{{date.string}}</mat-header-cell>
-      <mat-cell *matCellDef="let student">
+      <mat-cell
+        *matCellDef="let student"
+      >
         <span
+          appGradeHighlight
+          [grade]="student[date.number]"
           class="subjectsTable-cell__grade"
           contenteditable="true"
           (focus)="saveEditingCell($event)"
