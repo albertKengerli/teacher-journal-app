@@ -46,6 +46,15 @@ export class GradesService {
       });
   }
 
+  public deleteStudentGrades(studentID: number): void {
+    this.getStudentGrades(studentID)
+      .subscribe(grades => {
+        grades.forEach(grade => {
+          this.deleteGrade(grade.id).subscribe();
+        });
+      });
+  }
+
   public static getAverageGrade(grades: Grade[]): string {
     const sum: number = grades.reduce( (acc, grade) => acc += grade.grade, 0);
     const average: number = sum / grades.length;

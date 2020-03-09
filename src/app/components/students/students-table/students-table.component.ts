@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 import { Student } from "../../../common/entities/student";
 
 import { StudentService } from "../../../common/services/student/student.service";
+import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 
 @Component({
@@ -35,6 +36,7 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private studentService: StudentService,
+    private gradesService: GradesService,
     private dialogService: DialogService,
   ) {}
 
@@ -59,6 +61,7 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
       .subscribe( answer => {
         if (answer) {
           this.studentService.deleteStudent(+student.id).subscribe(() => this.getStudents());
+          this.gradesService.deleteStudentGrades(+student.id);
         } else {
           return;
         }
