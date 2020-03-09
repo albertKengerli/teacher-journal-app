@@ -23,8 +23,7 @@ export class GradeHighlightDirective implements OnInit {
     let color: string = "";
     const currentGrade: string = grade || this.grade;
 
-    if (!currentGrade) {
-      /* tslint:disable-next-line:no-null-keyword*/
+    if (isNaN(+currentGrade) || +currentGrade > 10 || +currentGrade <= 0) {
       return;
     } else if (+currentGrade < 5) {
       color = this.negativeColor;
