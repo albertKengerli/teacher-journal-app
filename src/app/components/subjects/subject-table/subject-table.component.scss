@@ -1,10 +1,23 @@
 .subjectsTable {
-  margin: 1rem auto;
-  max-width: 50rem;
+  &-container {
+    margin: 1rem auto;
+    max-width: 50rem;
+  }
 
-  &-cell {
-    &__grade {
-      padding: 1rem 1rem;
-    }
+  &-averageCell {
+    justify-content: space-around;
+  }
+
+  &-gradeHeader {
+    justify-content: space-around;
+  }
+
+  &-gradeCell {
+    justify-content: space-around;
+    text-align: center;
+  }
+
+  &-gradeText {
+    padding: 1rem 2rem;
   }
 }
