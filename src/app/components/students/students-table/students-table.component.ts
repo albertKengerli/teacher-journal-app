@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 import { Student } from "../../../common/entities/student";
 
 import { StudentService } from "../../../common/services/student/student.service";
+import { DialogService } from "../../../common/services/dialog/dialog.service";
 
 @Component({
   selector: "app-students-table",
@@ -26,12 +27,16 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
     "surname",
     "address",
     "description",
+    "delete",
   ];
 
   @ViewChild(MatSort, {static: true}) public sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
 
-  constructor(private studentService: StudentService) {}
+  constructor(
+    private studentService: StudentService,
+    private dialogService: DialogService,
+  ) {}
 
   private getStudents(): void {
     this.studentServiceSubscription = this.studentService.getStudents()
@@ -47,6 +52,17 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  public deleteStudent(student: Student): void {
+    this.dialogService.confirmAction(`Do you really want to delete ${student.name} ${student.surname} from students list?`)
+      .subscribe( answer => {
+        if (answer) {
+          this.studentService.deleteStudent(+student.id).subscribe(() => this.getStudents());
+        } else {
+          return;
+        }
+      });
   }
 
   public ngOnInit(): void {

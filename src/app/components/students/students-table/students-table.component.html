@@ -26,6 +26,17 @@
       <mat-cell *matCellDef="let student" class="studentTable">{{student.description}}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef class="studentTable studentTable-deleteHeader">Delete student</mat-header-cell>
+      <mat-cell *matCellDef="let student" class="studentTable studentTable-deleteCell">
+        <button mat-flat-button color="warn"
+          (click)="deleteStudent(student)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
 

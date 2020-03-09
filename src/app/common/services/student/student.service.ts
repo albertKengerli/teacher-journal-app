@@ -19,4 +19,9 @@ export class StudentService {
   public addStudent(student: Student): Observable<Student> {
     return this.http.post<Student>(this.url, student);
   }
+
+  public deleteStudent(studentID: number): Observable<object> {
+    const currentURL: string = `${this.url}/${studentID}`;
+    return this.http.delete<object>(currentURL);
+  }
 }
