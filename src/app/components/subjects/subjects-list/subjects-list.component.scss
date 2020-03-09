@@ -1,7 +1,28 @@
-.subjectsList {
-  max-width: 40rem;
-  margin: 1rem auto;
+.subjectList {
+  &-container {
+    // margin: 1rem 40rem;
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    justify-items: center;
+  }
+
+  &-item {
+    margin-top: 2rem;
+  }
+
+  &-linkContainer {
+    font-size: 30px;
+  }
+
+  &-deleteContainer {
+    margin-top: 1rem;
+    text-align: center;
+  }
 
   &-link {
+    font-size: 2rem;
+    padding: 1rem;
+    min-width: 15rem;
+    min-height: 5rem;
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 
 import { SubjectService } from "../../../common/services/subject/subject.service";
+import { GradesService } from "../../../common/services/grades/grades.service";
+import { DialogService } from "../../../common/services/dialog/dialog.service";
 
 import { Subject } from "../../../common/entities/subject";
 
@@ -13,7 +15,11 @@ export class SubjectsListComponent implements OnInit {
 
   public subjects: Subject[];
 
-  constructor(private subjectService: SubjectService) { }
+  constructor(
+    private subjectService: SubjectService,
+    private gradesService: GradesService,
+    private dialogService: DialogService,
+  ) { }
 
   public ngOnInit(): void {
     this.getSubjects();
@@ -24,4 +30,13 @@ export class SubjectsListComponent implements OnInit {
       .subscribe(subjects => this.subjects = subjects);
   }
 
+  public deleteSubject(subject: Subject): void {
+    this.dialogService.confirmAction(`Do you really want to delete ${subject.name} from subjects list?`)
+      .subscribe(answer => {
+        if (answer) {
+          this.subjectService.deleteSubject(subject.id).subscribe(() => this.getSubjects());
+          this.gradesService.deleteSubjectGrades(subject.id);
+        }
+      });
+  }
 }

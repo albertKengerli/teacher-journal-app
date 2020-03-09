@@ -1,18 +1,19 @@
-<mat-grid-list
-  class="subjectsList"
-  cols="2"
-  rowHeight="50px"
->
-  <mat-grid-tile
-    class="subjectsList-item"
-    *ngFor="let subject of subjects"
-  >
-    <a
-      class="subjectsList-link"
-      routerLink="/subjects/{{subject.name}}"
-      mat-raised-button
-    >
-      {{subject.name}}
-    </a>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="subjectList-container">
+  <div class="subjectList-item" *ngFor="let subject of subjects">
+    <div class="subjectList-linkContainer">
+      <a
+        class="subjectList-link"
+        routerLink="/subjects/{{subject.name}}"
+        mat-raised-button
+      >
+        {{subject.name}}
+      </a>
+    </div>
+    <div class="subjectList-deleteContainer">
+      <button mat-mini-fab color="warn"
+      >
+        <mat-icon (click)="deleteSubject(subject)">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

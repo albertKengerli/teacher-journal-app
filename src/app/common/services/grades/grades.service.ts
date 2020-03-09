@@ -32,6 +32,20 @@ export class GradesService {
     return this.http.get<Grade[]>(currentUrl);
   }
 
+  public deleteGrade(gradeID: number): Observable<object> {
+    const currentURL: string = `${this.url}/${gradeID}`;
+    return this.http.delete<object>(currentURL);
+  }
+
+  public deleteSubjectGrades(subjectID: number): void {
+    this.getSubjectGrades(subjectID)
+      .subscribe(grades => {
+        grades.forEach(grade => {
+          this.deleteGrade(grade.id).subscribe();
+        });
+      });
+  }
+
   public static getAverageGrade(grades: Grade[]): string {
     const sum: number = grades.reduce( (acc, grade) => acc += grade.grade, 0);
     const average: number = sum / grades.length;
