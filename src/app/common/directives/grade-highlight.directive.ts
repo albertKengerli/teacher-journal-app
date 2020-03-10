@@ -20,8 +20,17 @@ export class GradeHighlightDirective implements OnInit {
     }
 
   private highlightGrade(grade?: string): void {
-    let color: string = "";
-    const currentGrade: string = grade || this.grade;
+    let color: string;
+    let currentGrade: string;
+    if (grade === undefined) {
+      currentGrade = this.grade;
+    } else {
+      currentGrade = grade;
+    }
+
+    if (currentGrade === "") {
+      return this.dehighlight();
+    }
 
     if (isNaN(+currentGrade) || +currentGrade > 10 || +currentGrade <= 0) {
       return;
@@ -32,6 +41,10 @@ export class GradeHighlightDirective implements OnInit {
     }
 
     this.renderer.setStyle(this.node, "backgroundColor", color);
+  }
+
+  private dehighlight(): void {
+    this.renderer.setStyle(this.node, "backgroundColor", null);
   }
 
   public ngOnInit(): void {
