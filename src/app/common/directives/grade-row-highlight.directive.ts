@@ -27,7 +27,7 @@ export class GradeRowHighlightDirective implements OnInit {
   private highlightRow(): void {
     let color: string = "";
 
-    if (+this.averageGrade < 5) {
+    if (+this.averageGrade > 5) {
       color = this.positiveColor;
     } else {
       color = this.negativeColor;
