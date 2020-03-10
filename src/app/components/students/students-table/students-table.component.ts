@@ -12,6 +12,8 @@ import { StudentService } from "../../../common/services/student/student.service
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 
+import { columnNames } from "../../../common/constants/tableColumnNames";
+
 @Component({
   selector: "app-students-table",
   templateUrl: "./students-table.component.html",
@@ -22,13 +24,13 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
 
   public students: Student[];
   public dataSource: MatTableDataSource<Student>;
-  public columnsToDisplay: String[] = [
-    "id",
-    "name",
-    "surname",
-    "address",
-    "description",
-    "delete",
+  public columnsNamesList: String[] = [
+    columnNames.id,
+    columnNames.name,
+    columnNames.surname,
+    columnNames.address,
+    columnNames.description,
+    columnNames.delete,
   ];
 
   @ViewChild(MatSort, {static: true}) public sort: MatSort;

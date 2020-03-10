@@ -1,8 +1,8 @@
 <div class="subjectsTable-container">
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+    <mat-header-row *matHeaderRowDef="columnsNamesList"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsNamesList"></mat-row>
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>

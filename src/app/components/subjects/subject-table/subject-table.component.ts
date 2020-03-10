@@ -14,8 +14,12 @@ import { Grade } from "../../../common/entities/grades";
 
 import { compareDates } from "../../../common/helpers/sorting";
 
-const defaultColumns: string[] = [
-  "name", "surname", "averageGrade"
+import { columnNames } from "../../../common/constants/tableColumnNames";
+
+const defaultColumnsNames: string[] = [
+  columnNames.name,
+  columnNames.surname,
+  columnNames.averageGrade,
 ];
 
 @Component({
@@ -33,7 +37,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   @Output() public onNewData: EventEmitter<Grade> = new EventEmitter<Grade>();
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
   public dataSource: MatTableDataSource<Student> = new MatTableDataSource();
-  public columnsToDisplay: string[];
+  public columnsNamesList: string[];
   public datesObject: object[];
 
   constructor(
@@ -61,8 +65,8 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
       };
       return current;
     });
-    const stringDates: string[] = this.dates.map(date => this.datePipe.transform(date, "LL/dd"));
-    this.columnsToDisplay = [...defaultColumns, ...stringDates];
+    const datesStringList: string[] = this.dates.map(date => this.datePipe.transform(date, "LL/dd"));
+    this.columnsNamesList = [...defaultColumnsNames, ...datesStringList];
   }
 
   public ngOnInit(): void {
