@@ -14,6 +14,8 @@ import { MatCardModule } from "@angular/material/card";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { FormComponent } from "../../shared/components/form/form.component";
 
@@ -46,6 +48,11 @@ import { FormComponent } from "../../shared/components/form/form.component";
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [
+    MatDatepickerModule,
   ],
 })
 export class SharedModule { }

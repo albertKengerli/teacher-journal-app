@@ -1,8 +1,13 @@
+.component {
+  display: flex;
+  justify-content: center;
+}
+
 .subjectsTable {
   font-size: 1.2rem;
 
   &-container {
-    margin: 1rem auto;
+    margin: 1rem;
     max-width: 60rem;
   }
 
@@ -20,7 +25,6 @@
   }
 
   &-gradeText {
-    // padding: 1rem 2rem;
     padding: 1.5rem 0;
     display: inline-block;
     width: 7rem;
@@ -28,5 +32,16 @@
 
   &-gradeDelete {
     margin: 1rem 1rem;
+  }
+}
+
+.newColumn {
+  &-container {
+    margin-top: 1rem;
+    margin-left: 2rem;
+  }
+
+  &-addButton {
+    display: block;
   }
 }

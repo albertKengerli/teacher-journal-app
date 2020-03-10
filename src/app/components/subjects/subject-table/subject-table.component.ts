@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, Output, EventEmitter } from "@angular/core";
 import { DatePipe } from "@angular/common";
+import { FormControl } from "@angular/forms";
 
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
@@ -32,6 +33,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private data: Student[];
   private editingValue: string;
   private dates: Date[];
+  private datePick: FormControl = new FormControl(new Date());
 
   @Input() public subject: Subject;
   @Output() public onNewData: EventEmitter<Grade> = new EventEmitter<Grade>();
@@ -111,6 +113,17 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   public handleEnter(event: KeyboardEvent): void {
     const target: HTMLElement = event.target as HTMLElement;
     target.blur();
+  }
+
+  public addColumn(): void {
+    const newDate: Date = this.datePick.value;
+    const dateString: string = this.datePipe.transform(newDate, "LL/dd");
+    this.datesToRender.push({
+      string: dateString,
+      number: newDate.getTime(),
+    });
+    this.columnsNamesList.push(dateString);
+    this.datePick.setValue(new Date());
   }
 
   public ngOnDestroy(): void {
