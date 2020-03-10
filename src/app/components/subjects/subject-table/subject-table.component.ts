@@ -108,6 +108,11 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  public handleEnter(event: KeyboardEvent): void {
+    const target: HTMLElement = event.target as HTMLElement;
+    target.blur();
+  }
+
   public ngOnDestroy(): void {
     this.subjectTableServiceSubscription.unsubscribe();
   }

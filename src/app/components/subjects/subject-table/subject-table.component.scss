@@ -1,7 +1,9 @@
 .subjectsTable {
+  font-size: 1.2rem;
+
   &-container {
     margin: 1rem auto;
-    max-width: 50rem;
+    max-width: 60rem;
   }
 
   &-averageCell {
@@ -18,6 +20,13 @@
   }
 
   &-gradeText {
-    padding: 1rem 2rem;
+    // padding: 1rem 2rem;
+    padding: 1.5rem 0;
+    display: inline-block;
+    width: 7rem;
+  }
+
+  &-gradeDelete {
+    margin: 1rem 1rem;
   }
 }

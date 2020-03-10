@@ -5,19 +5,19 @@
     <mat-row *matRowDef="let row; columns: columnsNamesList"></mat-row>
 
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let student">{{student.name}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef class="subjectsTable">Name</mat-header-cell>
+      <mat-cell *matCellDef="let student" class="subjectsTable">{{student.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="surname">
-      <mat-header-cell *matHeaderCellDef>Surname</mat-header-cell>
-      <mat-cell *matCellDef="let student">{{student.surname}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef class="subjectsTable">Surname</mat-header-cell>
+      <mat-cell *matCellDef="let student" class="subjectsTable">{{student.surname}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="averageGrade" >
-      <mat-header-cell *matHeaderCellDef class="subjectsTable-averageHeader">Average Grade</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-averageHeader">Average Grade</mat-header-cell>
       <mat-cell
-        class="subjectsTable-averageCell"
+        class="subjectsTable subjectsTable-averageCell"
         *matCellDef="let student"
         appGradeRowHighlight
         [averageGrade]="student.averageGrade"
@@ -27,9 +27,9 @@
     </ng-container>
 
     <ng-container *ngFor="let date of datesObject" [matColumnDef]="date.string">
-      <mat-header-cell *matHeaderCellDef class="subjectsTable-gradeHeader">{{date.string}}</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-gradeHeader">{{date.string}}</mat-header-cell>
       <mat-cell
-        class="subjectsTable-gradeCell"
+        class="subjectsTable subjectsTable-gradeCell"
         *matCellDef="let student"
       >
         <span
@@ -38,6 +38,7 @@
           class="subjectsTable-gradeText"
           contenteditable="true"
           (focus)="saveEditingCell($event)"
+          (keydown.enter)="handleEnter($event)"
           (blur)="handleGradeChange(student.id, date.number, $event)"
         >
           {{student[date.number]}}</span>
