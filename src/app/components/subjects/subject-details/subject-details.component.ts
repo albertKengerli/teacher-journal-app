@@ -38,6 +38,15 @@ export class SubjectDetailsComponent implements OnInit {
 
   private sendGrades(): void {
     this.gradesToSend.forEach(grade => {
+      if (grade.grade === 0) {
+        return this.gradesService.getGradeByStudentSubjectDate(grade.studentID, grade.subjectID, grade.date)
+          .subscribe(answer => {
+            if (answer.length !== 0) {
+              this.gradesService.deleteGrade(answer[0].id).subscribe();
+            }
+          });
+      }
+
       this.gradesService.getGradeByStudentSubjectDate(grade.studentID, grade.subjectID, grade.date)
         .subscribe(answer => {
           if (answer.length === 0) {

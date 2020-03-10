@@ -87,10 +87,10 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     if (input.textContent !== this.editingValue) {
       const newValue: string = input.textContent.trim();
 
-      if ( isNaN(+newValue) || +newValue < 1 || +newValue > 10 ) {
+      if ( (isNaN(+newValue) || +newValue < 1 || +newValue > 10) && newValue !== "" ) {
         input.textContent = "";
         this.editingValue = null;
-        const alertMessage: string = "Put a number from 1 to 10 to the table";
+        const alertMessage: string = "Put a number from 1 to 10 to the cell or leave it empty to delete the grade";
         window.alert(alertMessage);
         throw alertMessage;
       }
