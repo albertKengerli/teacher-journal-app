@@ -38,7 +38,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
   public dataSource: MatTableDataSource<Student> = new MatTableDataSource();
   public columnsNamesList: string[];
-  public datesObject: object[];
+  public datesToRender: object[];
 
   constructor(
     private subjectTableService: SubjectTableService,
@@ -58,7 +58,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private manageDates(dates: Date[]): void {
     this.dates = dates;
     this.dates.sort(compareDates);
-    this.datesObject = this.dates.map(date => {
+    this.datesToRender = this.dates.map(date => {
       const current: object = {
         string: this.datePipe.transform(date, "LL/dd"),
         number: date.getTime(),

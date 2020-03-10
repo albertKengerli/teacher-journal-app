@@ -26,7 +26,7 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container *ngFor="let date of datesObject" [matColumnDef]="date.string">
+    <ng-container *ngFor="let date of datesToRender" [matColumnDef]="date.string">
       <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-gradeHeader">{{date.string}}</mat-header-cell>
       <mat-cell
         class="subjectsTable subjectsTable-gradeCell"
