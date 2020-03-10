@@ -52,7 +52,7 @@
   <div class="subjectsTable newColumn-container">
     <mat-form-field class="newColumn-datepicker">
       <mat-label>Date for a new grade</mat-label>
-      <input matInput [matDatepicker]="picker" [value]="datePick.value">
+      <input matInput [matDatepicker]="picker" [value]="datePickControl.value">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

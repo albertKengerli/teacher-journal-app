@@ -33,7 +33,6 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private data: Student[];
   private editingValue: string;
   private dates: Date[];
-  private datePick: FormControl = new FormControl(new Date());
 
   @Input() public subject: Subject;
   @Output() public onNewData: EventEmitter<Grade> = new EventEmitter<Grade>();
@@ -41,6 +40,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   public dataSource: MatTableDataSource<Student> = new MatTableDataSource();
   public columnsNamesList: string[];
   public datesToRender: object[];
+  public datePickControl: FormControl = new FormControl(new Date());
 
   constructor(
     private subjectTableService: SubjectTableService,
@@ -116,14 +116,14 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   public addColumn(): void {
-    const newDate: Date = this.datePick.value;
+    const newDate: Date = this.datePickControl.value;
     const dateString: string = this.datePipe.transform(newDate, "LL/dd");
     this.datesToRender.push({
       string: dateString,
       number: newDate.getTime(),
     });
     this.columnsNamesList.push(dateString);
-    this.datePick.setValue(new Date());
+    this.datePickControl.setValue(new Date());
   }
 
   public ngOnDestroy(): void {
