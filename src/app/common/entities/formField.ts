@@ -1,33 +1,14 @@
-export interface FormField {
-  name: string;
-  type: string;
-  label: string;
-  required: boolean;
-  placeholder: string;
-  validation: boolean;
-  expression: RegExp;
-  errorMessage: string;
-}
+export class FormField {
+  public name: string = "EXAMPLE";
+  public type: string = "text";
+  public label: string = "EXAMPLE";
+  public placeholder: string = "EXAMPLE";
+  public required: boolean = false;
+  public validation: boolean = false;
+  public expression: RegExp = null;
+  public errorMessage: string = null;
 
-export class FormFieldCreator {
-  private _config: FormField = {
-    name: "EXAMPLE",
-    type: "text",
-    label: "EXAMPLE",
-    placeholder: "EXAMPLE",
-    required: false,
-    validation: false,
-    expression: undefined,
-    errorMessage: undefined,
-  };
-
-  constructor(setupParams: object) {
-    for (const key of Object.keys(setupParams)) {
-      this._config[key] = setupParams[key];
-    }
-  }
-
-  get config(): FormField {
-    return this._config;
+  constructor(params: Partial<FormField>) {
+    Object.assign(this, params);
   }
 }

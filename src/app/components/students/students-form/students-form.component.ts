@@ -3,7 +3,9 @@ import { Component } from "@angular/core";
 import { StudentService } from "../../../common/services/student/student.service";
 
 import { Student } from "../../../common/entities/student";
-import { FormField, FormFieldCreator } from "../../../common/entities/formField";
+import { FormField } from "../../../common/entities/formField";
+
+import { validationExpressions, validationErrorMessages } from "../../../common/constants/validation";
 
 @Component({
   selector: "app-students-form",
@@ -11,47 +13,48 @@ import { FormField, FormFieldCreator } from "../../../common/entities/formField"
   styleUrls: ["./students-form.component.scss"]
 })
 export class StudentsFormComponent {
-  private name: FormFieldCreator;
-  private surname: FormFieldCreator;
-  private address: FormFieldCreator;
-  private description: FormFieldCreator;
-  public config: FormField[] = [];
+  private name: FormField;
+  private surname: FormField;
+  private address: FormField;
+  private description: FormField;
+
+  public formFieldList: FormField[] = [];
 
   constructor(private studentService: StudentService) {
-    this.name = new FormFieldCreator({
+    this.name = new FormField({
       name: "name",
       label: "Name",
       placeholder: "Jack",
       required: true,
       validation: true,
-      expression: /^[a-z ,.'-]+$/i,
-      errorMessage: "Only a-z, and special characters are allowed.",
+      expression: validationExpressions.alphabetAndSpecialCharacters,
+      errorMessage: validationErrorMessages.alphabetAndSpecialCharacters,
     });
-    this.surname = new FormFieldCreator({
+    this.surname = new FormField({
       name: "surname",
       label: "Last name",
       placeholder: "Black",
       required: true,
       validation: true,
-      expression: /^[a-z ,.'-]+$/i,
-      errorMessage: "Only a-z, and special characters are allowed.",
+      expression: validationExpressions.alphabetAndSpecialCharacters,
+      errorMessage: validationErrorMessages.alphabetAndSpecialCharacters,
     });
-    this.address = new FormFieldCreator({
+    this.address = new FormField({
       name: "address",
       label: "Address",
       placeholder: "pr. Zhukova 2",
     });
-    this.description = new FormFieldCreator({
+    this.description = new FormField({
       name: "description",
       type: "text-area",
       label: "Description",
       placeholder: "Good guy, works hard",
     });
 
-    this.config.push(this.name.config);
-    this.config.push(this.surname.config);
-    this.config.push(this.address.config);
-    this.config.push(this.description.config);
+    this.formFieldList.push(this.name);
+    this.formFieldList.push(this.surname);
+    this.formFieldList.push(this.address);
+    this.formFieldList.push(this.description);
   }
 
   public addStudent(student: Student): void {
