@@ -40,7 +40,7 @@ export class GradeHighlightDirective implements OnInit {
       color = this.positiveColor;
     }
 
-    this.renderer.setStyle(this.node, "backgroundColor", color);
+    this.renderer.setStyle(this.node, "borderBottom", `solid 10px ${color}`);
   }
 
   private dehighlight(): void {
