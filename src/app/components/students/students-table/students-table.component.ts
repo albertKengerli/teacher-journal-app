@@ -70,6 +70,11 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
       });
   }
 
+  public filterData(event: Event): void {
+    const filterValue: string = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   public ngOnInit(): void {
     this.dataSourceInit();
     this.getStudents();
