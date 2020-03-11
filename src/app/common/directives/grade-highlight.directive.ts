@@ -44,7 +44,7 @@ export class GradeHighlightDirective implements OnInit {
   }
 
   private dehighlight(): void {
-    this.renderer.setStyle(this.node, "backgroundColor", null);
+    this.renderer.setStyle(this.node, "borderBottom", null);
   }
 
   public ngOnInit(): void {
