@@ -118,6 +118,13 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   public addColumn(): void {
     const newDate: Date = this.datePickControl.value;
     const dateString: string = this.datePipe.transform(newDate, "LL/dd");
+
+    if (this.columnsNamesList.includes(dateString)) {
+      const errorMessage: string = "This date exists already! Choose different date";
+      window.alert(errorMessage);
+      throw errorMessage;
+    }
+
     this.datesToRender.push({
       string: dateString,
       number: newDate.getTime(),
