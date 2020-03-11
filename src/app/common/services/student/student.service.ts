@@ -24,4 +24,9 @@ export class StudentService {
     const currentURL: string = `${this.url}/${studentID}`;
     return this.http.delete<object>(currentURL);
   }
+
+  public searchStudent(query: string): Observable<Student[]> {
+    const searchURL: string = `${this.url}?q=${query}`;
+    return this.http.get<Student[]>(searchURL);
+  }
 }

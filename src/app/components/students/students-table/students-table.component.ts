@@ -5,6 +5,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 
 import { Subscription } from "rxjs";
+import { debounceTime } from "rxjs/operators";
 
 import { Student } from "../../../common/entities/student";
 
@@ -22,7 +23,6 @@ import { columnNames } from "../../../common/constants/tableColumnNames";
 export class StudentsTableComponent implements OnInit, OnDestroy {
   private studentServiceSubscription: Subscription;
 
-  public students: Student[];
   public dataSource: MatTableDataSource<Student>;
   public columnsNamesList: String[] = [
     columnNames.id,
@@ -48,12 +48,11 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
   }
 
   private updateStudents(students: Student[]): void {
-    this.students = students;
-    this.dataSource.data = this.students;
+    this.dataSource.data = students;
   }
 
   private dataSourceInit(): void {
-    this.dataSource = new MatTableDataSource(this.students);
+    this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -72,7 +71,8 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
 
   public filterData(event: Event): void {
     const filterValue: string = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.studentService.searchStudent(filterValue)
+      .subscribe(students => this.updateStudents(students));
   }
 
   public ngOnInit(): void {
