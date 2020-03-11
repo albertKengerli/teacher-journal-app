@@ -19,6 +19,9 @@ import { MatNativeDateModule } from "@angular/material/core";
 
 import { FormComponent } from "../../shared/components/form/form.component";
 
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HeaderInterceptor } from "../../common/interceptors/header/header.interceptor";
+
 @NgModule({
   declarations: [
     FormComponent,
@@ -53,6 +56,11 @@ import { FormComponent } from "../../shared/components/form/form.component";
   ],
   providers: [
     MatDatepickerModule,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true,
+    },
   ],
 })
 export class SharedModule { }
