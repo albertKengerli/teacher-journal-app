@@ -4,6 +4,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./root/app.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { AppStoreModule } from "./store/appStore.module";
 
 import { SharedModule } from "./modules/shared/shared.module";
 import { StudentsModule } from "./modules/students/students.module";
@@ -26,6 +27,7 @@ import { MiscModule } from "./modules/misc/misc.module";
     ExportModule,
     MiscModule,
     AppRoutingModule,
+    AppStoreModule,
   ],
   bootstrap: [AppComponent]
 })

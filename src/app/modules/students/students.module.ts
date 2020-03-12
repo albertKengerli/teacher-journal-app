@@ -10,6 +10,11 @@ import { StudentsFormComponent } from "../../components/students/students-form/s
 
 import { StudentsRoutingModule } from "./students-routing.module";
 
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+
+import { studentsReducer, StudentsEffects } from "../../store/students";
+
 @NgModule({
   declarations: [
     StudentsRootComponent,
@@ -21,6 +26,8 @@ import { StudentsRoutingModule } from "./students-routing.module";
     CommonModule,
     SharedModule,
     StudentsRoutingModule,
+    StoreModule.forFeature("students", studentsReducer),
+    EffectsModule.forFeature([StudentsEffects]),
   ]
 })
 export class StudentsModule { }
