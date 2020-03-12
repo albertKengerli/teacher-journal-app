@@ -5,7 +5,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 
 import { Subscription, Observable, fromEvent } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap, map, startWith } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, switchMap, map } from "rxjs/operators";
 
 import { Student } from "../../../common/entities/student";
 
@@ -69,7 +69,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     );
 
     this.searchBarSubscription = searchBarObservable
-    .subscribe(students => this.updateStudents(students));
+      .subscribe(students => this.updateStudents(students));
   }
 
   public deleteStudent(student: Student): void {

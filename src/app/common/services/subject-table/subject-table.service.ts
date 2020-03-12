@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject, combineLatest, of } from "rxjs";
+import { Observable, BehaviorSubject, combineLatest } from "rxjs";
 
 import { Student } from "../../entities/student";
 import { Grade } from "../../entities/grades";

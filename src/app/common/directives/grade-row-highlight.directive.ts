@@ -14,16 +14,6 @@ export class GradeRowHighlightDirective implements OnInit {
     private renderer: Renderer2,
   ) { }
 
-  @HostListener("mouseenter")
-    private onMouseEnter(): void {
-      this.highlightRow();
-    }
-
-  @HostListener("mouseleave")
-    private onMouseLeave(): void {
-      this.dehighlightRow();
-    }
-
   private highlightRow(): void {
     let color: string = "";
 
@@ -40,6 +30,16 @@ export class GradeRowHighlightDirective implements OnInit {
     /* tslint:disable-next-line:no-null-keyword*/
     this.renderer.setStyle(this.parentNode, "backgroundColor", null);
   }
+
+  @HostListener("mouseenter")
+    public onMouseEnter(): void {
+      this.highlightRow();
+    }
+
+  @HostListener("mouseleave")
+    public onMouseLeave(): void {
+      this.dehighlightRow();
+      }
 
   public ngOnInit(): void {
     this.parentNode = this.renderer.parentNode(this.element.nativeElement);

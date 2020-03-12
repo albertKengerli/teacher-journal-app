@@ -14,11 +14,6 @@ export class GradeHighlightDirective implements OnInit {
     private renderer: Renderer2,
   ) { }
 
-  @HostListener("blur")
-    private onBlur(): void {
-      this.highlightGrade(this.node.innerText);
-    }
-
   private highlightGrade(grade?: string): void {
     let color: string;
     let currentGrade: string;
@@ -46,6 +41,11 @@ export class GradeHighlightDirective implements OnInit {
   private dehighlight(): void {
     this.renderer.setStyle(this.node, "borderBottom", null);
   }
+
+  @HostListener("blur")
+    public onBlur(): void {
+      this.highlightGrade(this.node.innerText);
+    }
 
   public ngOnInit(): void {
     this.node = this.element.nativeElement;
