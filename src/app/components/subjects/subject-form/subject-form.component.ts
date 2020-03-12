@@ -3,7 +3,9 @@ import { Component } from "@angular/core";
 import { SubjectService } from "../../../common/services/subject/subject.service";
 
 import { Subject } from "../../../common/entities/subject";
-import { FormField, FormFieldCreator } from "../../../common/entities/formField";
+import { FormField } from "../../../common/entities/formField";
+
+import { validationExpressions, validationErrorMessages } from "../../../common/constants/validation";
 
 @Component({
   selector: "app-subject-form",
@@ -11,55 +13,55 @@ import { FormField, FormFieldCreator } from "../../../common/entities/formField"
   styleUrls: ["./subject-form.component.scss"]
 })
 export class SubjectFormComponent {
-  private name: FormFieldCreator;
-  private teacher: FormFieldCreator;
-  private room: FormFieldCreator;
-  private description: FormFieldCreator;
+  private name: FormField;
+  private teacher: FormField;
+  private room: FormField;
+  private description: FormField;
 
-  public config: FormField[] = [];
+  public formFieldList: FormField[] = [];
 
   constructor(private subjectService: SubjectService) {
-    this.name = new FormFieldCreator({
+    this.name = new FormField({
       name: "name",
       label: "Name",
       placeholder: "Mathematics",
       required: true,
       validation: true,
-      expression: /^[a-z .-]+$/i,
-      errorMessage: "Only a-z, space, ., - are allowed",
+      expression: validationExpressions.alphabetAndSpecialCharacters,
+      errorMessage: validationErrorMessages.alphabetAndSpecialCharacters,
     });
-    this.teacher = new FormFieldCreator({
+    this.teacher = new FormField({
       name: "teacher",
       label: "Teacher",
       placeholder: "M. Ivanovna",
       required: true,
       validation: true,
-      expression: /^[a-z ,.'-]+$/i,
-      errorMessage: "Only a-z, and special characters are allowed.",
+      expression: validationExpressions.alphabetAndSpecialCharacters,
+      errorMessage: validationErrorMessages.alphabetAndSpecialCharacters,
     });
-    this.room = new FormFieldCreator({
+    this.room = new FormField({
       name: "room",
       label: "Room",
       placeholder: "402",
       validation: true,
-      expression: /[0-9]*/i,
-      errorMessage: "Only 0-9 without spaces is valid room",
+      expression: validationExpressions.numbers,
+      errorMessage: validationErrorMessages.numbers,
     });
-    this.description = new FormFieldCreator({
+    this.description = new FormField({
       name: "description",
       type: "text-area",
       label: "Description",
       placeholder: "Will blow your mind...",
     });
 
-    this.config.push(this.name.config);
-    this.config.push(this.teacher.config);
-    this.config.push(this.room.config);
-    this.config.push(this.description.config);
+    this.formFieldList.push(this.name);
+    this.formFieldList.push(this.teacher);
+    this.formFieldList.push(this.room);
+    this.formFieldList.push(this.description);
   }
 
   public addSubject(subject: Subject): void {
-    this.subjectService.addSubject(subject);
+    this.subjectService.addSubject(subject).subscribe();
   }
 
 }

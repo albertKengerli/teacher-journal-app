@@ -1,4 +1,9 @@
 <div class="studentTable-container">
+  <mat-form-field class="studentTable studentTable-searchBar">
+    <mat-label>Search</mat-label>
+    <input #searchBar matInput placeholder="Enter any info of students">
+  </mat-form-field>
+
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
     <ng-container matColumnDef="id">
@@ -26,8 +31,19 @@
       <mat-cell *matCellDef="let student" class="studentTable">{{student.description}}</mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef class="studentTable studentTable-deleteHeader">Delete student</mat-header-cell>
+      <mat-cell *matCellDef="let student" class="studentTable studentTable-deleteCell">
+        <button mat-flat-button color="warn"
+          (click)="deleteStudent(student)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsNamesList"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsNamesList"></mat-row>
 
   </mat-table>
   <mat-paginator class="mat-elevation-z8" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>

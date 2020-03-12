@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, Output, EventEmitter } from "@angular/core";
 import { DatePipe } from "@angular/common";
+import { FormControl } from "@angular/forms";
 
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
@@ -10,8 +11,17 @@ import { SubjectTableService } from "../../../common/services/subject-table/subj
 
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
+import { Grade } from "../../../common/entities/grades";
 
 import { compareDates } from "../../../common/helpers/sorting";
+
+import { columnNames } from "../../../common/constants/tableColumnNames";
+
+const defaultColumnsNames: string[] = [
+  columnNames.name,
+  columnNames.surname,
+  columnNames.averageGrade,
+];
 
 @Component({
   selector: "app-subject-table",
@@ -25,13 +35,12 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private dates: Date[];
 
   @Input() public subject: Subject;
-  @Output() public onNewData: EventEmitter<Student[]> = new EventEmitter<Student[]>();
+  @Output() public onNewData: EventEmitter<Grade> = new EventEmitter<Grade>();
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
   public dataSource: MatTableDataSource<Student> = new MatTableDataSource();
-  public columnsToDisplay: string[] = [
-    "name", "surname", "averageGrade"
-  ];
-  public stringDates: string[];
+  public columnsNamesList: string[];
+  public datesToRender: object[];
+  public datePickControl: FormControl = new FormControl(new Date());
 
   constructor(
     private subjectTableService: SubjectTableService,
@@ -40,22 +49,31 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   private tableInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.dates = this.subjectTableService.getDates();
-    this.dates.sort(compareDates);
-
-    this.stringDates = this.dates.map(date => this.datePipe.transform(date, "LL/dd"));
-
-    this.columnsToDisplay = [...this.columnsToDisplay, ...this.stringDates];
   }
 
   private updateDataSource(data: Student[]): void {
     this.data = data;
     this.dataSource.data = this.data;
+    this.manageDates(this.subjectTableService.getDates());
+  }
+
+  private manageDates(dates: Date[]): void {
+    this.dates = dates;
+    this.dates.sort(compareDates);
+    this.datesToRender = this.dates.map(date => {
+      const current: object = {
+        string: this.datePipe.transform(date, "LL/dd"),
+        number: date.getTime(),
+      };
+      return current;
+    });
+    const datesStringList: string[] = this.dates.map(date => this.datePipe.transform(date, "LL/dd"));
+    this.columnsNamesList = [...defaultColumnsNames, ...datesStringList];
   }
 
   public ngOnInit(): void {
-    this.subjectTableService.serviceInit(this.subject.id);
     this.tableInit();
+    this.subjectTableService.serviceInit(this.subject.id);
     this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
       .subscribe( data => this.updateDataSource(data));
   }
@@ -65,26 +83,54 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.editingValue = input.textContent;
   }
 
-  public updateCellData(id: string, date: string, event: Event): void {
+  public handleGradeChange(studentID: string, date: number, event: Event): void {
     const input: HTMLElement = event.target as HTMLElement;
 
     if (input.textContent !== this.editingValue) {
       const newValue: string = input.textContent.trim();
 
-      if ( isNaN(+newValue) || +newValue < 1 || +newValue > 10 ) {
-        console.log("Put a number from 1 to 10 to the table");
+      if ( (isNaN(+newValue) || +newValue < 1 || +newValue > 10) && newValue !== "" ) {
         input.textContent = "";
-        this.data[id][date] = undefined;
-        this.editingValue = undefined;
-        this.onNewData.emit(this.data);
-        return;
+        this.editingValue = null;
+        const alertMessage: string = "Put a number from 1 to 10 to the cell or leave it empty to delete the grade";
+        window.alert(alertMessage);
+        throw alertMessage;
       }
 
-      this.data[id][date] = newValue;
+      const newGrade: Grade = {
+        studentID: +studentID,
+        subjectID: this.subject.id,
+        date: date,
+        grade: +newValue,
+      };
+
       input.textContent = newValue;
-      this.editingValue = undefined;
-      this.onNewData.emit(this.data);
+      this.editingValue = null;
+      this.onNewData.emit(newGrade);
     }
+  }
+
+  public handleEnter(event: KeyboardEvent): void {
+    const target: HTMLElement = event.target as HTMLElement;
+    target.blur();
+  }
+
+  public addColumn(): void {
+    const newDate: Date = this.datePickControl.value;
+    const dateString: string = this.datePipe.transform(newDate, "LL/dd");
+
+    if (this.columnsNamesList.includes(dateString)) {
+      const errorMessage: string = "This date exists already! Choose different date";
+      window.alert(errorMessage);
+      throw errorMessage;
+    }
+
+    this.datesToRender.push({
+      string: dateString,
+      number: newDate.getTime(),
+    });
+    this.columnsNamesList.push(dateString);
+    this.datePickControl.setValue(new Date());
   }
 
   public ngOnDestroy(): void {

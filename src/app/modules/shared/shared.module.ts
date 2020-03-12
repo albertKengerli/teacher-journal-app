@@ -11,12 +11,16 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from "@angular/material/card";
-import { MatGridListModule } from "@angular/material/grid-list";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { FormComponent } from "../../shared/components/form/form.component";
+
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HeaderInterceptor } from "../../common/interceptors/header/header.interceptor";
 
 @NgModule({
   declarations: [
@@ -39,7 +43,6 @@ import { FormComponent } from "../../shared/components/form/form.component";
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
@@ -48,6 +51,16 @@ import { FormComponent } from "../../shared/components/form/form.component";
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [
+    MatDatepickerModule,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true,
+    },
   ],
 })
 export class SharedModule { }

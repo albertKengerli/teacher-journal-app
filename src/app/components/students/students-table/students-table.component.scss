@@ -5,6 +5,14 @@
     margin: 2rem auto;
     max-width: 60rem;
   }
+
+  &-deleteCell {
+    justify-content: space-around;
+  }
+
+  &-searchBar {
+    width: 100%;
+  }
 }
 
 .mat-column {
@@ -22,5 +30,20 @@
 
   &-address {
     flex: 0 0 10rem;
+    &.mat-header-cell {
+      justify-content: space-around;
+    }
+  }
+
+  &-description {
+    &.mat-header-cell {
+      justify-content: space-around;
+    }
+  }
+
+  &-delete {
+    &.mat-header-cell {
+      justify-content: space-around;
+    }
   }
 }

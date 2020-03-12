@@ -4,34 +4,51 @@ import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@
   selector: "[appGradeHighlight]"
 })
 export class GradeHighlightDirective implements OnInit {
-  @Input() private averageGrade: string;
-  private parentNode: Node;
+  @Input() private grade: string;
+  private node: HTMLElement;
+  private positiveColor: string = "#388e3c";
+  private negativeColor: string = "#5472d3";
 
   constructor(
     private element: ElementRef,
     private renderer: Renderer2,
   ) { }
 
-  @HostListener("mouseenter")
-    private onMouseEnter(): void {
-      if (+this.averageGrade < 5) {
-        this.highlight("blue");
-      } else {
-        this.highlight("green");
-      }
+  @HostListener("blur")
+    private onBlur(): void {
+      this.highlightGrade(this.node.innerText);
     }
 
-  @HostListener("mouseleave")
-    private onMouseLeave(): void {
-      /* tslint:disable-next-line:no-null-keyword*/
-      this.highlight(null);
+  private highlightGrade(grade?: string): void {
+    let color: string;
+    let currentGrade: string;
+    if (grade === undefined) {
+      currentGrade = this.grade;
+    } else {
+      currentGrade = grade;
     }
 
-  private highlight(color: string): void {
-      this.renderer.setStyle(this.parentNode, "backgroundColor", color);
+    if (currentGrade === "") {
+      return this.dehighlight();
+    }
+
+    if (isNaN(+currentGrade) || +currentGrade > 10 || +currentGrade <= 0) {
+      return;
+    } else if (+currentGrade < 5) {
+      color = this.negativeColor;
+    } else {
+      color = this.positiveColor;
+    }
+
+    this.renderer.setStyle(this.node, "borderBottom", `solid 10px ${color}`);
+  }
+
+  private dehighlight(): void {
+    this.renderer.setStyle(this.node, "borderBottom", null);
   }
 
   public ngOnInit(): void {
-    this.parentNode = this.renderer.parentNode(this.element.nativeElement);
+    this.node = this.element.nativeElement;
+    this.highlightGrade();
   }
 }

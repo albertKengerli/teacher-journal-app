@@ -1,10 +1,47 @@
-.subjectsTable {
-  margin: 1rem auto;
-  max-width: 50rem;
+.component {
+  display: flex;
+  justify-content: center;
+}
 
-  &-cell {
-    &__grade {
-      padding: 1rem 1rem;
-    }
+.subjectsTable {
+  font-size: 1.2rem;
+
+  &-container {
+    margin: 1rem;
+    max-width: 60rem;
+  }
+
+  &-averageCell {
+    justify-content: space-around;
+  }
+
+  &-gradeHeader {
+    justify-content: space-around;
+  }
+
+  &-gradeCell {
+    justify-content: space-around;
+    text-align: center;
+  }
+
+  &-gradeText {
+    padding: 1.5rem 0;
+    display: inline-block;
+    width: 7rem;
+  }
+
+  &-gradeDelete {
+    margin: 1rem 1rem;
+  }
+}
+
+.newColumn {
+  &-container {
+    margin-top: 1rem;
+    margin-left: 2rem;
+  }
+
+  &-addButton {
+    display: block;
   }
 }

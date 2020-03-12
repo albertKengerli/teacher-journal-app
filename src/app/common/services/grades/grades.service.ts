@@ -1,46 +1,72 @@
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs";
+// import { tap } from "rxjs/operators";
 
-import GRADES from "../../data/GRADES.json";
+import { HttpClient } from "@angular/common/http";
 
-import { GradesObject, Grade } from "../../entities/grades";
+import { Grade } from "../../entities/grades";
 
 @Injectable({
   providedIn: "root"
 })
 export class GradesService {
-  private gradesSubject: BehaviorSubject<GradesObject>;
-  private grades: GradesObject = {} as GradesObject;
+  private url: string = "http://localhost:3004/grades";
 
-  constructor() {
-    for (const key of Object.keys(GRADES)) {
-      this.grades[key] = GRADES[key].map((grade: Grade) => {
-        return {
-          student: grade.student,
-          date: new Date(grade.date),
-          grade: grade.grade,
-        };
+  constructor(private http: HttpClient) { }
+
+  public getGrades(): Observable<Grade[]> {
+    return this.http.get<Grade[]>(this.url);
+  }
+
+  public addGrade(grade: Grade): Observable<Grade> {
+    return this.http.post<Grade>(this.url, grade);
+  }
+
+  public getStudentGrades(studentID: number): Observable<Grade[]> {
+    const currentUrl: string = `${this.url}?studentID=${studentID}`;
+    return this.http.get<Grade[]>(currentUrl);
+  }
+
+  public getSubjectGrades(subjectID: number): Observable<Grade[]> {
+    const currentUrl: string = `${this.url}?subjectID=${subjectID}`;
+    return this.http.get<Grade[]>(currentUrl);
+  }
+
+  public deleteGrade(gradeID: number): Observable<object> {
+    const currentURL: string = `${this.url}/${gradeID}`;
+    return this.http.delete<object>(currentURL);
+  }
+
+  public deleteSubjectGrades(subjectID: number): void {
+    this.getSubjectGrades(subjectID)
+      .subscribe(grades => {
+        grades.forEach(grade => {
+          this.deleteGrade(grade.id).subscribe();
+        });
       });
-    }
-
-    this.gradesSubject = new BehaviorSubject(this.grades);
   }
 
-  public getGrades(): Observable<GradesObject> {
-    return this.gradesSubject.asObservable();
+  public deleteStudentGrades(studentID: number): void {
+    this.getStudentGrades(studentID)
+      .subscribe(grades => {
+        grades.forEach(grade => {
+          this.deleteGrade(grade.id).subscribe();
+        });
+      });
   }
 
-  public addGrade(subject: string, grade: Grade): void {
-    this.grades[subject].push(grade);
-    this.gradesSubject.next(this.grades);
+  public updateGrade(gradeID: number, grade: Grade): Observable<Grade> {
+    const updateURL: string = `${this.url}/${gradeID}`;
+    return this.http.put<Grade>(updateURL, grade);
   }
 
-  public static getStudentGrades(grades: Grade[], id: string): Grade[] {
-    return grades.filter( grade => grade.student === id);
-  }
-
-  public static getSubjectGrades(grades: GradesObject, subjectID: string): Grade[] {
-    return grades[subjectID];
+  public getGradeByStudentSubjectDate(
+    studentID: number,
+    subjectID: number,
+    date: number
+  ): Observable<Grade[]> {
+    const findGradeURL: string = `${this.url}?studentID=${studentID}&subjectID=${subjectID}&date=${date}`;
+    return this.http.get<Grade[]>(findGradeURL);
   }
 
   public static getAverageGrade(grades: Grade[]): string {
