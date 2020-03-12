@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef, AfterViewInit } from "@angular/core";
 
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 
-import { Subscription } from "rxjs";
-import { debounceTime } from "rxjs/operators";
+import { Subscription, Observable, fromEvent } from "rxjs";
+import { debounceTime, distinctUntilChanged, switchMap, map, startWith } from "rxjs/operators";
 
 import { Student } from "../../../common/entities/student";
 
@@ -20,8 +20,9 @@ import { columnNames } from "../../../common/constants/tableColumnNames";
   templateUrl: "./students-table.component.html",
   styleUrls: ["./students-table.component.scss"]
 })
-export class StudentsTableComponent implements OnInit, OnDestroy {
+export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   private studentServiceSubscription: Subscription;
+  private searchBarSubscription: Subscription;
 
   public dataSource: MatTableDataSource<Student>;
   public columnsNamesList: String[] = [
@@ -35,6 +36,7 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatSort, {static: true}) public sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
+  @ViewChild("searchBar") public searchBar: ElementRef;
 
   constructor(
     private studentService: StudentService,
@@ -57,6 +59,19 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
   }
 
+  private searchFieldInit(): void {
+    const searchBarObservable: Observable<Student[]> = fromEvent<KeyboardEvent>(this.searchBar.nativeElement, "keyup")
+    .pipe(
+      map(event => (event.target as HTMLInputElement).value),
+      debounceTime(350),
+      distinctUntilChanged(),
+      switchMap(query => this.studentService.searchStudent(query))
+    );
+
+    this.searchBarSubscription = searchBarObservable
+    .subscribe(students => this.updateStudents(students));
+  }
+
   public deleteStudent(student: Student): void {
     this.dialogService.confirmAction(`Do you really want to delete ${student.name} ${student.surname} from students list?`)
       .subscribe( answer => {
@@ -69,18 +84,17 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
       });
   }
 
-  public filterData(event: Event): void {
-    const filterValue: string = (event.target as HTMLInputElement).value;
-    this.studentService.searchStudent(filterValue)
-      .subscribe(students => this.updateStudents(students));
-  }
-
   public ngOnInit(): void {
     this.dataSourceInit();
     this.getStudents();
   }
 
+  public ngAfterViewInit(): void {
+    this.searchFieldInit();
+  }
+
   public ngOnDestroy(): void {
     this.studentServiceSubscription.unsubscribe();
+    this.searchBarSubscription.unsubscribe();
   }
 }

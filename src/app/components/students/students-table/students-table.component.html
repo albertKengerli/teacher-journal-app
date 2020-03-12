@@ -1,7 +1,7 @@
 <div class="studentTable-container">
   <mat-form-field class="studentTable studentTable-searchBar">
     <mat-label>Search</mat-label>
-    <input matInput (keyup)="filterData($event)" placeholder="Enter any info of students">
+    <input #searchBar matInput placeholder="Enter any info of students">
   </mat-form-field>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
