@@ -44,7 +44,7 @@ export function studentsReducer(
     }
 
     case StudentsActionNames.DELETE_STUDENT_SUCCESS: {
-      const data: Student[] = [ ...state.data ].filter(student => +student.id !== action.payload);
+      const data: Student[] = [ ...state.data ].filter(student => student.id !== action.payload);
 
       return {
         ...state,

@@ -24,7 +24,7 @@ export class SubjectTableService {
   private addGradesToStudents([students, subjectGrades]: [Student[], Grade[]]): void {
     const studentsWithGrades: Student[] = students.map(
       student => {
-        const studentsGrades: Grade[] = subjectGrades.filter( grade => grade.studentID === +student.id);
+        const studentsGrades: Grade[] = subjectGrades.filter( grade => grade.studentID === student.id);
         let gradesSum: number = 0;
 
         studentsGrades.forEach(grade => {

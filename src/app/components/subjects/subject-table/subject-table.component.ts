@@ -83,7 +83,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.editingValue = input.textContent;
   }
 
-  public handleGradeChange(studentID: string, date: number, event: Event): void {
+  public handleGradeChange(studentID: number, date: number, event: Event): void {
     const input: HTMLElement = event.target as HTMLElement;
 
     if (input.textContent !== this.editingValue) {
@@ -98,7 +98,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
       }
 
       const newGrade: Grade = {
-        studentID: +studentID,
+        studentID: studentID,
         subjectID: this.subject.id,
         date: date,
         grade: +newValue,

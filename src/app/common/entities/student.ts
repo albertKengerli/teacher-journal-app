@@ -1,5 +1,5 @@
 export interface Person {
-  id: string;
+  id: number;
   name: string;
   surname: string;
 }
@@ -8,5 +8,5 @@ export interface Student extends Person {
   address: string;
   description: string;
   averageGrade?: string;
-  [date: string]: string;
+  [date: number]: string;
 }
