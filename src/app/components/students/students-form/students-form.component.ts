@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 
-import { StudentService } from "../../../common/services/student/student.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "../../../store";
+import * as StudentsActions from "../../../store/students/students.actions";
 
 import { Student } from "../../../common/entities/student";
 import { FormField } from "../../../common/entities/formField";
@@ -20,7 +22,9 @@ export class StudentsFormComponent {
 
   public formFieldList: FormField[] = [];
 
-  constructor(private studentService: StudentService) {
+  constructor(
+    private store: Store<AppState>,
+  ) {
     this.name = new FormField({
       name: "name",
       label: "Name",
@@ -58,6 +62,6 @@ export class StudentsFormComponent {
   }
 
   public addStudent(student: Student): void {
-    this.studentService.addStudent(student).subscribe();
+    this.store.dispatch(new StudentsActions.AddStudent(student));
   }
 }

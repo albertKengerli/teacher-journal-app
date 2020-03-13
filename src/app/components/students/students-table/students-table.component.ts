@@ -7,6 +7,10 @@ import { MatTableDataSource } from "@angular/material/table";
 import { Subscription, Observable, fromEvent } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap, map } from "rxjs/operators";
 
+import { Store, select } from "@ngrx/store";
+import { AppState, StudentsState } from "../../../store";
+import * as StudentsActions from "../../../store/students/students.actions";
+
 import { Student } from "../../../common/entities/student";
 
 import { StudentService } from "../../../common/services/student/student.service";
@@ -21,7 +25,8 @@ import { columnNames } from "../../../common/constants/tableColumnNames";
   styleUrls: ["./students-table.component.scss"]
 })
 export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  private studentServiceSubscription: Subscription;
+  private studentsState$: Observable<StudentsState>;
+  private studentStateSubscription: Subscription;
   private searchBarSubscription: Subscription;
 
   public dataSource: MatTableDataSource<Student>;
@@ -42,11 +47,14 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     private studentService: StudentService,
     private gradesService: GradesService,
     private dialogService: DialogService,
+    private store: Store<AppState>,
   ) {}
 
   private getStudents(): void {
-    this.studentServiceSubscription = this.studentService.getStudents()
-      .subscribe(students => this.updateStudents(students));
+    this.studentsState$ = this.store.pipe(select("students"));
+    this.store.dispatch(new StudentsActions.GetStudents());
+    this.studentStateSubscription = this.studentsState$
+      .subscribe(students => this.updateStudents(students.data));
   }
 
   private updateStudents(students: Student[]): void {
@@ -76,7 +84,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     this.dialogService.confirmAction(`Do you really want to delete ${student.name} ${student.surname} from students list?`)
       .subscribe( answer => {
         if (answer) {
-          this.studentService.deleteStudent(+student.id).subscribe(() => this.getStudents());
+          this.store.dispatch(new StudentsActions.DeleteStudent(+student.id));
           this.gradesService.deleteStudentGrades(+student.id);
         } else {
           return;
@@ -94,7 +102,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   public ngOnDestroy(): void {
-    this.studentServiceSubscription.unsubscribe();
+    this.studentStateSubscription.unsubscribe();
     this.searchBarSubscription.unsubscribe();
   }
 }
