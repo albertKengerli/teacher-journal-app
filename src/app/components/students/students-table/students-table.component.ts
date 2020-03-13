@@ -8,7 +8,7 @@ import { Subscription, Observable, fromEvent } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap, map } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
-import { AppState, StudentsState } from "../../../store";
+import { AppState, StudentsState, getStudentsState } from "../../../store";
 import * as StudentsActions from "../../../store/students/students.actions";
 
 import { Student } from "../../../common/entities/student";
@@ -51,7 +51,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   ) {}
 
   private getStudents(): void {
-    this.studentsState$ = this.store.pipe(select("students"));
+    this.studentsState$ = this.store.pipe(select(getStudentsState));
     this.store.dispatch(new StudentsActions.GetStudents());
     this.studentStateSubscription = this.studentsState$
       .subscribe(students => this.updateStudents(students.data));
