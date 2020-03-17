@@ -16,6 +16,7 @@ import { Student } from "../../../common/entities/student";
 import { StudentService } from "../../../common/services/student/student.service";
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
+import { OverlayService } from "../../../common/services/overlay/overlay.service";
 
 import { columnNames } from "../../../common/constants/tableColumnNames";
 
@@ -30,6 +31,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   private searchBarSubscription: Subscription;
 
   public dataSource: MatTableDataSource<Student>;
+  public dataLoaded: boolean = false;
   public columnsNamesList: String[] = [
     columnNames.id,
     columnNames.name,
@@ -47,6 +49,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     private studentService: StudentService,
     private gradesService: GradesService,
     private dialogService: DialogService,
+    private overlayService: OverlayService,
     private store: Store<AppState>,
   ) {}
 
@@ -54,7 +57,15 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     this.studentsState$ = this.store.pipe(select(getStudentsState));
     this.store.dispatch(new StudentsActions.GetStudents());
     this.studentStateSubscription = this.studentsState$
-      .subscribe(students => this.updateStudents(students.data));
+      .subscribe(studentsState => {
+        if (studentsState.loading) {
+          this.overlayService.showSpinner();
+        }
+        this.updateStudents(studentsState.data);
+        if (studentsState.loaded) {
+          this.overlayService.stopSpinner();
+        }
+      });
   }
 
   private updateStudents(students: Student[]): void {
