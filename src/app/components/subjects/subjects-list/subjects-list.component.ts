@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 
-import { SubjectService } from "../../../common/services/subject/subject.service";
+import { Observable } from "rxjs";
+
+import { Store, select } from "@ngrx/store";
+import { AppState, SubjectsState, getSubjectsState } from "../../../store";
+import * as SubjectsActions from "../../../store/subjects/subjects.actions";
+
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 
@@ -12,29 +17,28 @@ import { Subject } from "../../../common/entities/subject";
   styleUrls: ["./subjects-list.component.scss"]
 })
 export class SubjectsListComponent implements OnInit {
-
-  public subjects: Subject[];
+  public subjectsState$: Observable<SubjectsState>;
 
   constructor(
-    private subjectService: SubjectService,
     private gradesService: GradesService,
     private dialogService: DialogService,
+    private store: Store<AppState>,
   ) { }
+
+  private getSubjects(): void {
+    this.subjectsState$ = this.store.pipe(select(getSubjectsState));
+    this.store.dispatch(SubjectsActions.getSubjects());
+  }
 
   public ngOnInit(): void {
     this.getSubjects();
-  }
-
-  public getSubjects(): void {
-    this.subjectService.getSubjects()
-      .subscribe(subjects => this.subjects = subjects);
   }
 
   public deleteSubject(subject: Subject): void {
     this.dialogService.confirmAction(`Do you really want to delete ${subject.name} from subjects list?`)
       .subscribe(answer => {
         if (answer) {
-          this.subjectService.deleteSubject(subject.id).subscribe(() => this.getSubjects());
+          this.store.dispatch(SubjectsActions.deleteSubject({ id: subject.id }));
           this.gradesService.deleteSubjectGrades(subject.id);
         }
       });

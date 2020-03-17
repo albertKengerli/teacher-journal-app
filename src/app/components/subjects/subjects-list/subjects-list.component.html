@@ -1,5 +1,5 @@
 <div class="subjectList-container">
-  <div class="subjectList-item" *ngFor="let subject of subjects">
+  <div class="subjectList-item" *ngFor="let subject of (subjectsState$ | async)?.data">
     <div class="subjectList-linkContainer">
       <a
         class="subjectList-link"
