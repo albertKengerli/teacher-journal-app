@@ -19,7 +19,7 @@ const reducer = createReducer(
   on(SubjectsActions.getSubjectsSuccess, (state, { subjects }) => {
     return {
       ...state,
-      subjects,
+      data: subjects,
       loading: false,
       loaded: true,
     };

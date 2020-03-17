@@ -32,6 +32,6 @@ export const updateSubject = createAction(
   props<{ id: number, subject: Subject }>()
 );
 export const updateSubjectSuccess = createAction(
-  "[Subjects] UPDATE_SUBJECT",
+  "[Subjects] UPDATE_SUBJECT_SUCCESS",
   props<{ id: number, subject: Subject }>()
 );
