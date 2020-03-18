@@ -8,6 +8,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
 
 import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
+import { OverlayService } from "../../../common/services/overlay/overlay.service";
 
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
@@ -44,6 +45,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private subjectTableService: SubjectTableService,
+    private overlayService: OverlayService,
     private datePipe: DatePipe,
   ) { }
 
@@ -72,10 +74,14 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    this.overlayService.showSpinner();
     this.tableInit();
     this.subjectTableService.serviceInit(this.subject.id);
     this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
-      .subscribe( data => this.updateDataSource(data));
+      .subscribe( data => {
+        this.updateDataSource(data);
+        this.overlayService.hideSpinner();
+      });
   }
 
   public saveEditingCell(event: Event): void {
