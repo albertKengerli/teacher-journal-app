@@ -16,6 +16,11 @@ import { SubjectsRoutingModule } from "./subjects-routing.module";
 import { GradeHighlightDirective } from "../../common/directives/grade-highlight.directive";
 import { GradeRowHighlightDirective } from "../../common/directives/grade-row-highlight.directive";
 
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+
+import { subjectsReducer, SubjectsEffects } from "../../store/subjects";
+
 @NgModule({
   declarations: [
     SubjectsRootComponent,
@@ -31,6 +36,8 @@ import { GradeRowHighlightDirective } from "../../common/directives/grade-row-hi
     CommonModule,
     SharedModule,
     SubjectsRoutingModule,
+    StoreModule.forFeature("subjects", subjectsReducer),
+    EffectsModule.forFeature([SubjectsEffects]),
   ],
   providers: [DatePipe],
 })

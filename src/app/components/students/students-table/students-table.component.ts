@@ -5,13 +5,18 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 
 import { Subscription, Observable, fromEvent } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap, map, startWith } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, switchMap, map } from "rxjs/operators";
+
+import { Store, select } from "@ngrx/store";
+import { AppState, StudentsState, getStudentsState } from "../../../store";
+import * as StudentsActions from "../../../store/students/students.actions";
 
 import { Student } from "../../../common/entities/student";
 
 import { StudentService } from "../../../common/services/student/student.service";
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
+import { OverlayService } from "../../../common/services/overlay/overlay.service";
 
 import { columnNames } from "../../../common/constants/tableColumnNames";
 
@@ -21,10 +26,12 @@ import { columnNames } from "../../../common/constants/tableColumnNames";
   styleUrls: ["./students-table.component.scss"]
 })
 export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  private studentServiceSubscription: Subscription;
+  private studentsState$: Observable<StudentsState>;
+  private studentStateSubscription: Subscription;
   private searchBarSubscription: Subscription;
 
   public dataSource: MatTableDataSource<Student>;
+  public dataLoaded: boolean = false;
   public columnsNamesList: String[] = [
     columnNames.id,
     columnNames.name,
@@ -42,11 +49,23 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     private studentService: StudentService,
     private gradesService: GradesService,
     private dialogService: DialogService,
+    private overlayService: OverlayService,
+    private store: Store<AppState>,
   ) {}
 
   private getStudents(): void {
-    this.studentServiceSubscription = this.studentService.getStudents()
-      .subscribe(students => this.updateStudents(students));
+    this.studentsState$ = this.store.pipe(select(getStudentsState));
+    this.store.dispatch(new StudentsActions.GetStudents());
+    this.studentStateSubscription = this.studentsState$
+      .subscribe(studentsState => {
+        if (studentsState.loading) {
+          this.overlayService.showSpinner();
+        }
+        this.updateStudents(studentsState.data);
+        if (studentsState.loaded) {
+          this.overlayService.hideSpinner();
+        }
+      });
   }
 
   private updateStudents(students: Student[]): void {
@@ -69,14 +88,14 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     );
 
     this.searchBarSubscription = searchBarObservable
-    .subscribe(students => this.updateStudents(students));
+      .subscribe(students => this.updateStudents(students));
   }
 
   public deleteStudent(student: Student): void {
     this.dialogService.confirmAction(`Do you really want to delete ${student.name} ${student.surname} from students list?`)
       .subscribe( answer => {
         if (answer) {
-          this.studentService.deleteStudent(+student.id).subscribe(() => this.getStudents());
+          this.store.dispatch(new StudentsActions.DeleteStudent(+student.id));
           this.gradesService.deleteStudentGrades(+student.id);
         } else {
           return;
@@ -94,7 +113,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   public ngOnDestroy(): void {
-    this.studentServiceSubscription.unsubscribe();
+    this.studentStateSubscription.unsubscribe();
     this.searchBarSubscription.unsubscribe();
   }
 }

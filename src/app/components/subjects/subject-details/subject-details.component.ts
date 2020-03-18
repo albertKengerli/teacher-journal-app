@@ -1,8 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 
-import { SubjectService } from "../../../common/services/subject/subject.service";
+import { Store, select } from "@ngrx/store";
+import { AppState, getSubjectByName } from "../../../store";
+import * as SubjectsActions from "../../../store/subjects/subjects.actions";
+
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { GradesService } from "../../../common/services/grades/grades.service";
 
@@ -14,7 +17,9 @@ import { Grade } from "../../../common/entities/grades";
   templateUrl: "./subject-details.component.html",
   styleUrls: ["./subject-details.component.scss"]
 })
-export class SubjectDetailsComponent implements OnInit {
+export class SubjectDetailsComponent implements OnInit, OnDestroy {
+  private subject$: Observable<Subject>;
+  private subjectSubscription: Subscription;
   private gradesToSend: Grade[] = [];
   private newTeacherName: string;
 
@@ -25,15 +30,15 @@ export class SubjectDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private subjectService: SubjectService,
     private dialogService: DialogService,
     private gradesService: GradesService,
+    private store: Store<AppState>,
   ) { }
 
   private getSubject(): void {
     const name: string = this.route.snapshot.paramMap.get("name");
-    this.subjectService.getSubjectByName(name)
-      .subscribe(subject => this.subject = subject[0]);
+    this.subject$ = this.store.pipe(select(getSubjectByName, { name }));
+    this.subjectSubscription = this.subject$.subscribe(subject => this.subject = subject);
   }
 
   private sendGrades(): void {
@@ -61,7 +66,7 @@ export class SubjectDetailsComponent implements OnInit {
   private updateTeacher(): void {
     const updatedSubject: Subject = Object.assign({}, this.subject);
     updatedSubject.teacher = this.newTeacherName;
-    this.subjectService.updateSubject(this.subject.id, updatedSubject).subscribe();
+    this.store.dispatch(SubjectsActions.updateSubject({ id: this.subject.id, subject: updatedSubject }));
   }
 
   public ngOnInit(): void {
@@ -120,4 +125,7 @@ export class SubjectDetailsComponent implements OnInit {
     }
   }
 
+  public ngOnDestroy(): void {
+    this.subjectSubscription.unsubscribe();
+  }
 }

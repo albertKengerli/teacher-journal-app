@@ -1,11 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject, combineLatest, of } from "rxjs";
+import { Observable, BehaviorSubject, combineLatest } from "rxjs";
+
+import { Store, select } from "@ngrx/store";
+import { AppState, getStudentsData } from "../../../store";
+import * as StudentsActions from "../../../store/students/students.actions";
 
 import { Student } from "../../entities/student";
 import { Grade } from "../../entities/grades";
 
 import { GradesService } from "../grades/grades.service";
-import { StudentService } from "../student/student.service";
 
 @Injectable({
   providedIn: "root"
@@ -18,13 +21,13 @@ export class SubjectTableService {
 
   constructor(
     private gradesService: GradesService,
-    private studentService: StudentService,
+    private store: Store<AppState>,
   ) {}
 
   private addGradesToStudents([students, subjectGrades]: [Student[], Grade[]]): void {
     const studentsWithGrades: Student[] = students.map(
       student => {
-        const studentsGrades: Grade[] = subjectGrades.filter( grade => grade.studentID === +student.id);
+        const studentsGrades: Grade[] = subjectGrades.filter( grade => grade.studentID === student.id);
         let gradesSum: number = 0;
 
         studentsGrades.forEach(grade => {
@@ -46,9 +49,10 @@ export class SubjectTableService {
 
   public serviceInit(subjectID: number): void {
     this.subjectID = subjectID;
+    this.store.dispatch(new StudentsActions.GetStudents());
 
     combineLatest(
-      this.studentService.getStudents(),
+      this.store.pipe(select(getStudentsData)),
       this.gradesService.getSubjectGrades(this.subjectID)
     ).subscribe((data) => this.addGradesToStudents(data));
   }
