@@ -28,7 +28,7 @@ export class OverlayService {
     this.spinnerOverlay.attach(new ComponentPortal(MatSpinner));
   }
 
-  public stopSpinner(): void {
-    this.spinnerOverlay.detach();
+  public hideSpinner(): void {
+    setTimeout(() => this.spinnerOverlay.detach(), 1500);
   }
 }

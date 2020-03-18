@@ -63,7 +63,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
         }
         this.updateStudents(studentsState.data);
         if (studentsState.loaded) {
-          this.overlayService.stopSpinner();
+          this.overlayService.hideSpinner();
         }
       });
   }
