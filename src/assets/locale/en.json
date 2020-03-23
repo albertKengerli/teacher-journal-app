@@ -1,0 +1,18 @@
+{
+  "APPNAME": "Teacher Journal",
+  "NAVIGATION": {
+    "STUDENTS": "Students",
+    "SUBJECTS": "Subjects",
+    "STATISTICS": "Statistics",
+    "EXPORT": "Export"
+  },
+  "BREADCRUMBS": {
+    "SUBJECTS": "Subjects",
+    "ADD_SUBJECT": "Add subject",
+    "SUBJECT_PAGE": "Subject page",
+    "STUDENTS": "Students",
+    "ADD_STUDENT": "Add student",
+    "EXPORT": "Export",
+    "STATISTICS": "Statistics"
+  }
+}

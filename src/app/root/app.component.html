@@ -1,10 +1,11 @@
 <mat-toolbar color="primary" class="navbar mat-elevation-z8">
-  <h1 routerLink="/students"> Teacher Journal </h1>
+  <h1 routerLink="/students">{{ 'APPNAME' | translate}}</h1>
+  <app-language-switcher></app-language-switcher>
   <nav>
-    <a mat-button routerLink="/students" routerLinkActive="active">Students</a>
-    <a mat-button routerLink="/subjects" routerLinkActive="active">Subjects</a>
-    <a mat-button routerLink="/statistics" routerLinkActive="active">Statistics</a>
-    <a mat-button routerLink="/export" routerLinkActive="active">Export</a>
+    <a mat-button routerLink="/students" routerLinkActive="active">{{ 'NAVIGATION.STUDENTS' | translate }}</a>
+    <a mat-button routerLink="/subjects" routerLinkActive="active">{{ 'NAVIGATION.SUBJECTS' | translate }}</a>
+    <a mat-button routerLink="/statistics" routerLinkActive="active">{{ 'NAVIGATION.STATISTICS' | translate }}</a>
+    <a mat-button routerLink="/export" routerLinkActive="active">{{ 'NAVIGATION.EXPORT' | translate }}</a>
   </nav>
 </mat-toolbar>
 <app-breadcrumbs></app-breadcrumbs>

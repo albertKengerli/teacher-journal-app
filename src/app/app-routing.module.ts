@@ -9,12 +9,12 @@ const routes: Routes = [
   {
     path: "export",
     component: ExportPageComponent,
-    data: { breadcrumb: "Export"},
+    data: { breadcrumb: "EXPORT"},
   },
   {
     path: "statistics",
     component: StatisticsPageComponent,
-    data: { breadcrumb: "Statistics"},
+    data: { breadcrumb: "STATISTICS"},
   },
   {
     path: "",

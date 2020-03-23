@@ -1,0 +1,18 @@
+{
+  "APPNAME": "Журнал Учителя",
+  "NAVIGATION": {
+    "STUDENTS": "Ученики",
+    "SUBJECTS": "Предметы",
+    "STATISTICS": "Статистика",
+    "EXPORT": "Экспорт"
+  },
+  "BREADCRUMBS": {
+    "SUBJECTS": "Предметы",
+    "ADD_SUBJECT": "Добавить предмет",
+    "SUBJECT_PAGE": "Страница предмета",
+    "STUDENTS": "Ученики",
+    "ADD_STUDENT": "Добавить ученика",
+    "EXPORT": "Экспорт",
+    "STATISTICS": "Статистика"
+  }
+}
