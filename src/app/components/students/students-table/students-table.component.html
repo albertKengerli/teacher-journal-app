@@ -6,13 +6,8 @@
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
-    <ng-container matColumnDef="id">
-      <mat-header-cell mat-sort-header *matHeaderCellDef class="studentTable">ID</mat-header-cell>
-      <mat-cell *matCellDef="let student" class="studentTable">{{student.id}}</mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef class="studentTable">Name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="studentTable">Name</mat-header-cell>
       <mat-cell *matCellDef="let student" class="studentTable">{{student.name}}</mat-cell>
     </ng-container>
 

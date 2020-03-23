@@ -33,7 +33,6 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   public dataSource: MatTableDataSource<Student>;
   public dataLoaded: boolean = false;
   public columnsNamesList: String[] = [
-    columnNames.id,
     columnNames.name,
     columnNames.surname,
     columnNames.address,
