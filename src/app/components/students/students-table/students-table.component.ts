@@ -19,7 +19,7 @@ import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { OverlayService } from "../../../common/services/overlay/overlay.service";
 import { TranslateService } from "@ngx-translate/core";
 
-import { columnNames } from "../../../common/constants/tableColumnNames";
+import { СolumnNames } from "../../../common/constants/tableColumnNames";
 
 @Component({
   selector: "app-students-table",
@@ -34,11 +34,11 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   public dataSource: MatTableDataSource<Student>;
   public dataLoaded: boolean = false;
   public columnsNamesList: String[] = [
-    columnNames.name,
-    columnNames.surname,
-    columnNames.address,
-    columnNames.description,
-    columnNames.delete,
+    СolumnNames.Name,
+    СolumnNames.Surname,
+    СolumnNames.Address,
+    СolumnNames.Description,
+    СolumnNames.Delete,
   ];
 
   @ViewChild(MatSort, {static: true}) public sort: MatSort;

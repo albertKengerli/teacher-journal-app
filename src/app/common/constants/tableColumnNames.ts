@@ -1,8 +1,8 @@
-export enum columnNames {
-  name = "name",
-  surname = "surname",
-  address = "address",
-  description = "description",
-  delete = "delete",
-  averageGrade = "averageGrade",
+export enum СolumnNames {
+  Name = "name",
+  Surname = "surname",
+  Address = "address",
+  Description = "description",
+  Delete = "delete",
+  AverageGrade = "averageGrade",
 }

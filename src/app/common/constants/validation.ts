@@ -3,7 +3,7 @@ export const validationExpressions: { [expressionName: string]: RegExp } = {
   alphabetAndSpecialCharacters: /^[a-z ,.'-]+$/i,
 };
 
-export enum validationErrorTranslationKeys {
-  numbers = "FORM.VALIDATION_ERRORS.ONLY_NUMBERS",
-  alphabetAndSpecialCharacters = "FORM.VALIDATION_ERRORS.ONLY_ALPHABET_AND_SPECIALS",
+export enum ValidationErrorTranslationKeys {
+  Numbers = "FORM.VALIDATION_ERRORS.ONLY_NUMBERS",
+  AlphabetAndSpecialCharacters = "FORM.VALIDATION_ERRORS.ONLY_ALPHABET_AND_SPECIALS",
 }

@@ -2,10 +2,10 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { SubjectsState } from "./subjects.state";
 
-import { entitiesNames } from "../../common/constants/entitiesNames";
+import { EntitiesNames } from "../../common/constants/entitiesNames";
 
 /* tslint:disable:typedef */
-export const getSubjectsState = createFeatureSelector<SubjectsState>(entitiesNames.subjects);
+export const getSubjectsState = createFeatureSelector<SubjectsState>(EntitiesNames.Subjects);
 
 export const getSubjectByName = createSelector(
   getSubjectsState,

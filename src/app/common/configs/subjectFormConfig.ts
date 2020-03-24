@@ -1,5 +1,5 @@
 import { FormField } from "../entities/formField";
-import { validationErrorTranslationKeys, validationExpressions } from "../constants/validation";
+import { ValidationErrorTranslationKeys, validationExpressions } from "../constants/validation";
 
 enum TranslationKeys {
   NameLabel = "FORM.SUBJECT_NAME_LABEL",
@@ -18,7 +18,7 @@ const name: FormField = new FormField({
   required: true,
   validation: true,
   expression: validationExpressions.alphabetAndSpecialCharacters,
-  errorMessage: validationErrorTranslationKeys.alphabetAndSpecialCharacters,
+  errorMessage: ValidationErrorTranslationKeys.AlphabetAndSpecialCharacters,
 });
 
 const teacher: FormField = new FormField({
@@ -28,7 +28,7 @@ const teacher: FormField = new FormField({
   required: true,
   validation: true,
   expression: validationExpressions.alphabetAndSpecialCharacters,
-  errorMessage: validationErrorTranslationKeys.alphabetAndSpecialCharacters,
+  errorMessage: ValidationErrorTranslationKeys.AlphabetAndSpecialCharacters,
 });
 
 const room: FormField = new FormField({
@@ -37,7 +37,7 @@ const room: FormField = new FormField({
   placeholder: "402",
   validation: true,
   expression: validationExpressions.numbers,
-  errorMessage: validationErrorTranslationKeys.numbers,
+  errorMessage: ValidationErrorTranslationKeys.Numbers,
 });
 
 const description: FormField = new FormField({

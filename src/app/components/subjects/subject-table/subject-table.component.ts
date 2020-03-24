@@ -16,12 +16,12 @@ import { Grade } from "../../../common/entities/grades";
 
 import { compareDates } from "../../../common/helpers/sorting";
 
-import { columnNames } from "../../../common/constants/tableColumnNames";
+import { СolumnNames } from "../../../common/constants/tableColumnNames";
 
 const defaultColumnsNames: string[] = [
-  columnNames.name,
-  columnNames.surname,
-  columnNames.averageGrade,
+  СolumnNames.Name,
+  СolumnNames.Surname,
+  СolumnNames.AverageGrade,
 ];
 
 @Component({
