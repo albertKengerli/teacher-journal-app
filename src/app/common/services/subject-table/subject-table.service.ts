@@ -27,6 +27,8 @@ export class SubjectTableService {
   private addGradesToStudents([students, subjectGrades]: [Student[], Grade[]]): void {
     const studentsWithGrades: Student[] = students.map(
       student => {
+        const currentStudent: Student = {...student};
+
         const studentsGrades: Grade[] = subjectGrades.filter( grade => grade.studentID === student.id);
         let gradesSum: number = 0;
 
@@ -35,13 +37,17 @@ export class SubjectTableService {
             this.dates.push(new Date(grade.date));
             this.datesList.push(grade.date);
           }
-          student[grade.date] = grade.grade.toString();
+          currentStudent[grade.date] = grade.grade.toString();
           gradesSum += grade.grade;
         });
 
-        student.averageGrade = (gradesSum / studentsGrades.length).toFixed(1);
+        if (gradesSum === 0) {
+          currentStudent.averageGrade = null;
+        } else {
+          currentStudent.averageGrade = gradesSum / studentsGrades.length;
+        }
 
-        return student;
+        return currentStudent;
     });
 
     this.studentsWithGrades.next(studentsWithGrades);
