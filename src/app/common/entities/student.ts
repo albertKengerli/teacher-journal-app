@@ -8,5 +8,5 @@ export interface Student extends Person {
   address: string;
   description: string;
   averageGrade?: number;
-  [date: number]: string;
+  [date: number]: number;
 }

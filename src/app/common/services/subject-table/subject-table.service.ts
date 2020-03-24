@@ -36,7 +36,7 @@ export class SubjectTableService {
           this.dates.push(new Date(grade.date));
           this.datesList.push(grade.date);
         }
-        currentStudent[grade.date] = grade.grade.toString();
+        currentStudent[grade.date] = grade.grade;
         gradesSum += grade.grade;
       });
 
