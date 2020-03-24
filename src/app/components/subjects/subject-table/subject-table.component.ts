@@ -8,7 +8,6 @@ import { MatPaginator } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
 
 import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
-import { OverlayService } from "../../../common/services/overlay/overlay.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Student } from "../../../common/entities/student";
@@ -46,7 +45,6 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private subjectTableService: SubjectTableService,
-    private overlayService: OverlayService,
     private translateService: TranslateService,
     private datePipe: DatePipe,
   ) { }
@@ -77,13 +75,11 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.overlayService.showSpinner();
     this.tableInit();
     this.subjectTableService.serviceInit(this.subject.id);
     this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
       .subscribe( data => {
         this.updateDataSource(data);
-        this.overlayService.hideSpinner();
       });
   }
 

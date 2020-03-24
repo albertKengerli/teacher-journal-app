@@ -56,16 +56,9 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 
   private getStudents(): void {
     this.studentsState$ = this.store.pipe(select(getStudentsState));
-    this.store.dispatch(new StudentsActions.GetStudents());
     this.studentStateSubscription = this.studentsState$
       .subscribe(studentsState => {
-        if (studentsState.loading) {
-          this.overlayService.showSpinner();
-        }
         this.updateStudents(studentsState.data);
-        if (studentsState.loaded) {
-          this.overlayService.hideSpinner();
-        }
       });
   }
 
@@ -82,11 +75,11 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 
   private searchFieldInit(): void {
     const searchBarObservable: Observable<Student[]> = fromEvent<KeyboardEvent>(this.searchBar.nativeElement, "keyup")
-    .pipe(
-      map(event => (event.target as HTMLInputElement).value),
-      debounceTime(350),
-      distinctUntilChanged(),
-      switchMap(query => this.studentService.searchStudent(query))
+      .pipe(
+        map(event => (event.target as HTMLInputElement).value),
+        debounceTime(350),
+        distinctUntilChanged(),
+        switchMap(query => this.studentService.searchStudent(query))
     );
 
     this.searchBarSubscription = searchBarObservable

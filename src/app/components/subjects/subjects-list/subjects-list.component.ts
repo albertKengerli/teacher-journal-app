@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs";
 
 import { Store, select } from "@ngrx/store";
 import { AppState, SubjectsState, getSubjectsState } from "../../../store";
@@ -8,7 +8,6 @@ import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
-import { OverlayService } from "../../../common/services/overlay/overlay.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
@@ -18,30 +17,18 @@ import { Subject } from "../../../common/entities/subject";
   templateUrl: "./subjects-list.component.html",
   styleUrls: ["./subjects-list.component.scss"]
 })
-export class SubjectsListComponent implements OnInit, OnDestroy {
-  private subjectStateSubscription: Subscription;
-
+export class SubjectsListComponent implements OnInit {
   public subjectsState$: Observable<SubjectsState>;
 
   constructor(
     private gradesService: GradesService,
     private dialogService: DialogService,
-    private overlayService: OverlayService,
     private translateService: TranslateService,
     private store: Store<AppState>,
   ) { }
 
   private getSubjects(): void {
     this.subjectsState$ = this.store.pipe(select(getSubjectsState));
-    this.subjectStateSubscription = this.subjectsState$
-      .subscribe(subjectsState => {
-        if (subjectsState.loading) {
-          this.overlayService.showSpinner();
-        } else if (subjectsState.loaded) {
-          this.overlayService.hideSpinner();
-        }
-      });
-    this.store.dispatch(SubjectsActions.getSubjects());
   }
 
   public ngOnInit(): void {
@@ -57,9 +44,5 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
           this.gradesService.deleteSubjectGrades(subject.id);
         }
       });
-  }
-
-  public ngOnDestroy(): void {
-    this.subjectStateSubscription.unsubscribe();
   }
 }
