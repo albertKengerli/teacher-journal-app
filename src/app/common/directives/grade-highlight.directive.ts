@@ -1,13 +1,13 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@angular/core";
 
+import { Colors } from "../constants/colors";
+
 @Directive({
   selector: "[appGradeHighlight]"
 })
 export class GradeHighlightDirective implements OnInit {
   @Input() private grade: string;
   private node: HTMLElement;
-  private positiveColor: string = "#388e3c";
-  private negativeColor: string = "#5472d3";
 
   constructor(
     private element: ElementRef,
@@ -30,9 +30,9 @@ export class GradeHighlightDirective implements OnInit {
     if (isNaN(+currentGrade) || +currentGrade > 10 || +currentGrade <= 0) {
       return;
     } else if (+currentGrade < 5) {
-      color = this.negativeColor;
+      color = Colors.PositiveColor;
     } else {
-      color = this.positiveColor;
+      color = Colors.NegativeColor;
     }
 
     this.renderer.setStyle(this.node, "borderBottom", `solid 10px ${color}`);

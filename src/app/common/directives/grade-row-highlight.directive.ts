@@ -1,13 +1,13 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@angular/core";
 
+import { Colors } from "../constants/colors";
+
 @Directive({
   selector: "[appGradeRowHighlight]"
 })
 export class GradeRowHighlightDirective implements OnInit {
   @Input() private averageGrade: string;
   private parentNode: Node;
-  private positiveColor: string = "#388e3c";
-  private negativeColor: string = "#5472d3";
 
   constructor(
     private element: ElementRef,
@@ -18,9 +18,9 @@ export class GradeRowHighlightDirective implements OnInit {
     let color: string = "";
 
     if (+this.averageGrade > 5) {
-      color = this.positiveColor;
+      color = Colors.PositiveColor;
     } else {
-      color = this.negativeColor;
+      color = Colors.NegativeColor;
     }
 
     this.renderer.setStyle(this.parentNode, "backgroundColor", color);
