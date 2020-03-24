@@ -7,7 +7,7 @@ import * as StudentsActions from "../../../store/students/students.actions";
 import { Student } from "../../../common/entities/student";
 import { FormField } from "../../../common/entities/formField";
 
-import { validationExpressions, validationErrorMessages } from "../../../common/constants/validation";
+import { studentFormFieldList } from "../../../common/configs/studentFormConfig";
 
 @Component({
   selector: "app-students-form",
@@ -15,51 +15,9 @@ import { validationExpressions, validationErrorMessages } from "../../../common/
   styleUrls: ["./students-form.component.scss"]
 })
 export class StudentsFormComponent {
-  private name: FormField;
-  private surname: FormField;
-  private address: FormField;
-  private description: FormField;
+  public formFieldList: FormField[] = [...studentFormFieldList];
 
-  public formFieldList: FormField[] = [];
-
-  constructor(
-    private store: Store<AppState>,
-  ) {
-    this.name = new FormField({
-      name: "name",
-      label: "Name",
-      placeholder: "Jack",
-      required: true,
-      validation: true,
-      expression: validationExpressions.alphabetAndSpecialCharacters,
-      errorMessage: validationErrorMessages.alphabetAndSpecialCharacters,
-    });
-    this.surname = new FormField({
-      name: "surname",
-      label: "Last name",
-      placeholder: "Black",
-      required: true,
-      validation: true,
-      expression: validationExpressions.alphabetAndSpecialCharacters,
-      errorMessage: validationErrorMessages.alphabetAndSpecialCharacters,
-    });
-    this.address = new FormField({
-      name: "address",
-      label: "Address",
-      placeholder: "pr. Zhukova 2",
-    });
-    this.description = new FormField({
-      name: "description",
-      type: "text-area",
-      label: "Description",
-      placeholder: "Good guy, works hard",
-    });
-
-    this.formFieldList.push(this.name);
-    this.formFieldList.push(this.surname);
-    this.formFieldList.push(this.address);
-    this.formFieldList.push(this.description);
-  }
+  constructor(private store: Store<AppState>) { }
 
   public addStudent(student: Student): void {
     this.store.dispatch(new StudentsActions.AddStudent(student));
