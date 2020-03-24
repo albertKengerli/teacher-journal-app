@@ -45,7 +45,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
 
   private sendGrades(): void {
     this.gradesToSend.forEach(grade => {
-      if (grade.grade === 0) {
+      if (grade.grade === null) {
         return this.gradesService.getGradeByStudentSubjectDate(grade.studentID, grade.subjectID, grade.date)
           .subscribe(answer => {
             if (answer.length !== 0) {

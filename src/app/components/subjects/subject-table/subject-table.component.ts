@@ -74,6 +74,14 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.columnsNamesList = [...defaultColumnsNames, ...datesStringList];
   }
 
+  private isGradeValid(grade: string): boolean {
+    if ( (isNaN(+grade) || +grade < 1 || +grade > 10) && grade !== "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   public ngOnInit(): void {
     this.tableInit();
     this.subjectTableService.serviceInit(this.subject.id);
@@ -92,9 +100,9 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     const input: HTMLElement = event.target as HTMLElement;
 
     if (input.textContent !== this.editingValue) {
-      const newValue: string = input.textContent.trim();
+      const gradeAsString: string = input.textContent.trim();
 
-      if ( (isNaN(+newValue) || +newValue < 1 || +newValue > 10) && newValue !== "" ) {
+      if (!this.isGradeValid(gradeAsString)) {
         input.textContent = "";
         this.editingValue = null;
         const alertMessage: string = "Put a number from 1 to 10 to the cell or leave it empty to delete the grade";
@@ -102,14 +110,16 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
         throw alertMessage;
       }
 
+      const newValue: number = gradeAsString === "" ? null : Number(gradeAsString);
+
       const newGrade: Grade = {
         studentID: studentID,
         subjectID: this.subject.id,
         date: date,
-        grade: +newValue,
+        grade: newValue,
       };
 
-      input.textContent = newValue;
+      input.textContent = gradeAsString;
       this.editingValue = null;
       this.onNewData.emit(newGrade);
     }
