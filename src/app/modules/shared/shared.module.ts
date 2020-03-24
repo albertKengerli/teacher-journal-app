@@ -16,8 +16,10 @@ import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { FormComponent } from "../../shared/components/form/form.component";
+import { SpinnerComponent } from "../../shared/components/spinner/spinner.component";
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HeaderInterceptor } from "../../common/interceptors/header/header.interceptor";
@@ -27,6 +29,7 @@ import { TranslateModule } from "@ngx-translate/core";
 @NgModule({
   declarations: [
     FormComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -37,10 +40,12 @@ import { TranslateModule } from "@ngx-translate/core";
     MatFormFieldModule,
     MatButtonModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     TranslateModule,
     FormComponent,
+    SpinnerComponent,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
