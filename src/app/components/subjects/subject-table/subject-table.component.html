@@ -6,17 +6,17 @@
       <mat-row *matRowDef="let row; columns: columnsNamesList"></mat-row>
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef class="subjectsTable">Name</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="subjectsTable">{{ 'TABLE.NAME' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let student" class="subjectsTable">{{student.name}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="surname">
-        <mat-header-cell *matHeaderCellDef class="subjectsTable">Surname</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="subjectsTable">{{ 'TABLE.SURNAME' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let student" class="subjectsTable">{{student.surname}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="averageGrade" >
-        <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-averageHeader">Average Grade</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-averageHeader">{{ 'TABLE.AVERAGE_GRADE' | translate }}</mat-header-cell>
         <mat-cell
           class="subjectsTable subjectsTable-averageCell"
           *matCellDef="let student"
@@ -51,7 +51,7 @@
   </div>
   <div class="subjectsTable newColumn-container">
     <mat-form-field class="newColumn-datepicker">
-      <mat-label>Date for a new column</mat-label>
+      <mat-label>{{ 'FORM.DATEPICKER_LABEL' | translate }}</mat-label>
       <input matInput [matDatepicker]="picker" [formControl]="datePickControl">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -61,7 +61,7 @@
       color="accent"
       (click)="addColumn()"
     >
-       Add new date
+       {{ 'BUTTONS.ADD_NEW_DATE' | translate }}
     </button>
   </div>
 </div>

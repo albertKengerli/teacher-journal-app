@@ -22,12 +22,15 @@ import { FormComponent } from "../../shared/components/form/form.component";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HeaderInterceptor } from "../../common/interceptors/header/header.interceptor";
 
+import { TranslateModule } from "@ngx-translate/core";
+
 @NgModule({
   declarations: [
     FormComponent,
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -36,6 +39,7 @@ import { HeaderInterceptor } from "../../common/interceptors/header/header.inter
     MatCardModule,
   ],
   exports: [
+    TranslateModule,
     FormComponent,
     BrowserAnimationsModule,
     FormsModule,

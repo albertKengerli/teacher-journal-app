@@ -7,7 +7,7 @@
   </app-subject-table>
 
   <mat-form-field>
-    <mat-label>Teacher</mat-label>
+    <mat-label>{{ 'FORM.TEACHER_LABEL' | translate }}</mat-label>
     <input matInput
       value={{subject.teacher}}
       (change)="renameTeacher($event)"
@@ -19,14 +19,14 @@
       color="accent"
       (click)="cancel()"
     >
-      Go back
+      {{ 'BUTTONS.GO_BACK' | translate }}
     </button>
     <button mat-flat-button class="exitButtons-button"
       *ngIf="teacherChanged || gradesChanged"
       color="warn"
       (click)="save()"
     >
-      Save
+      {{ 'BUTTONS.SAVE' | translate }}
     </button>
   </div>
 </div>

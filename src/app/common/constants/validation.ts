@@ -3,7 +3,7 @@ export const validationExpressions: { [expressionName: string]: RegExp } = {
   alphabetAndSpecialCharacters: /^[a-z ,.'-]+$/i,
 };
 
-export enum validationErrorMessages {
-  numbers = "Only 0-9 without spaces is valid room",
-  alphabetAndSpecialCharacters = "Only a-z, and special characters are allowed.",
+export enum validationErrorTranslationKeys {
+  numbers = "FORM.VALIDATION_ERRORS.ONLY_NUMBERS",
+  alphabetAndSpecialCharacters = "FORM.VALIDATION_ERRORS.ONLY_ALPHABET_AND_SPECIALS",
 }

@@ -9,6 +9,7 @@ import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { OverlayService } from "../../../common/services/overlay/overlay.service";
+import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
 
@@ -26,6 +27,7 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
     private gradesService: GradesService,
     private dialogService: DialogService,
     private overlayService: OverlayService,
+    private translateService: TranslateService,
     private store: Store<AppState>,
   ) { }
 
@@ -47,7 +49,8 @@ export class SubjectsListComponent implements OnInit, OnDestroy {
   }
 
   public deleteSubject(subject: Subject): void {
-    this.dialogService.confirmAction(`Do you really want to delete ${subject.name} from subjects list?`)
+    const confirmationMessage: string = this.translateService.instant("DIALOG.DELETE_SUBJECT", { subjectName: subject.name });
+    this.dialogService.confirmAction(confirmationMessage)
       .subscribe(answer => {
         if (answer) {
           this.store.dispatch(SubjectsActions.deleteSubject({ id: subject.id }));

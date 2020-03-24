@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 
 import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
 import { OverlayService } from "../../../common/services/overlay/overlay.service";
+import { TranslateService } from "@ngx-translate/core";
 
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
@@ -46,10 +47,12 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   constructor(
     private subjectTableService: SubjectTableService,
     private overlayService: OverlayService,
+    private translateService: TranslateService,
     private datePipe: DatePipe,
   ) { }
 
   private tableInit(): void {
+    this.paginator._intl.itemsPerPageLabel = this.translateService.instant("TABLE.PAGINATOR_LABEL");
     this.dataSource.paginator = this.paginator;
   }
 

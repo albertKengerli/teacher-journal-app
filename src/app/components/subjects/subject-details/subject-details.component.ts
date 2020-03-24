@@ -8,6 +8,7 @@ import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { GradesService } from "../../../common/services/grades/grades.service";
+import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
 import { Grade } from "../../../common/entities/grades";
@@ -32,6 +33,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialogService: DialogService,
     private gradesService: GradesService,
+    private translateService: TranslateService,
     private store: Store<AppState>,
   ) { }
 
@@ -121,7 +123,10 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     if (!this.teacherChanged && !this.gradesChanged) {
       return true;
     } else {
-      return this.dialogService.confirmAction(`Do you want to leave ${this.subject.name}? All changes will be discarded.`);
+      const confirmationMessage: string = this.translateService.instant("DIALOG.DISCARD_SUBJECT_CHANGES", {
+        subjectName: this.subject.name
+      });
+      return this.dialogService.confirmAction(confirmationMessage);
     }
   }
 

@@ -10,6 +10,6 @@ export class BreadcrumbsComponent {
   constructor(private translateService: TranslateService) { }
 
   public translateBreadcrumb(breadcrumb: string): string {
-    return this.translateService.instant(`BREADCRUMBS.${breadcrumb}`);
+    return this.translateService.instant(breadcrumb);
   }
 }

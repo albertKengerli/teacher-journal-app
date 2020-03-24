@@ -1,33 +1,33 @@
 <div class="studentTable-container">
   <mat-form-field class="studentTable studentTable-searchBar">
-    <mat-label>Search</mat-label>
-    <input #searchBar matInput placeholder="Enter any info of students">
+    <mat-label>{{ 'FORM.SEARCH' | translate }}</mat-label>
+    <input #searchBar matInput [placeholder]="'STUDENTS.SEARCHBAR_HINT' | translate">
   </mat-form-field>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="studentTable">Name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="studentTable">{{ "TABLE.NAME" | translate }}</mat-header-cell>
       <mat-cell *matCellDef="let student" class="studentTable">{{student.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="surname">
-      <mat-header-cell *matHeaderCellDef class="studentTable">Last name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="studentTable">{{ "TABLE.SURNAME" | translate }}</mat-header-cell>
       <mat-cell *matCellDef="let student" class="studentTable">{{student.surname}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="address">
-      <mat-header-cell *matHeaderCellDef class="studentTable">Address</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="studentTable">{{ "TABLE.ADDRESS" | translate }}</mat-header-cell>
       <mat-cell *matCellDef="let student" class="studentTable">{{student.address}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef class="studentTable">Description</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="studentTable">{{ "TABLE.DESCRIPTION" | translate }}</mat-header-cell>
       <mat-cell *matCellDef="let student" class="studentTable">{{student.description}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef class="studentTable studentTable-deleteHeader">Delete student</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="studentTable studentTable-deleteHeader">{{ "TABLE.DELETE_STUDENT" | translate }}</mat-header-cell>
       <mat-cell *matCellDef="let student" class="studentTable studentTable-deleteCell">
         <button mat-flat-button color="warn"
           (click)="deleteStudent(student)"

@@ -17,6 +17,7 @@ import { StudentService } from "../../../common/services/student/student.service
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { OverlayService } from "../../../common/services/overlay/overlay.service";
+import { TranslateService } from "@ngx-translate/core";
 
 import { columnNames } from "../../../common/constants/tableColumnNames";
 
@@ -49,6 +50,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     private gradesService: GradesService,
     private dialogService: DialogService,
     private overlayService: OverlayService,
+    private translateService: TranslateService,
     private store: Store<AppState>,
   ) {}
 
@@ -74,6 +76,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   private dataSourceInit(): void {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
+    this.paginator._intl.itemsPerPageLabel = this.translateService.instant("TABLE.PAGINATOR_LABEL");
     this.dataSource.paginator = this.paginator;
   }
 
@@ -91,7 +94,12 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   public deleteStudent(student: Student): void {
-    this.dialogService.confirmAction(`Do you really want to delete ${student.name} ${student.surname} from students list?`)
+    const confirmationMessage: string = this.translateService.instant(
+      "DIALOG.DELETE_STUDENT",
+      { name: student.name, surname: student.surname }
+    );
+
+    this.dialogService.confirmAction(confirmationMessage)
       .subscribe( answer => {
         if (answer) {
           this.store.dispatch(new StudentsActions.DeleteStudent(+student.id));

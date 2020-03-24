@@ -1,18 +1,72 @@
 {
-  "APPNAME": "Журнал Учителя",
-  "NAVIGATION": {
-    "STUDENTS": "Ученики",
-    "SUBJECTS": "Предметы",
-    "STATISTICS": "Статистика",
-    "EXPORT": "Экспорт"
+  "APPNAME": "Журнал учителя",
+  "TABLE": {
+    "NAME": "Имя",
+    "SURNAME": "Фамилия",
+    "ADDRESS": "Адрес",
+    "DESCRIPTION": "Описание",
+    "DELETE_STUDENT": "Удалить ученика",
+    "AVERAGE_GRADE": "Средняя оценка",
+    "PAGINATOR_LABEL": "Студентов на странице"
   },
-  "BREADCRUMBS": {
-    "SUBJECTS": "Предметы",
-    "ADD_SUBJECT": "Добавить предмет",
-    "SUBJECT_PAGE": "Страница предмета",
-    "STUDENTS": "Ученики",
+  "FORM": {
+    "SEARCH": "Поиск",
+    "DATEPICKER_LABEL": "Дата для новой колонки",
+    "TEACHER_LABEL": "Учитель",
+    "ADD_STUDENT_HEADING": "Добавить нового ученика",
+    "STUDENT_NAME_LABEL": "Имя",
+    "STUDENT_NAME_PLACEHOLDER": "Джэк",
+    "STUDENT_SURNAME_LABEL": "Фамилия",
+    "STUDENT_SURNAME_PLACEHOLDER": "Блэк",
+    "ADDRESS_LABEL": "Адрес",
+    "ADDRESS_PLACEHOLDER": "пр. Жукова 29",
+    "STUDENT_DESCRIPTION_LABEL": "Характеристика",
+    "STUDENT_DESCRIPTION_PLACEHOLDER": "Хороший парень, трудолюбивый",
+    "ADD_SUBJECT_HEADING": "Добавить новый предмет",
+    "TEACHER_LABEL": "Учитель",
+    "TEACHER_PLACEHOLDER": "М. Ивановна",
+    "ROOM_LABEL": "Кабинет",
+    "SUBJECT_NAME_LABEL": "Предмет",
+    "SUBJECT_NAME_PLACEHOLDER": "Математика",
+    "SUBJECT_DESCRIPTION_LABEL": "Описание",
+    "SUBJECT_DESCRIPTION_PLACEHOLDER": "Взорвет вам мозг...",
+    "VALIDATION_ERRORS": {
+      "REQUIRED_FIELD": "Это поле необходимо заполнить!",
+      "ONLY_NUMBERS": "Для ввода доступны только цифры",
+      "ONLY_ALPHABET_AND_SPECIALS": "Для ввода доступны только a-z и специальные символы"
+    }
+  },
+  "STUDENTS": {
+    "TITLE": "Ученики",
     "ADD_STUDENT": "Добавить ученика",
-    "EXPORT": "Экспорт",
-    "STATISTICS": "Статистика"
+    "SEARCHBAR_HINT": "Введите любую информацию о студенте"
+  },
+  "SUBJECTS": {
+    "TITLE": "Предметы",
+    "SUBJECT_PAGE": "Страница предмета",
+    "ADD_SUBJECT": "Добавить предмет"
+  },
+  "STATISTICS": {
+    "TITLE": "Статистика",
+    "RATING": "Рейтинг",
+    "GRAPHIC": "График",
+    "BEST_PERFORMING_STUDENT": "Ученик, с лучшей успеваемостью",
+    "WORST_PERFORMING_STUDENT": "Ученик, с худшей успеваемостью"
+  },
+  "EXPORT": {
+    "TITLE": "Экспорт",
+    "HEADING": "Экспортировать в виде файлов"
+  },
+  "BUTTONS": {
+    "GO_BACK": "Вернуться",
+    "SAVE": "Сохранить",
+    "ADD_NEW_DATE": "Добавить новую дату",
+    "ADD": "Добавить"
+  },
+  "DIALOG": {
+    "DEFAULT": "Все верно?",
+    "DELETE_STUDENT": "Вы действительно хотите удалить {{name}} {{surname}} из списка учеников?",
+    "DELETE_SUBJECT": "Вы действительно хотите удалить {{subjectName}} из списка предметов?",
+    "DISCARD_SUBJECT_CHANGES": "Вы хотите покинуть {{subjectName}}? Все изменения будут сброшены."
   }
 }
