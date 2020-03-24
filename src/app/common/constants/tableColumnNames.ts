@@ -1,5 +1,4 @@
 export enum columnNames {
-  id = "id",
   name = "name",
   surname = "surname",
   address = "address",

@@ -29,6 +29,6 @@ export class OverlayService {
   }
 
   public hideSpinner(): void {
-    setTimeout(() => this.spinnerOverlay.detach(), 1500);
+    this.spinnerOverlay.detach();
   }
 }
