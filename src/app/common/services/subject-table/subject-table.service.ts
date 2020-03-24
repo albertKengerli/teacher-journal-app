@@ -43,7 +43,7 @@ export class SubjectTableService {
       if (gradesSum === 0) {
         currentStudent.averageGrade = null;
       } else {
-        currentStudent.averageGrade = gradesSum / studentsGrades.length;
+        currentStudent.averageGrade = Math.ceil(gradesSum / studentsGrades.length * 100) / 100;
       }
 
       return currentStudent;
