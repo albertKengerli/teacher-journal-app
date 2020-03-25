@@ -6,7 +6,7 @@ import { Colors } from "../constants/colors";
   selector: "[appGradeHighlight]"
 })
 export class GradeHighlightDirective implements OnInit {
-  @Input() private grade: string;
+  @Input() private initialGrade: number;
   private node: HTMLElement;
 
   constructor(
@@ -14,37 +14,30 @@ export class GradeHighlightDirective implements OnInit {
     private renderer: Renderer2,
   ) { }
 
-  private highlightGrade(grade?: string): void {
-    let color: string;
-    let currentGrade: string;
-    if (grade === undefined) {
-      currentGrade = this.grade;
-    } else {
-      currentGrade = grade;
+  private chooseColor(grade: number): string {
+    if (grade < 0 && grade > 10) {
+      return null;
     }
 
-    if (currentGrade === "") {
-      return this.dehighlight();
-    }
-
-    if (isNaN(+currentGrade) || +currentGrade > 10 || +currentGrade <= 0) {
-      return;
-    } else if (+currentGrade < 5) {
-      color = Colors.NegativeColor;
+    if (grade < 5) {
+      return Colors.NegativeColor;
+    } else if (grade >= 5) {
+      return Colors.PositiveColor;
     } else {
-      color = Colors.PositiveColor;
+      return null;
     }
+  }
+
+  private highlightGrade(newGrade?: number): void {
+    const currentGrade: number = newGrade || this.initialGrade;
+    const color: string = this.chooseColor(currentGrade);
 
     this.renderer.setStyle(this.node, "borderBottom", `solid 10px ${color}`);
   }
 
-  private dehighlight(): void {
-    this.renderer.setStyle(this.node, "borderBottom", null);
-  }
-
   @HostListener("blur")
     public onBlur(): void {
-      this.highlightGrade(this.node.innerText);
+      this.highlightGrade(parseInt(this.node.innerText, 10));
     }
 
   public ngOnInit(): void {
