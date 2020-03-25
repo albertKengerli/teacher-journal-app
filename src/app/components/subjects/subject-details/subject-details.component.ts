@@ -46,7 +46,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   private sendGrades(): void {
     this.gradesToSend.forEach(grade => {
       if (grade.grade === null) {
-        return this.gradesService.getGradeByStudentSubjectDate(grade.studentID, grade.subjectID, grade.date)
+        return this.gradesService.getGradeByStudentSubjectDate(grade.studentId, grade.subjectId, grade.date)
           .subscribe(answer => {
             if (answer.length !== 0) {
               this.gradesService.deleteGrade(answer[0].id).subscribe();
@@ -54,7 +54,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
           });
       }
 
-      this.gradesService.getGradeByStudentSubjectDate(grade.studentID, grade.subjectID, grade.date)
+      this.gradesService.getGradeByStudentSubjectDate(grade.studentId, grade.subjectId, grade.date)
         .subscribe(answer => {
           if (answer.length === 0) {
             this.gradesService.addGrade(grade).subscribe();
@@ -78,7 +78,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   public addGradeToSend(newGrade: Grade): void {
     let gradeNotAdded: boolean = true;
     this.gradesToSend.forEach( (grade, index, array) => {
-      if (grade.studentID === newGrade.studentID && grade.date === newGrade.date) {
+      if (grade.studentId === newGrade.studentId && grade.date === newGrade.date) {
         array[index] = newGrade;
         gradeNotAdded = false;
       } else if (index === array.length - 1 ) {

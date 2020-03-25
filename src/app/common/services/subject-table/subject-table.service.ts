@@ -28,7 +28,7 @@ export class SubjectTableService {
     const studentsWithGrades: Student[] = students.map( student => {
       const currentStudent: Student = {...student};
 
-      const studentsGrades: Grade[] = subjectGrades.filter( grade => grade.studentID === student.id);
+      const studentsGrades: Grade[] = subjectGrades.filter( grade => grade.studentId === student.id);
       let gradesSum: number = 0;
 
       studentsGrades.forEach(grade => {

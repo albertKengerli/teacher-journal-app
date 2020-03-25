@@ -113,8 +113,8 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
       const newValue: number = gradeAsString === "" ? null : Number(gradeAsString);
 
       const newGrade: Grade = {
-        studentID: studentID,
-        subjectID: this.subject.id,
+        studentId: studentID,
+        subjectId: this.subject.id,
         date: date,
         grade: newValue,
       };
