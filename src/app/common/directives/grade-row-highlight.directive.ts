@@ -1,6 +1,5 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@angular/core";
 
-import { Colors } from "../constants/colors";
 import * as GradeFunctions from "../helpers/gradeFunctions";
 
 @Directive({
