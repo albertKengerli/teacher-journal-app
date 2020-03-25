@@ -30,9 +30,9 @@ export class GradeHighlightDirective implements OnInit {
     if (isNaN(+currentGrade) || +currentGrade > 10 || +currentGrade <= 0) {
       return;
     } else if (+currentGrade < 5) {
-      color = Colors.PositiveColor;
-    } else {
       color = Colors.NegativeColor;
+    } else {
+      color = Colors.PositiveColor;
     }
 
     this.renderer.setStyle(this.node, "borderBottom", `solid 10px ${color}`);
