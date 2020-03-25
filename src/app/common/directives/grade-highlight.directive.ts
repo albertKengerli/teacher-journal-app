@@ -1,6 +1,7 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@angular/core";
 
 import { Colors } from "../constants/colors";
+import * as GradeFunctions from "../helpers/gradeFunctions";
 
 @Directive({
   selector: "[appGradeHighlight]"
@@ -14,23 +15,14 @@ export class GradeHighlightDirective implements OnInit {
     private renderer: Renderer2,
   ) { }
 
-  private chooseColor(grade: number): string {
-    if (grade < 0 && grade > 10) {
-      return null;
-    }
-
-    if (grade < 5) {
-      return Colors.NegativeColor;
-    } else if (grade >= 5) {
-      return Colors.PositiveColor;
-    } else {
-      return null;
-    }
-  }
-
   private highlightGrade(newGrade?: number): void {
     const currentGrade: number = newGrade || this.initialGrade;
-    const color: string = this.chooseColor(currentGrade);
+
+    if (!GradeFunctions.isGradeValid(currentGrade)) {
+      return;
+    }
+
+    const color: string = GradeFunctions.getColorForGrade(currentGrade);
 
     this.renderer.setStyle(this.node, "borderBottom", `solid 10px ${color}`);
   }
