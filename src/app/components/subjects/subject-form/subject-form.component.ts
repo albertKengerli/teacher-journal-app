@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 
-import { SubjectService } from "../../../common/services/subject/subject.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "../../../store";
+import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 
 import { Subject } from "../../../common/entities/subject";
 import { FormField } from "../../../common/entities/formField";
@@ -15,9 +17,9 @@ import { subjectFormFieldList } from "../../../common/configs/subjectFormConfig"
 export class SubjectFormComponent {
   public formFieldList: FormField[] = [...subjectFormFieldList];
 
-  constructor(private subjectService: SubjectService) { }
+  constructor(private store: Store<AppState>) { }
 
   public addSubject(subject: Subject): void {
-    this.subjectService.addSubject(subject).subscribe();
+    this.store.dispatch(SubjectsActions.addSubject({ subject }));
   }
 }
