@@ -21,7 +21,6 @@ import { Grade } from "../../../common/entities/grades";
 export class SubjectDetailsComponent implements OnInit, OnDestroy {
   private subject$: Observable<Subject>;
   private subjectSubscription: Subscription;
-  private gradesToSend: Grade[] = [];
   private newTeacherName: string;
 
   public subject: Subject;
@@ -43,28 +42,6 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     this.subjectSubscription = this.subject$.subscribe(subject => this.subject = subject);
   }
 
-  private sendGrades(): void {
-    this.gradesToSend.forEach(grade => {
-      if (grade.grade === null) {
-        return this.gradesService.getGradeByStudentSubjectDate(grade.studentId, grade.subjectId, grade.date)
-          .subscribe(answer => {
-            if (answer.length !== 0) {
-              this.gradesService.deleteGrade(answer[0].id).subscribe();
-            }
-          });
-      }
-
-      this.gradesService.getGradeByStudentSubjectDate(grade.studentId, grade.subjectId, grade.date)
-        .subscribe(answer => {
-          if (answer.length === 0) {
-            this.gradesService.addGrade(grade).subscribe();
-          } else {
-            this.gradesService.updateGrade(answer[0].id, grade).subscribe();
-          }
-        });
-    });
-  }
-
   private updateTeacher(): void {
     const updatedSubject: Subject = Object.assign({}, this.subject);
     updatedSubject.teacher = this.newTeacherName;
@@ -75,21 +52,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     this.getSubject();
   }
 
-  public addGradeToSend(newGrade: Grade): void {
-    let gradeNotAdded: boolean = true;
-    this.gradesToSend.forEach( (grade, index, array) => {
-      if (grade.studentId === newGrade.studentId && grade.date === newGrade.date) {
-        array[index] = newGrade;
-        gradeNotAdded = false;
-      } else if (index === array.length - 1 ) {
-        gradeNotAdded = true;
-      }
-    });
-
-    if (gradeNotAdded) {
-      this.gradesToSend.push(newGrade);
-    }
-
+  public onGradesChange(): void {
     this.gradesChanged = true;
   }
 
@@ -104,7 +67,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
 
   public save(): void {
     if (this.gradesChanged) {
-      this.sendGrades();
+      this.gradesService.sendPreparedGrades();
     }
 
     if (this.teacherChanged) {
@@ -116,6 +79,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   public cancel(): void {
+    this.gradesService.emptyPreparedGrades();
     this.router.navigate(["subjects"]);
   }
 

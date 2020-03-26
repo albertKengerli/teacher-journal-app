@@ -1,24 +1,49 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-// import { tap } from "rxjs/operators";
 
 import { HttpClient } from "@angular/common/http";
 
 import { Grade } from "../../entities/grades";
+import * as GradeFunctions from "../../helpers/gradeFunctions";
+
+enum GradeOperations {
+  Delete = "toDelete",
+  Post = "toPost",
+  Put = "toPut"
+}
 
 @Injectable({
   providedIn: "root"
 })
 export class GradesService {
   private url: string = "http://localhost:3004/grades";
+  private gradesToSend: { [operation: string]: Grade[] } = {
+    [GradeOperations.Delete]: [],
+    [GradeOperations.Post]: [],
+    [GradeOperations.Put]: [],
+  };
 
   constructor(private http: HttpClient) { }
+
+  private addGradeForOperation(gradeToAdd: Grade, operation: string): void {
+    const operationArray: Grade[] = this.gradesToSend[operation];
+
+    for (let i: number = 0; i < operationArray.length; i++) {
+      let currentGrade: Grade = operationArray[i];
+      if (GradeFunctions.areGradesInterchangeable(currentGrade, gradeToAdd)) {
+        operationArray[i] = gradeToAdd;
+        return;
+      }
+    }
+
+    operationArray.push(gradeToAdd);
+  }
 
   public getGrades(): Observable<Grade[]> {
     return this.http.get<Grade[]>(this.url);
   }
 
-  public addGrade(grade: Grade): Observable<Grade> {
+  public postGrade(grade: Grade): Observable<Grade> {
     return this.http.post<Grade>(this.url, grade);
   }
 
@@ -69,9 +94,47 @@ export class GradesService {
     return this.http.get<Grade[]>(findGradeURL);
   }
 
-  public static getAverageGrade(grades: Grade[]): string {
-    const sum: number = grades.reduce( (acc, grade) => acc += grade.grade, 0);
-    const average: number = sum / grades.length;
-    return average.toFixed(1);
+  public prepareGradeForSending(grade: Grade): void {
+    if (!grade.grade) {
+      this.addGradeForOperation(grade, GradeOperations.Delete);
+      return;
+    } else {
+      this.getGradeByStudentSubjectDate(grade.studentId, grade.subjectId, grade.date)
+          .subscribe(answer => {
+            if (answer.length === 0) {
+              this.addGradeForOperation(grade, GradeOperations.Post);
+            } else {
+              this.addGradeForOperation(grade, GradeOperations.Put);
+            }
+          });
+    }
+  }
+
+  public emptyPreparedGrades(): void {
+    this.gradesToSend[GradeOperations.Delete] = [];
+    this.gradesToSend[GradeOperations.Post] = [];
+    this.gradesToSend[GradeOperations.Put] = [];
+  }
+
+  public sendPreparedGrades(): void {
+    this.gradesToSend[GradeOperations.Delete].forEach(grade => {
+      this.getGradeByStudentSubjectDate(grade.studentId, grade.subjectId, grade.date)
+        .subscribe(answer => {
+          this.deleteGrade(answer[0].id).subscribe();
+        });
+    });
+
+    this.gradesToSend[GradeOperations.Post].forEach(grade => {
+      this.postGrade(grade).subscribe();
+    });
+
+    this.gradesToSend[GradeOperations.Put].forEach(grade => {
+      this.getGradeByStudentSubjectDate(grade.studentId, grade.subjectId, grade.date)
+        .subscribe(answer => {
+          this.updateGrade(answer[0].id, grade).subscribe();
+        });
+    });
+
+    this.emptyPreparedGrades();
   }
 }

@@ -8,6 +8,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
 
 import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
+import { GradesService } from "../../../common/services/grades/grades.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Student } from "../../../common/entities/student";
@@ -35,7 +36,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private dates: Date[];
 
   @Input() public subject: Subject;
-  @Output() public onNewData: EventEmitter<Grade> = new EventEmitter<Grade>();
+  @Output() public gradesChange: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
   public dataSource: MatTableDataSource<Student>;
   public columnsNamesList: string[];
@@ -44,6 +45,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private subjectTableService: SubjectTableService,
+    private gradesService: GradesService,
     private translateService: TranslateService,
     private datePipe: DatePipe,
   ) { }
@@ -119,7 +121,8 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
       input.textContent = gradeAsString;
       this.editingValue = null;
-      this.onNewData.emit(newGrade);
+      this.gradesChange.emit();
+      this.gradesService.prepareGradeForSending(newGrade);
     }
   }
 

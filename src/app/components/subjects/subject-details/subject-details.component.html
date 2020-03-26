@@ -3,7 +3,7 @@
 
   <app-subject-table
     [subject]="subject"
-    (onNewData)="addGradeToSend($event)">
+    (gradesChange)="onGradesChange()">
   </app-subject-table>
 
   <mat-form-field>
