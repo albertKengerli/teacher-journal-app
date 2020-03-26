@@ -15,7 +15,7 @@ import { GradesService } from "../grades/grades.service";
 })
 export class SubjectTableService {
   private studentsWithGrades: BehaviorSubject<Student[]> = new BehaviorSubject([]);
-  private subjectID: number;
+  private subjectId: number;
   private dates: Date[] = [];
   private datesList: number[] = [];
 
@@ -52,13 +52,13 @@ export class SubjectTableService {
     this.studentsWithGrades.next(studentsWithGrades);
   }
 
-  public serviceInit(subjectID: number): void {
-    this.subjectID = subjectID;
+  public serviceInit(subjectId: number): void {
+    this.subjectId = subjectId;
     this.store.dispatch(new StudentsActions.GetStudents());
 
     combineLatest(
       this.store.pipe(select(getStudentsData)),
-      this.gradesService.getSubjectGrades(this.subjectID)
+      this.gradesService.getSubjectGrades(this.subjectId)
     ).subscribe((data) => this.addGradesToStudents(data));
   }
 
