@@ -22,23 +22,23 @@ export class GradesService {
     return this.http.post<Grade>(this.url, grade);
   }
 
-  public getStudentGrades(studentID: number): Observable<Grade[]> {
-    const currentUrl: string = `${this.url}?studentID=${studentID}`;
+  public getStudentGrades(studentId: number): Observable<Grade[]> {
+    const currentUrl: string = `${this.url}?studentId=${studentId}`;
     return this.http.get<Grade[]>(currentUrl);
   }
 
-  public getSubjectGrades(subjectID: number): Observable<Grade[]> {
-    const currentUrl: string = `${this.url}?subjectID=${subjectID}`;
+  public getSubjectGrades(subjectId: number): Observable<Grade[]> {
+    const currentUrl: string = `${this.url}?subjectId=${subjectId}`;
     return this.http.get<Grade[]>(currentUrl);
   }
 
-  public deleteGrade(gradeID: number): Observable<object> {
-    const currentURL: string = `${this.url}/${gradeID}`;
+  public deleteGrade(gradeId: number): Observable<object> {
+    const currentURL: string = `${this.url}/${gradeId}`;
     return this.http.delete<object>(currentURL);
   }
 
-  public deleteSubjectGrades(subjectID: number): void {
-    this.getSubjectGrades(subjectID)
+  public deleteSubjectGrades(subjectId: number): void {
+    this.getSubjectGrades(subjectId)
       .subscribe(grades => {
         grades.forEach(grade => {
           this.deleteGrade(grade.id).subscribe();
@@ -46,8 +46,8 @@ export class GradesService {
       });
   }
 
-  public deleteStudentGrades(studentID: number): void {
-    this.getStudentGrades(studentID)
+  public deleteStudentGrades(studentId: number): void {
+    this.getStudentGrades(studentId)
       .subscribe(grades => {
         grades.forEach(grade => {
           this.deleteGrade(grade.id).subscribe();
@@ -55,17 +55,17 @@ export class GradesService {
       });
   }
 
-  public updateGrade(gradeID: number, grade: Grade): Observable<Grade> {
-    const updateURL: string = `${this.url}/${gradeID}`;
+  public updateGrade(gradeId: number, grade: Grade): Observable<Grade> {
+    const updateURL: string = `${this.url}/${gradeId}`;
     return this.http.put<Grade>(updateURL, grade);
   }
 
   public getGradeByStudentSubjectDate(
-    studentID: number,
-    subjectID: number,
+    studentId: number,
+    subjectId: number,
     date: number
   ): Observable<Grade[]> {
-    const findGradeURL: string = `${this.url}?studentID=${studentID}&subjectID=${subjectID}&date=${date}`;
+    const findGradeURL: string = `${this.url}?studentId=${studentId}&subjectId=${subjectId}&date=${date}`;
     return this.http.get<Grade[]>(findGradeURL);
   }
 

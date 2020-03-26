@@ -30,13 +30,13 @@ export class SubjectService {
     return this.http.post<Subject>(this.url, subject);
   }
 
-  public deleteSubject(subjectID: number): Observable<object> {
-    const currentURL: string = `${this.url}/${subjectID}`;
+  public deleteSubject(subjectId: number): Observable<object> {
+    const currentURL: string = `${this.url}/${subjectId}`;
     return this.http.delete<object>(currentURL);
   }
 
-  public updateSubject(subjectID: number, subject: Subject): Observable<Subject> {
-    const updateURL: string = `${this.url}/${subjectID}`;
+  public updateSubject(subjectId: number, subject: Subject): Observable<Subject> {
+    const updateURL: string = `${this.url}/${subjectId}`;
     return this.http.put<Subject>(updateURL, subject);
   }
 }
