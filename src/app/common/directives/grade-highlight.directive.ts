@@ -14,10 +14,18 @@ export class GradeHighlightDirective implements OnInit {
     private renderer: Renderer2,
   ) { }
 
+  private getCurrentGrade(newGrade: number): number {
+    if (newGrade === undefined) {
+      return this.initialGrade;
+    } else {
+      return newGrade;
+    }
+  }
   private highlightGrade(newGrade?: number): void {
-    const currentGrade: number = newGrade || this.initialGrade;
+    const currentGrade: number = this.getCurrentGrade(newGrade);
 
     if (!GradeFunctions.isGradeValid(currentGrade)) {
+      this.renderer.setStyle(this.node, "borderBottom", null);
       return;
     }
 
