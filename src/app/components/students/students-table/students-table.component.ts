@@ -58,16 +58,12 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     this.studentsState$ = this.store.pipe(select(getStudentsState));
     this.studentStateSubscription = this.studentsState$
       .subscribe(studentsState => {
-        this.updateStudents(studentsState.data);
+        this.updateDataSource(studentsState.data);
       });
   }
 
-  private updateStudents(students: Student[]): void {
-    this.dataSource.data = students;
-  }
-
-  private dataSourceInit(): void {
-    this.dataSource = new MatTableDataSource();
+  private updateDataSource(students: Student[]): void {
+    this.dataSource = new MatTableDataSource(students);
     this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = this.translateService.instant("TABLE.PAGINATOR_LABEL");
     this.dataSource.paginator = this.paginator;
@@ -83,7 +79,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     );
 
     this.searchBarSubscription = searchBarObservable
-      .subscribe(students => this.updateStudents(students));
+      .subscribe(students => this.updateDataSource(students));
   }
 
   public deleteStudent(student: Student): void {
@@ -104,7 +100,6 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   public ngOnInit(): void {
-    this.dataSourceInit();
     this.getStudents();
   }
 

@@ -31,14 +31,13 @@ const defaultColumnsNames: string[] = [
 })
 export class SubjectTableComponent implements OnInit, OnDestroy {
   private subjectTableServiceSubscription: Subscription;
-  private data: Student[];
   private editingValue: string;
   private dates: Date[];
 
   @Input() public subject: Subject;
   @Output() public onNewData: EventEmitter<Grade> = new EventEmitter<Grade>();
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
-  public dataSource: MatTableDataSource<Student> = new MatTableDataSource();
+  public dataSource: MatTableDataSource<Student>;
   public columnsNamesList: string[];
   public datesToRender: object[];
   public datePickControl: FormControl = new FormControl(new Date());
@@ -51,13 +50,11 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   private tableInit(): void {
     this.paginator._intl.itemsPerPageLabel = this.translateService.instant("TABLE.PAGINATOR_LABEL");
-    this.dataSource.paginator = this.paginator;
   }
 
   private updateDataSource(data: Student[]): void {
-    this.data = data;
-    this.dataSource.data = this.data;
-    this.manageDates(this.subjectTableService.getDates());
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
   }
 
   private manageDates(dates: Date[]): void {
@@ -88,6 +85,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
       .subscribe( data => {
         this.updateDataSource(data);
+        this.manageDates(this.subjectTableService.getDates());
       });
   }
 
