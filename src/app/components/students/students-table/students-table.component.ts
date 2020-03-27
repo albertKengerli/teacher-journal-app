@@ -91,7 +91,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     this.dialogService.confirmAction(confirmationMessage)
       .subscribe( answer => {
         if (answer) {
-          this.store.dispatch(new StudentsActions.DeleteStudent(+student.id));
+          this.store.dispatch(StudentsActions.deleteStudent({ id: student.id }));
           this.gradesService.deleteStudentGrades(+student.id);
         } else {
           return;

@@ -20,6 +20,6 @@ export class StudentsFormComponent {
   constructor(private store: Store<AppState>) { }
 
   public addStudent(student: Student): void {
-    this.store.dispatch(new StudentsActions.AddStudent(student));
+    this.store.dispatch(StudentsActions.addStudent({ student }));
   }
 }

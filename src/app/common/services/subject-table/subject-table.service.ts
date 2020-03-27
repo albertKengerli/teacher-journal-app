@@ -54,7 +54,7 @@ export class SubjectTableService {
 
   public serviceInit(subjectId: number): void {
     this.subjectId = subjectId;
-    this.store.dispatch(new StudentsActions.GetStudents());
+    this.store.dispatch(StudentsActions.getStudents());
 
     combineLatest(
       this.store.pipe(select(getStudentsData)),

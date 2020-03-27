@@ -1,59 +1,59 @@
-import { StudentsActionNames, StudentsAction } from "./students.actions";
 import { StudentsState, initialStudentsState } from "./students.state";
+import { Action, createReducer, on, ActionReducer } from "@ngrx/store";
+
+import * as StudentsActions from "./students.actions";
 
 import { Student } from "../../common/entities/student";
 
-export function studentsReducer(
-  state: StudentsState = initialStudentsState,
-  action: StudentsAction
-): StudentsState {
+/* tslint:disable:typedef */
+const reducer = createReducer(
+  initialStudentsState,
 
-  switch (action.type) {
-    case StudentsActionNames.GET_STUDENTS: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
+  on(StudentsActions.getStudents, state => {
+    return {
+      ...state,
+      loading: true,
+    };
+  }),
 
-    case StudentsActionNames.GET_STUDENTS_SUCCESS: {
-      const data: Student[] = [...action.payload];
-      return {
-        ...state,
-        data,
-        loading: false,
-        loaded: true,
-      };
-    }
+  on(StudentsActions.getStudentsSuccess, (state, { students }) => {
+    return {
+      ...state,
+      data: students,
+      loading: false,
+      loaded: true,
+    };
+  }),
 
-    case StudentsActionNames.ADD_STUDENT: {
-      return {...state};
-    }
+  on(StudentsActions.addStudentSuccess, (state, { student }) => {
+    const data: Student[] = [...state.data, student];
 
-    case StudentsActionNames.ADD_STUDENT_SUCCESS: {
-      const data: Student[] = [...state.data, action.payload];
+    return {
+      ...state,
+      data,
+    };
+  }),
 
-      return {
-        ...state,
-        data,
-      };
-    }
+  on(StudentsActions.deleteStudentSuccess, (state, { id }) => {
+    const data: Student[] = [...state.data].filter(student => student.id !== id);
 
-    case StudentsActionNames.DELETE_STUDENT: {
-      return { ...state };
-    }
+    return {
+      ...state,
+      data,
+    };
+  }),
 
-    case StudentsActionNames.DELETE_STUDENT_SUCCESS: {
-      const data: Student[] = [ ...state.data ].filter(student => student.id !== action.payload);
+  on(StudentsActions.updateStudentSuccess, (state, { id, student }) => {
+    const data: Student[] = [...state.data];
+    data[id] = student;
 
-      return {
-        ...state,
-        data,
-      };
-    }
+    return {
+      ...state,
+      data,
+    };
+  })
+);
 
-    default: {
-      return state;
-    }
-  }
+export function studentsReducer(state: StudentsState | undefined, action: Action) {
+  return reducer(state, action);
 }

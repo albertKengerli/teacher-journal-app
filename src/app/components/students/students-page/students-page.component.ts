@@ -30,7 +30,7 @@ export class StudentsPageComponent implements OnDestroy, OnInit {
   }
 
   private getStudents(): void {
-    this.store.dispatch(new StudentsActions.GetStudents());
+    this.store.dispatch(StudentsActions.getStudents());
   }
 
   public ngOnInit(): void {
