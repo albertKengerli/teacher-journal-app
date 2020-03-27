@@ -9,7 +9,7 @@ export const getSubjectsState = createFeatureSelector<SubjectsState>(EntitiesNam
 
 export const getSubjectByName = createSelector(
   getSubjectsState,
-  (state: SubjectsState, props) => {
-    return state.data.find( subject => subject.name === props.name);
+  (state: SubjectsState, props: { subjectName: string }) => {
+    return state.data.find( subject => subject.name === props.subjectName);
   }
 );

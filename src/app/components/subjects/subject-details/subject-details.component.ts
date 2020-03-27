@@ -11,7 +11,6 @@ import { GradesService } from "../../../common/services/grades/grades.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
-import { Grade } from "../../../common/entities/grades";
 
 @Component({
   selector: "app-subject-details",
@@ -37,8 +36,8 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   private getSubject(): void {
-    const name: string = this.route.snapshot.paramMap.get("name");
-    this.subject$ = this.store.pipe(select(getSubjectByName, { name }));
+    const subjectName: string = this.route.snapshot.paramMap.get("name");
+    this.subject$ = this.store.pipe(select(getSubjectByName, { subjectName }));
     this.subjectSubscription = this.subject$.subscribe(subject => this.subject = subject);
   }
 
@@ -49,6 +48,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    this.store.dispatch(SubjectsActions.getSubjects());
     this.getSubject();
   }
 
