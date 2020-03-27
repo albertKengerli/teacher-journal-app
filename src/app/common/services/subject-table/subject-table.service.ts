@@ -2,13 +2,12 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, combineLatest } from "rxjs";
 
 import { Store, select } from "@ngrx/store";
-import { AppState, getStudentsData } from "../../../store";
+import { AppState, getStudentsData, getSubjectGrades } from "../../../store";
 import * as StudentsActions from "../../../store/students/students.actions";
+import * as GradesActions from "../../../store/grades/grades.actions";
 
 import { Student } from "../../entities/student";
 import { Grade } from "../../entities/grades";
-
-import { GradesService } from "../grades/grades.service";
 
 @Injectable({
   providedIn: "root"
@@ -20,7 +19,6 @@ export class SubjectTableService {
   private datesList: number[] = [];
 
   constructor(
-    private gradesService: GradesService,
     private store: Store<AppState>,
   ) {}
 
@@ -55,10 +53,11 @@ export class SubjectTableService {
   public serviceInit(subjectId: number): void {
     this.subjectId = subjectId;
     this.store.dispatch(StudentsActions.getStudents());
+    this.store.dispatch(GradesActions.getGrades());
 
     combineLatest(
       this.store.pipe(select(getStudentsData)),
-      this.gradesService.getSubjectGrades(this.subjectId)
+      this.store.pipe(select(getSubjectGrades, { subjectId: this.subjectId })),
     ).subscribe((data) => this.addGradesToStudents(data));
   }
 
