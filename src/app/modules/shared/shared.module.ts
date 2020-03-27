@@ -26,6 +26,11 @@ import { HeaderInterceptor } from "../../common/interceptors/header/header.inter
 
 import { TranslateModule } from "@ngx-translate/core";
 
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+
+import { gradesReducer, GradesEffects } from "../../store/grades";
+
 @NgModule({
   declarations: [
     FormComponent,
@@ -41,6 +46,8 @@ import { TranslateModule } from "@ngx-translate/core";
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    StoreModule.forFeature("grades", gradesReducer),
+    EffectsModule.forFeature([GradesEffects]),
   ],
   exports: [
     TranslateModule,
