@@ -36,7 +36,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private dates: Date[];
 
   @Input() public subject: Subject;
-  @Output() public gradesChange: EventEmitter<any> = new EventEmitter();
+  @Output() public gradesChange: EventEmitter<null> = new EventEmitter();
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
   public dataSource: MatTableDataSource<Student>;
   public columnsNamesList: string[];
@@ -102,6 +102,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     if (input.textContent !== this.editingValue) {
       const gradeAsString: string = input.textContent.trim();
 
+      //TODO use gradeFunctions
       if (!this.isGradeValid(gradeAsString)) {
         input.textContent = "";
         this.editingValue = null;

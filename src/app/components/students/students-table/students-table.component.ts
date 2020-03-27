@@ -92,7 +92,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
       .subscribe( answer => {
         if (answer) {
           this.store.dispatch(StudentsActions.deleteStudent({ id: student.id }));
-          this.gradesService.deleteStudentGrades(+student.id);
+          this.gradesService.deleteStudentGrades(student.id);
         } else {
           return;
         }
