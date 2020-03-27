@@ -106,7 +106,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
       if (!this.isGradeValid(gradeAsString)) {
         input.textContent = "";
         this.editingValue = null;
-        const alertMessage: string = "Put a number from 1 to 10 to the cell or leave it empty to delete the grade";
+        const alertMessage: string = this.translateService.instant("ALERT.SUBJECT_TABLE_GRADE_ERROR");
         window.alert(alertMessage);
         throw alertMessage;
       }

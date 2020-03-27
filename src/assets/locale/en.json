@@ -67,5 +67,8 @@
     "DELETE_STUDENT": "Do you really want to delete {{name}} {{surname}} from students list?",
     "DELETE_SUBJECT": "Do you really want to delete {{subjectName}} from subjects list?",
     "DISCARD_SUBJECT_CHANGES": "Do you want to leave {{subjectName}}? All changes will be discarded."
+  },
+  "ALERT": {
+    "SUBJECT_TABLE_GRADE_ERROR": "Put a number from 1 to 10 to the cell or leave it empty to delete the grade"
   }
 }
