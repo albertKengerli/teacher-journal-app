@@ -1,32 +1,36 @@
-<div *ngIf="subject" class="subjectTable-container">
-  <h2>{{subject.name}}</h2>
+<app-spinner *ngIf="!tableLoaded"></app-spinner>
 
-  <app-subject-table
-    [subject]="subject"
-    (gradesChange)="onGradesChange()">
-  </app-subject-table>
+<ng-container *ngIf="tableLoaded">
+  <div *ngIf="subject" class="subjectTable-container">
+    <h2>{{subject.name}}</h2>
 
-  <mat-form-field>
-    <mat-label>{{ 'FORM.TEACHER_LABEL' | translate }}</mat-label>
-    <input matInput
-      value={{subject.teacher}}
-      (change)="renameTeacher($event)"
-    >
-  </mat-form-field>
+    <app-subject-table
+      [subject]="subject"
+      (gradesChange)="onGradesChange()">
+    </app-subject-table>
 
-  <div class="exitButtons-container">
-    <button mat-flat-button class="exitButtons-button"
-      color="accent"
-      (click)="cancel()"
-    >
-      {{ 'BUTTONS.GO_BACK' | translate }}
-    </button>
-    <button mat-flat-button class="exitButtons-button"
-      *ngIf="teacherChanged || gradesChanged"
-      color="warn"
-      (click)="save()"
-    >
-      {{ 'BUTTONS.SAVE' | translate }}
-    </button>
+    <mat-form-field>
+      <mat-label>{{ 'FORM.TEACHER_LABEL' | translate }}</mat-label>
+      <input matInput
+        value={{subject.teacher}}
+        (change)="renameTeacher($event)"
+      >
+    </mat-form-field>
+
+    <div class="exitButtons-container">
+      <button mat-flat-button class="exitButtons-button"
+        color="accent"
+        (click)="cancel()"
+      >
+        {{ 'BUTTONS.GO_BACK' | translate }}
+      </button>
+      <button mat-flat-button class="exitButtons-button"
+        *ngIf="teacherChanged || gradesChanged"
+        color="warn"
+        (click)="save()"
+      >
+        {{ 'BUTTONS.SAVE' | translate }}
+      </button>
+    </div>
   </div>
-</div>
+</ng-container>
