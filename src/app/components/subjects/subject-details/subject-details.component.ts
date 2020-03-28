@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+
 import { Observable, Subscription } from "rxjs";
+import { filter, take } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
 import { AppState, getSubjectByName } from "../../../store";
@@ -12,7 +14,6 @@ import { SubjectTableService } from "../../../common/services/subject-table/subj
 import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
-import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-subject-details",
@@ -45,10 +46,11 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     this.subject$ = this.store.pipe(
       select(getSubjectByName, { subjectName }),
       filter( subject => subject !== undefined),
+      take(1),
     );
     this.subjectSubscription = this.subject$.subscribe(subject => {
       this.subject = subject;
-      this.subjectTableService.serviceInit(this.subject.id);
+      this.subjectTableService.initService(this.subject.id);
     });
   }
 
@@ -110,5 +112,6 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.subjectSubscription.unsubscribe();
     this.tableDataReadySubscription.unsubscribe();
+    this.subjectTableService.resetService();
   }
 }

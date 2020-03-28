@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject, combineLatest } from "rxjs";
+import { Observable, BehaviorSubject, combineLatest, Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
@@ -14,11 +14,14 @@ import { Grade } from "../../entities/grades";
   providedIn: "root"
 })
 export class SubjectTableService {
+  private tableDataSubscription: Subscription;
   private studentsWithGrades: BehaviorSubject<Student[]> = new BehaviorSubject([]);
   private isDataReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private subjectId: number;
   private dates: Date[] = [];
   private datesList: number[] = [];
+
+  public isInited: boolean = false;
 
   constructor(
     private store: Store<AppState>,
@@ -35,6 +38,7 @@ export class SubjectTableService {
         if (!this.datesList.includes(grade.date)) {
           this.dates.push(new Date(grade.date));
           this.datesList.push(grade.date);
+
         }
         currentStudent[grade.date] = grade.grade;
         gradesSum += grade.grade;
@@ -53,12 +57,14 @@ export class SubjectTableService {
     this.isDataReady.next(true);
   }
 
-  public serviceInit(subjectId: number): void {
+  public initService(subjectId: number): void {
+    this.isInited = true;
+
     this.subjectId = subjectId;
     this.store.dispatch(StudentsActions.getStudents());
     this.store.dispatch(GradesActions.getGrades());
 
-    combineLatest(
+    this.tableDataSubscription = combineLatest(
       this.store.pipe(
         select(getStudentsData),
         filter(students => students.length !== 0),
@@ -80,5 +86,15 @@ export class SubjectTableService {
 
   public getDates(): Date[] {
     return this.dates;
+  }
+
+  public resetService(): void {
+    this.isInited = false;
+    this.tableDataSubscription.unsubscribe();
+    this.isDataReady = new BehaviorSubject(false);
+    this.studentsWithGrades = new BehaviorSubject([]);
+    this.subjectId = null;
+    this.dates = [];
+    this.datesList = [];
   }
 }
