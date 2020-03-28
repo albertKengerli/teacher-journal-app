@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, combineLatest } from "rxjs";
+import { filter } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
 import { AppState, getStudentsData, getSubjectGrades } from "../../../store";
@@ -14,6 +15,7 @@ import { Grade } from "../../entities/grades";
 })
 export class SubjectTableService {
   private studentsWithGrades: BehaviorSubject<Student[]> = new BehaviorSubject([]);
+  private isDataReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private subjectId: number;
   private dates: Date[] = [];
   private datesList: number[] = [];
@@ -48,6 +50,7 @@ export class SubjectTableService {
     });
 
     this.studentsWithGrades.next(studentsWithGrades);
+    this.isDataReady.next(true);
   }
 
   public serviceInit(subjectId: number): void {
@@ -56,8 +59,14 @@ export class SubjectTableService {
     this.store.dispatch(GradesActions.getGrades());
 
     combineLatest(
-      this.store.pipe(select(getStudentsData)),
-      this.store.pipe(select(getSubjectGrades, { subjectId: this.subjectId })),
+      this.store.pipe(
+        select(getStudentsData),
+        filter(students => students.length !== 0),
+      ),
+      this.store.pipe(
+        select(getSubjectGrades, { subjectId: this.subjectId }),
+        filter(grades => grades.length !== 0),
+      ),
     ).subscribe((data) => this.addGradesToStudents(data));
   }
 
@@ -65,8 +74,11 @@ export class SubjectTableService {
     return this.studentsWithGrades.asObservable();
   }
 
+  public getDataReadyObservable(): Observable<boolean> {
+    return this.isDataReady.asObservable();
+  }
+
   public getDates(): Date[] {
     return this.dates;
   }
-
 }
