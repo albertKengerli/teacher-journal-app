@@ -16,6 +16,7 @@ import { Subject } from "../../../common/entities/subject";
 import { Grade } from "../../../common/entities/grades";
 
 import { compareDates } from "../../../common/helpers/sorting";
+import * as GradesFunctions from "../../../common/helpers/gradeFunctions";
 
 import { СolumnNames } from "../../../common/constants/tableColumnNames";
 
@@ -73,11 +74,11 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.columnsNamesList = [...defaultColumnsNames, ...datesStringList];
   }
 
-  private isGradeValid(grade: string): boolean {
-    if ( (isNaN(+grade) || +grade < 1 || +grade > 10) && grade !== "") {
-      return false;
-    } else {
+  private isGradeValidForTable(gradeAsString: string, gradeAsNumber: number): boolean {
+    if ( GradesFunctions.isGradeValid(gradeAsNumber) || gradeAsString === "") {
       return true;
+    } else {
+      return false;
     }
   }
 
@@ -101,27 +102,27 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
     if (input.textContent !== this.editingValue) {
       const gradeAsString: string = input.textContent.trim();
+      const gradeAsNumber: number = gradeAsString === "" ? null : Number(gradeAsString);
 
-      //TODO use gradeFunctions
-      if (!this.isGradeValid(gradeAsString)) {
-        input.textContent = "";
+      if (!this.isGradeValidForTable(gradeAsString, gradeAsNumber)) {
+        input.textContent = this.editingValue;
         this.editingValue = null;
+
         const alertMessage: string = this.translateService.instant("ALERT.SUBJECT_TABLE_GRADE_ERROR");
         window.alert(alertMessage);
         throw alertMessage;
       }
 
-      const newValue: number = gradeAsString === "" ? null : Number(gradeAsString);
-
       const newGrade: Grade = {
         studentId: studentId,
         subjectId: this.subject.id,
         date: date,
-        grade: newValue,
+        grade: gradeAsNumber,
       };
 
       input.textContent = gradeAsString;
       this.editingValue = null;
+
       this.gradesChange.emit();
       this.gradesService.prepareGradeForSending(newGrade);
     }
