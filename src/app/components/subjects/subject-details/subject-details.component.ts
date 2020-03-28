@@ -8,9 +8,11 @@ import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { GradesService } from "../../../common/services/grades/grades.service";
+import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
+import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-subject-details",
@@ -20,25 +22,34 @@ import { Subject } from "../../../common/entities/subject";
 export class SubjectDetailsComponent implements OnInit, OnDestroy {
   private subject$: Observable<Subject>;
   private subjectSubscription: Subscription;
+  private tableDataReadySubscription: Subscription;
   private newTeacherName: string;
 
   public subject: Subject;
   public teacherChanged: boolean;
   public gradesChanged: boolean;
+  public tableLoaded: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dialogService: DialogService,
     private gradesService: GradesService,
+    private subjectTableService: SubjectTableService,
     private translateService: TranslateService,
     private store: Store<AppState>,
   ) { }
 
   private getSubject(): void {
     const subjectName: string = this.route.snapshot.paramMap.get("name");
-    this.subject$ = this.store.pipe(select(getSubjectByName, { subjectName }));
-    this.subjectSubscription = this.subject$.subscribe(subject => this.subject = subject);
+    this.subject$ = this.store.pipe(
+      select(getSubjectByName, { subjectName }),
+      filter( subject => subject !== undefined),
+    );
+    this.subjectSubscription = this.subject$.subscribe(subject => {
+      this.subject = subject;
+      this.subjectTableService.serviceInit(this.subject.id);
+    });
   }
 
   private updateTeacher(): void {
@@ -50,6 +61,8 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.store.dispatch(SubjectsActions.getSubjects());
     this.getSubject();
+    this.tableDataReadySubscription = this.subjectTableService.getDataReadyObservable()
+      .subscribe( dataReady => this.tableLoaded = dataReady);
   }
 
   public onGradesChange(): void {
@@ -96,5 +109,6 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.subjectSubscription.unsubscribe();
+    this.tableDataReadySubscription.unsubscribe();
   }
 }

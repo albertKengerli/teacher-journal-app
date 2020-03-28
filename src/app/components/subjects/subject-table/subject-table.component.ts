@@ -84,7 +84,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.tableInit();
-    this.subjectTableService.serviceInit(this.subject.id);
+
     this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
       .subscribe( data => {
         this.updateDataSource(data);
