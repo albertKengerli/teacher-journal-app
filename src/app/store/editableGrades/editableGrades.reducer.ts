@@ -21,7 +21,7 @@ const reducer = createReducer(
 
     return {
       ...state,
-      newData,
+      data: newData,
     };
   }),
 
