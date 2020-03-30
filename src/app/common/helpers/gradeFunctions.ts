@@ -37,3 +37,8 @@ export function areGradesInterchangeable(grade1: Grade, grade2: Grade): boolean 
     return false;
   }
 }
+
+export function generateId(studentId: number, subjectId: number, date: number): number {
+  let newId: number = parseInt(`${studentId}${subjectId}${date}`, 10);
+  return newId;
+}
