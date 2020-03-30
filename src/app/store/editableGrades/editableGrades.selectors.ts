@@ -8,7 +8,7 @@ import { Grade } from "../../common/entities/grades";
 /* tslint:disable:typedef */
 export const getEditableGradesState = createFeatureSelector<EditableGradesState>(EntitiesNames.EditableGrades);
 
-export const getEditableGradesIdByProperties = createSelector(
+export const getEditableGradeIdByProperties = createSelector(
   getEditableGradesState,
 
   (state: EditableGradesState, props: {
@@ -26,6 +26,14 @@ export const getEditableGradesIdByProperties = createSelector(
       }
     });
 
-    return requiredGrade.id;
+    return requiredGrade?.id || null;
   }
+);
+
+export const getEditableGradeById = createSelector(
+  getEditableGradesState,
+
+  (state: EditableGradesState, props: {id: number}) => {
+    return state.data.find(grade => grade.id === props.id);
+  },
 );
