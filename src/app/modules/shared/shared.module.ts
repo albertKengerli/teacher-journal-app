@@ -30,6 +30,7 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
 import { gradesReducer, GradesEffects } from "../../store/grades";
+import { editableGradesReducer } from "../../store/editableGrades";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { gradesReducer, GradesEffects } from "../../store/grades";
     MatProgressSpinnerModule,
     StoreModule.forFeature("grades", gradesReducer),
     EffectsModule.forFeature([GradesEffects]),
+    StoreModule.forFeature("editableGrades", editableGradesReducer),
   ],
   exports: [
     TranslateModule,
