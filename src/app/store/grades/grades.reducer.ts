@@ -43,13 +43,15 @@ const reducer = createReducer(
     };
   }),
 
-  on(GradesActions.updateGradeSuccess, (state, { id, grade }) => {
-    const data: Grade[] = [...state.data];
-    data[id] = grade;
+  on(GradesActions.updateGradeSuccess, (state, { id, grade: newGrade }) => {
+    const newData: Grade[] = [...state.data];
+
+    const updatingGradeIndex: number = newData.findIndex( grade => grade.id === id);
+    newData[updatingGradeIndex] = newGrade;
 
     return {
       ...state,
-      data,
+      data: newData,
     };
   })
 );
