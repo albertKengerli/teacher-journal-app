@@ -10,11 +10,11 @@ export const getGradesSuccess = createAction(
 );
 
 export const addGrade = createAction(
-  "[Grades] ADD_GRADES",
+  "[Grades] ADD_GRADE",
   props<{ grade: Grade }>()
 );
 export const addGradeSuccess = createAction(
-  "[Grades] ADD_GRADES_SUCCESS",
+  "[Grades] ADD_GRADE_SUCCESS",
   props<{ grade: Grade }>()
 );
 
