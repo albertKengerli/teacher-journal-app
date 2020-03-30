@@ -11,6 +11,10 @@ import { SubjectTableService } from "../../../common/services/subject-table/subj
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { TranslateService } from "@ngx-translate/core";
 
+import { Store, select } from "@ngrx/store";
+import { AppState, getEditableGradeIdByProperties } from "../../../store";
+import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
+
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
 import { Grade } from "../../../common/entities/grades";
@@ -19,6 +23,7 @@ import { compareDates } from "../../../common/helpers/sorting";
 import * as GradesFunctions from "../../../common/helpers/gradeFunctions";
 
 import { СolumnNames } from "../../../common/constants/tableColumnNames";
+import { GradeOperations } from "../../../common/constants/gradesConstants";
 
 const defaultColumnsNames: string[] = [
   СolumnNames.Name,
@@ -45,6 +50,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   public datePickControl: FormControl = new FormControl(new Date());
 
   constructor(
+    private store: Store<AppState>,
     private subjectTableService: SubjectTableService,
     private gradesService: GradesService,
     private translateService: TranslateService,
@@ -113,18 +119,63 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
         throw alertMessage;
       }
 
+      let gradeOperation: string;
+      let id: number;
+      let gradeAlreadyExists: boolean;
+      const gradeIsDeleted: boolean = gradeAsNumber ? false : true;
+
+      this.store.pipe(select(getEditableGradeIdByProperties, {
+        studentId,
+        subjectId: this.subject.id,
+        date,
+      })).subscribe( neededId => {
+        if (neededId) {
+          id = neededId;
+          gradeAlreadyExists = true;
+        } else {
+          gradeAlreadyExists = false;
+        }
+      });
+
+      if (gradeAlreadyExists && !gradeIsDeleted) {
+        gradeOperation = GradeOperations.Update;
+      }
+      if (gradeAlreadyExists && gradeIsDeleted) {
+        gradeOperation = GradeOperations.Delete;
+      }
+      if (!gradeAlreadyExists && !gradeIsDeleted) {
+        gradeOperation = GradeOperations.Post;
+        id = GradesFunctions.generateId(studentId, this.subject.id, date);
+      }
+      if (!gradeAlreadyExists && gradeIsDeleted) {
+        gradeOperation = GradeOperations.Remove;
+        id = GradesFunctions.generateId(studentId, this.subject.id, date);
+      }
+
       const newGrade: Grade = {
+        id,
         studentId: studentId,
         subjectId: this.subject.id,
-        date: date,
+        date,
         grade: gradeAsNumber,
       };
+
+      switch (gradeOperation) {
+        case GradeOperations.Update:
+          this.store.dispatch(EditableGradesActions.updateEditableGrade({ id, newGrade }));
+          break;
+        case GradeOperations.Post:
+          this.store.dispatch(EditableGradesActions.postEditableGrade({ grade: newGrade }));
+          break;
+        default:
+          break;
+      }
 
       input.textContent = gradeAsString;
       this.editingValue = null;
 
       this.gradesChange.emit();
-      this.gradesService.prepareGradeForSending(newGrade);
+      this.gradesService.prepareGradeForSending(id, gradeOperation);
     }
   }
 

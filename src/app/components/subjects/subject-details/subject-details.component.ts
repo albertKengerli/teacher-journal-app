@@ -7,6 +7,7 @@ import { filter, take } from "rxjs/operators";
 import { Store, select } from "@ngrx/store";
 import { AppState, getSubjectByName } from "../../../store";
 import * as SubjectsActions from "../../../store/subjects/subjects.actions";
+import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { GradesService } from "../../../common/services/grades/grades.service";
@@ -110,6 +111,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.store.dispatch(EditableGradesActions.resetEditableGrades());
     this.subjectSubscription.unsubscribe();
     this.tableDataReadySubscription.unsubscribe();
     this.subjectTableService.resetService();
