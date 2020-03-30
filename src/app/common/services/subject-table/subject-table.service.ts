@@ -6,6 +6,7 @@ import { Store, select } from "@ngrx/store";
 import { AppState, getStudentsData, getSubjectGrades } from "../../../store";
 import * as StudentsActions from "../../../store/students/students.actions";
 import * as GradesActions from "../../../store/grades/grades.actions";
+import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
 import { Student } from "../../entities/student";
 import { Grade } from "../../entities/grades";
@@ -28,6 +29,7 @@ export class SubjectTableService {
   ) {}
 
   private addGradesToStudents([students, subjectGrades]: [Student[], Grade[]]): void {
+    this.store.dispatch(EditableGradesActions.addEditableGrades({ grades: subjectGrades }));
     const studentsWithGrades: Student[] = students.map( student => {
       const currentStudent: Student = {...student};
 
