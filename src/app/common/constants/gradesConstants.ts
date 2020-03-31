@@ -8,5 +8,5 @@ export enum GradeOperations {
   Delete = "Delete grade",
   Post = "Post grade",
   Update = "Update grade",
-  Remove = "Remove operation"
+  RevertOperation = "Revert operation"
 }
