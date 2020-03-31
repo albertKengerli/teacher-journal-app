@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, combineLatest, Subscription } from "rxjs";
-import { filter } from "rxjs/operators";
+import { filter, take } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
 import { AppState, getStudentsData, getSubjectGrades } from "../../../store";
@@ -70,10 +70,12 @@ export class SubjectTableService {
       this.store.pipe(
         select(getStudentsData),
         filter(students => students.length !== 0),
+        take(1),
       ),
       this.store.pipe(
         select(getSubjectGrades, { subjectId: this.subjectId }),
         filter(grades => grades.length !== 0),
+        take(1),
       ),
     ).subscribe((data) => this.addGradesToStudents(data));
   }
