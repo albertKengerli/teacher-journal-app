@@ -5,7 +5,7 @@ import { FormControl } from "@angular/forms";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 
 import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
 import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
@@ -88,6 +88,66 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  private getGradeOperationForSending(gradeAlreadyExists: boolean, gradeIsDeleted: boolean): string {
+    if (gradeAlreadyExists && !gradeIsDeleted) {
+      return GradeOperations.Update;
+    }
+    if (gradeAlreadyExists && gradeIsDeleted) {
+      return GradeOperations.Delete;
+    }
+    if (!gradeAlreadyExists && !gradeIsDeleted) {
+      return GradeOperations.Post;
+    }
+    if (!gradeAlreadyExists && gradeIsDeleted) {
+      return GradeOperations.RevertOperation;
+    }
+  }
+
+  private cancelGradeChange(gradeInput: HTMLElement): void {
+    gradeInput.textContent = this.editingValue;
+    this.editingValue = null;
+
+    const alertMessage: string = this.translateService.instant("ALERT.SUBJECT_TABLE_GRADE_ERROR");
+    window.alert(alertMessage);
+    throw alertMessage;
+  }
+
+  private getGradesId(studentId: number, subjectId: number, date: number): Observable<number> {
+    return this.store.pipe(select(getEditableGradeIdByProperties, {
+      studentId,
+      subjectId: this.subject.id,
+      date,
+    }));
+  }
+
+  private updateEditableGrades(
+    gradeId: number,
+    studentId: number,
+    subjectId: number,
+    grade: number,
+    date: number,
+    gradeOperation: string
+  ): void {
+    const newGrade: Grade = {
+      id: gradeId,
+      studentId,
+      subjectId,
+      date,
+      grade,
+    };
+
+    switch (gradeOperation) {
+      case GradeOperations.Update:
+        this.store.dispatch(EditableGradesActions.updateEditableGrade({ id: gradeId, newGrade }));
+        break;
+      case GradeOperations.Post:
+        this.store.dispatch(EditableGradesActions.postEditableGrade({ grade: newGrade }));
+        break;
+      default:
+        break;
+    }
+  }
+
   public ngOnInit(): void {
     this.tableInit();
 
@@ -104,78 +164,41 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   public handleGradeChange(studentId: number, date: number, event: Event): void {
-    const input: HTMLElement = event.target as HTMLElement;
+    const gradeInput: HTMLElement = event.target as HTMLElement;
 
-    if (input.textContent !== this.editingValue) {
-      const gradeAsString: string = input.textContent.trim();
+    if (gradeInput.textContent !== this.editingValue) {
+      const gradeAsString: string = gradeInput.textContent.trim();
       const gradeAsNumber: number = gradeAsString === "" ? null : Number(gradeAsString);
 
       if (!this.isGradeValidForTable(gradeAsString, gradeAsNumber)) {
-        input.textContent = this.editingValue;
-        this.editingValue = null;
-
-        const alertMessage: string = this.translateService.instant("ALERT.SUBJECT_TABLE_GRADE_ERROR");
-        window.alert(alertMessage);
-        throw alertMessage;
+        this.cancelGradeChange(gradeInput);
       }
 
-      let gradeOperation: string;
-      let id: number;
+      let gradeId: number;
       let gradeAlreadyExists: boolean;
       const gradeIsDeleted: boolean = gradeAsNumber ? false : true;
 
-      this.store.pipe(select(getEditableGradeIdByProperties, {
-        studentId,
-        subjectId: this.subject.id,
-        date,
-      })).subscribe( neededId => {
-        if (neededId) {
-          id = neededId;
-          gradeAlreadyExists = true;
-        } else {
-          gradeAlreadyExists = false;
-        }
-      });
+      this.getGradesId(studentId, this.subject.id, date)
+        .subscribe( foundGradeId => {
+          gradeId = foundGradeId;
+          gradeAlreadyExists = gradeId ? true : false;
+        });
 
-      if (gradeAlreadyExists && !gradeIsDeleted) {
-        gradeOperation = GradeOperations.Update;
-      }
-      if (gradeAlreadyExists && gradeIsDeleted) {
-        gradeOperation = GradeOperations.Delete;
-      }
-      if (!gradeAlreadyExists && !gradeIsDeleted) {
-        gradeOperation = GradeOperations.Post;
-        id = GradesFunctions.generateId(studentId, this.subject.id, date);
-      }
-      if (!gradeAlreadyExists && gradeIsDeleted) {
-        gradeOperation = GradeOperations.Remove;
-        id = GradesFunctions.generateId(studentId, this.subject.id, date);
+      if (!gradeId) {
+        gradeId = GradesFunctions.generateId(studentId, this.subject.id, date);
       }
 
-      const newGrade: Grade = {
-        id,
-        studentId: studentId,
-        subjectId: this.subject.id,
-        date,
-        grade: gradeAsNumber,
-      };
+      const gradeOperation: string = this.getGradeOperationForSending(gradeAlreadyExists, gradeIsDeleted);
 
-      switch (gradeOperation) {
-        case GradeOperations.Update:
-          this.store.dispatch(EditableGradesActions.updateEditableGrade({ id, newGrade }));
-          break;
-        case GradeOperations.Post:
-          this.store.dispatch(EditableGradesActions.postEditableGrade({ grade: newGrade }));
-          break;
-        default:
-          break;
+      if (!gradeIsDeleted) {
+        this.updateEditableGrades(gradeId, studentId, this.subject.id, gradeAsNumber, date, gradeOperation);
       }
 
-      input.textContent = gradeAsString;
+      gradeInput.textContent = gradeAsString;
       this.editingValue = null;
 
       this.gradesChange.emit();
-      this.gradesSenderService.prepareGradeForSending(id, gradeOperation);
+      this.gradesSenderService.prepareGradeForSending(gradeId, gradeOperation);
     }
   }
 
