@@ -21,19 +21,19 @@ export class GradesSenderService {
   constructor(private store: Store<AppState>) { }
 
   public prepareGradeForSending(gradeId: number, operation: string): void {
-    this.gradesToSend[GradeOperations.Post].delete(gradeId);
-    this.gradesToSend[GradeOperations.Update].delete(gradeId);
-    this.gradesToSend[GradeOperations.Delete].delete(gradeId);
+    for (const gradeOperation of Object.keys(this.gradesToSend)) {
+      this.gradesToSend[gradeOperation].delete(gradeId);
+    }
 
-    if (operation !== GradeOperations.Remove) {
+    if (operation !== GradeOperations.RevertOperation) {
       this.gradesToSend[operation].add(gradeId);
     }
   }
 
   public emptyPreparedGrades(): void {
-    this.gradesToSend[GradeOperations.Delete].clear();
-    this.gradesToSend[GradeOperations.Post].clear();
-    this.gradesToSend[GradeOperations.Update].clear();
+    for (const gradeOperation of Object.keys(this.gradesToSend)) {
+      this.gradesToSend[gradeOperation].clear();
+    }
   }
 
   public sendPreparedGrades(): void {
