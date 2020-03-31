@@ -4,7 +4,7 @@ import { Action } from "@ngrx/store";
 import { Actions , createEffect, ofType } from "@ngrx/effects";
 
 import { Observable } from "rxjs";
-import { switchMap, map, pluck } from "rxjs/operators";
+import { switchMap, map, pluck, mergeMap } from "rxjs/operators";
 
 import * as GradesActions from "./grades.actions";
 
@@ -28,12 +28,8 @@ export class GradesEffects {
     this.actions$.pipe(
       ofType(GradesActions.addGrade),
       pluck("grade"),
-      switchMap(grade => {
-        return this.gradeService.postGrade(grade)
-          .pipe(
-            map(() => GradesActions.addGradeSuccess({ grade }))
-          );
-      })
+      mergeMap(grade => this.gradeService.postGrade(grade)),
+      map((grade) => GradesActions.addGradeSuccess({ grade }))
     )
   );
 
