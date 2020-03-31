@@ -8,7 +8,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { Subscription } from "rxjs";
 
 import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
-import { GradesService } from "../../../common/services/grades/grades.service";
+import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Store, select } from "@ngrx/store";
@@ -52,7 +52,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private subjectTableService: SubjectTableService,
-    private gradesService: GradesService,
+    private gradesSenderService: GradesSenderService,
     private translateService: TranslateService,
     private datePipe: DatePipe,
   ) { }
@@ -175,7 +175,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
       this.editingValue = null;
 
       this.gradesChange.emit();
-      this.gradesService.prepareGradeForSending(id, gradeOperation);
+      this.gradesSenderService.prepareGradeForSending(id, gradeOperation);
     }
   }
 

@@ -10,7 +10,7 @@ import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
 import { DialogService } from "../../../common/services/dialog/dialog.service";
-import { GradesService } from "../../../common/services/grades/grades.service";
+import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
 import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
 import { TranslateService } from "@ngx-translate/core";
 
@@ -36,7 +36,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private dialogService: DialogService,
-    private gradesService: GradesService,
+    private gradesSenderService: GradesSenderService,
     private subjectTableService: SubjectTableService,
     private translateService: TranslateService,
     private store: Store<AppState>,
@@ -83,7 +83,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
 
   public save(): void {
     if (this.gradesChanged) {
-      this.gradesService.sendPreparedGrades();
+      this.gradesSenderService.sendPreparedGrades();
     }
 
     if (this.teacherChanged) {
@@ -95,7 +95,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   public cancel(): void {
-    this.gradesService.emptyPreparedGrades();
+    this.gradesSenderService.emptyPreparedGrades();
     this.router.navigate(["subjects"]);
   }
 
