@@ -4,8 +4,10 @@ import { Store, select } from "@ngrx/store";
 import { AppState, getEditableGradeById } from "../../../store";
 import * as GradesActions from "../../../store/grades/grades.actions";
 
+import { Observable } from "rxjs";
 import { take, filter } from "rxjs/operators";
 
+import { Grade } from "../../entities/grades";
 import { GradeOperations } from "../../constants/gradesConstants";
 
 @Injectable({
@@ -19,6 +21,14 @@ export class GradesSenderService {
   };
 
   constructor(private store: Store<AppState>) { }
+
+  private getGradeFromEditableGrades(gradeId: number): Observable<Grade> {
+    return this.store.pipe(
+      select(getEditableGradeById, { id: gradeId }),
+      filter(grade => grade !== undefined),
+      take(1),
+    );
+  }
 
   public prepareGradeForSending(gradeId: number, operation: string): void {
     for (const gradeOperation of Object.keys(this.gradesToSend)) {
@@ -42,23 +52,14 @@ export class GradesSenderService {
     });
 
     this.gradesToSend[GradeOperations.Post].forEach( gradeId => {
-      this.store.pipe(
-        select(getEditableGradeById, { id: gradeId }),
-        filter(grade => grade !== undefined),
-        take(1),
-      ).subscribe(grade => this.store.dispatch(GradesActions.addGrade({ grade })));
+      this.getGradeFromEditableGrades(gradeId)
+        .subscribe(gradeForSending => this.store.dispatch(GradesActions.addGrade({ grade: gradeForSending })));
     });
 
     this.gradesToSend[GradeOperations.Update].forEach( gradeId => {
-      this.store.pipe(
-        select(getEditableGradeById, { id: gradeId }),
-        filter(grade => grade !== undefined),
-        take(1),
-      )
-        .subscribe(grade => this.store.dispatch(GradesActions.updateGrade({ id: gradeId, grade })));
+      this.getGradeFromEditableGrades(gradeId)
+        .subscribe(gradeForSending => this.store.dispatch(GradesActions.updateGrade({ id: gradeId, grade: gradeForSending })));
     });
-
-    // TODO create method for this pipe
 
     this.emptyPreparedGrades();
   }
