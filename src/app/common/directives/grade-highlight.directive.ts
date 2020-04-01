@@ -25,7 +25,7 @@ export class GradeHighlightDirective implements OnInit {
     const currentGrade: number = this.getCurrentGrade(newGrade);
 
     if (!GradeFunctions.isGradeValid(currentGrade)) {
-      this.renderer.setStyle(this.node, "borderBottom", null);
+      this.renderer.setStyle(this.node, "borderBottom", `solid 10px transparent`);
       return;
     }
 
