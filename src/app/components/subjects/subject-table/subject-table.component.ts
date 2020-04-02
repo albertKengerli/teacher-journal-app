@@ -3,7 +3,6 @@ import { DatePipe } from "@angular/common";
 import { FormControl } from "@angular/forms";
 
 import { MatTableDataSource } from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
 
 import { Subscription, Observable } from "rxjs";
 
@@ -43,7 +42,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   @Input() public subject: Subject;
   @Output() public gradesChange: EventEmitter<null> = new EventEmitter();
-  @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
+
   public dataSource: MatTableDataSource<Student>;
   public columnsNamesList: string[];
   public datesToRender: object[];
@@ -57,13 +56,8 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     private datePipe: DatePipe,
   ) { }
 
-  private tableInit(): void {
-    this.paginator._intl.itemsPerPageLabel = this.translateService.instant("TABLE.PAGINATOR_LABEL");
-  }
-
   private updateDataSource(data: Student[]): void {
     this.dataSource = new MatTableDataSource(data);
-    this.dataSource.paginator = this.paginator;
   }
 
   private manageDates(dates: Date[]): void {
@@ -149,8 +143,6 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.tableInit();
-
     this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
       .subscribe( data => {
         this.updateDataSource(data);

@@ -8,30 +8,61 @@
 
   &-container {
     margin: 1rem;
-    width: 60rem;
+    min-width: 60rem;
+    height: 30rem;
+    overflow: auto;
   }
 
-  &-averageCell {
-    justify-content: space-around;
+  &-table {
+    width: 10000px;
   }
 
-  &-gradeHeader {
-    justify-content: space-around;
+  &-header {
+    &__name {
+      flex: 0 0 100px;
+    }
+
+    &__surname {
+      flex: 0 0 100px;
+    }
+
+    &__averageGrade {
+      flex: 0 0 140px;
+      border-right: 1px solid;
+    }
+
+    &__grade {
+      justify-content: space-around;
+      flex: 0 0 75px;
+    }
   }
 
-  &-gradeCell {
-    justify-content: space-around;
-    text-align: center;
+  &-cell {
+    height: 70px;
+    &__name {
+      flex: 0 0 100px;
+    }
+
+    &__surname {
+      flex: 0 0 100px;
+    }
+
+    &__averageGrade {
+      flex: 0 0 140px;
+      justify-content: space-around;
+      border-right: 1px solid;
+    }
+
+    &__grade {
+      flex: 0 0 75px;
+      text-align: center;
+    }
   }
 
   &-gradeText {
     padding: 1.5rem 0;
     display: inline-block;
     width: 7rem;
-  }
-
-  &-gradeDelete {
-    margin: 1rem 1rem;
   }
 }
 
