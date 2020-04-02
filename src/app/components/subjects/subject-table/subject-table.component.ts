@@ -106,7 +106,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     throw alertMessage;
   }
 
-  private getGradesId(studentId: number, subjectId: number, date: number): Observable<number> {
+  private getGradeId(studentId: number, subjectId: number, date: number): Observable<number> {
     return this.store.pipe(select(getEditableGradeIdByProperties, {
       studentId,
       subjectId: this.subject.id,
@@ -170,7 +170,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
       let gradeAlreadyExists: boolean;
       const gradeIsDeleted: boolean = gradeAsNumber ? false : true;
 
-      this.getGradesId(studentId, this.subject.id, date)
+      this.getGradeId(studentId, this.subject.id, date)
         .subscribe( foundGradeId => {
           gradeId = foundGradeId;
           gradeAlreadyExists = gradeId ? true : false;
