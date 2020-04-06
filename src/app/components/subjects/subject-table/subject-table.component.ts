@@ -21,14 +21,9 @@ import { Grade } from "../../../common/entities/grades";
 import { compareDates } from "../../../common/helpers/sorting";
 import * as GradesFunctions from "../../../common/helpers/gradeFunctions";
 
-import { СolumnNames } from "../../../common/constants/tableColumnNames";
 import { GradeOperations } from "../../../common/constants/gradesConstants";
 
-const defaultColumnsNames: string[] = [
-  СolumnNames.Name,
-  СolumnNames.Surname,
-  СolumnNames.AverageGrade,
-];
+import { SubjectTableDateObject, defaultColumnsNames, paginationStep, PaginatorSelection } from "./subject-table.model";
 
 @Component({
   selector: "app-subject-table",
@@ -40,12 +35,18 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   private editingValue: string;
   private dates: Date[];
 
+  public paginatorSelection: PaginatorSelection = {
+    start: null,
+    end: null,
+  };
+
   @Input() public subject: Subject;
   @Output() public gradesChange: EventEmitter<null> = new EventEmitter();
 
   public dataSource: MatTableDataSource<Student>;
   public columnsNamesList: string[];
-  public datesToRender: object[];
+  public datesToRender: SubjectTableDateObject[];
+  public selectedDates: SubjectTableDateObject[];
   public datePickControl: FormControl = new FormControl(new Date());
 
   constructor(
@@ -64,14 +65,13 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.dates = dates;
     this.dates.sort(compareDates);
     this.datesToRender = this.dates.map(date => {
-      const current: object = {
+      const current: SubjectTableDateObject = {
         string: this.datePipe.transform(date, "LL/dd"),
         number: date.getTime(),
       };
       return current;
     });
-    const datesStringList: string[] = this.dates.map(date => this.datePipe.transform(date, "LL/dd"));
-    this.columnsNamesList = [...defaultColumnsNames, ...datesStringList];
+    this.initPaginator();
   }
 
   private isGradeValidForTable(gradeAsString: string, gradeAsNumber: number): boolean {
@@ -142,6 +142,39 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  private manageColumnsNamesList(): void {
+    const currentDates: Date[] = this.selectedDates.map(dateObj => new Date(dateObj.number));
+    const datesStringList: string[] = currentDates.map(date => this.datePipe.transform(date, "LL/dd"));
+    this.columnsNamesList = [...defaultColumnsNames, ...datesStringList];
+  }
+
+  private initPaginator(): void {
+    this.paginatorSelection.start = 0;
+    this.paginatorSelection.end = paginationStep;
+    this.selectedDates = this.datesToRender.slice(this.paginatorSelection.start, this.paginatorSelection.end);
+    this.manageColumnsNamesList();
+  }
+
+  public paginatorShowNext(): void {
+    if (this.paginatorSelection.start + paginationStep >= this.datesToRender.length) {
+      return;
+    }
+    this.paginatorSelection.start += paginationStep;
+    this.paginatorSelection.end += paginationStep;
+    this.selectedDates = this.datesToRender.slice(this.paginatorSelection.start, this.paginatorSelection.end);
+    this.manageColumnsNamesList();
+  }
+
+  public paginatorShowPrevious(): void {
+    if (this.paginatorSelection.start === 0) {
+      return;
+    }
+    this.paginatorSelection.start -= paginationStep;
+    this.paginatorSelection.end -= paginationStep;
+    this.selectedDates = this.datesToRender.slice(this.paginatorSelection.start, this.paginatorSelection.end);
+    this.manageColumnsNamesList();
+  }
+
   public ngOnInit(): void {
     this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
       .subscribe( data => {
@@ -199,21 +232,21 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     target.blur();
   }
 
-  public addColumn(): void {
+  public addDate(): void {
     const newDate: Date = this.datePickControl.value;
     const dateString: string = this.datePipe.transform(newDate, "LL/dd");
 
-    if (this.columnsNamesList.includes(dateString)) {
-      const errorMessage: string = "This date exists already! Choose different date";
-      window.alert(errorMessage);
-      throw errorMessage;
-    }
+    // if (this.columnsNamesList.includes(dateString)) {
+    //   const errorMessage: string = "This date exists already! Choose different date";
+    //   window.alert(errorMessage);
+    //   throw errorMessage;
+    // }
 
     this.datesToRender.push({
       string: dateString,
       number: newDate.getTime(),
     });
-    this.columnsNamesList.push(dateString);
+    // this.columnsNamesList.push(dateString);
     this.datePickControl.setValue(new Date());
   }
 

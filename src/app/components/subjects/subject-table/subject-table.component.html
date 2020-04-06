@@ -27,7 +27,7 @@
         </mat-cell>
       </ng-container>
 
-      <ng-container *ngFor="let date of datesToRender" [matColumnDef]="date.string">
+      <ng-container *ngFor="let date of selectedDates" [matColumnDef]="date.string">
         <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-header subjectsTable-header__grade ">{{date.string}}</mat-header-cell>
         <mat-cell
           class="subjectsTable subjectsTable-cell subjectsTable-cell__grade"
@@ -48,19 +48,16 @@
 
     </mat-table>
   </div>
-  <div class="subjectsTable newColumn-container">
-    <mat-form-field class="newColumn-datepicker">
-      <mat-label>{{ 'FORM.DATEPICKER_LABEL' | translate }}</mat-label>
-      <input matInput [matDatepicker]="picker" [formControl]="datePickControl">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <button mat-flat-button
-      class="subjectsTable newColumn-addButton"
-      color="accent"
-      (click)="addColumn()"
-    >
-       {{ 'BUTTONS.ADD_NEW_DATE' | translate }}
-    </button>
+
+  <div class="pagination pagination-container">
+    <button mat-flat-button color="primary" class="pagination pagination-button"
+      (click)="paginatorShowPrevious()"
+    >Previous dates</button>
+    <span class="pagination pagination-label">
+      {{paginatorSelection.start + 1}} - {{paginatorSelection.end}} of {{datesToRender.length}}
+    </span>
+    <button mat-flat-button color="primary" class="pagination pagination-button"
+      (click)="paginatorShowNext()"
+    >Next dates</button>
   </div>
 </div>
