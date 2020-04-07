@@ -12,6 +12,7 @@
   "FORM": {
     "SEARCH": "Поиск",
     "DATEPICKER_LABEL": "Дата для новой колонки",
+    "ADD_DATE_HEADING": "Выберите новую дату",
     "ADD_STUDENT_HEADING": "Добавить нового ученика",
     "STUDENT_NAME_LABEL": "Имя",
     "STUDENT_NAME_PLACEHOLDER": "Джэк",
@@ -59,8 +60,11 @@
   "BUTTONS": {
     "GO_BACK": "Вернуться",
     "SAVE": "Сохранить",
+    "CANCEL": "Отменить",
     "ADD_NEW_DATE": "Добавить новую дату",
-    "ADD": "Добавить"
+    "ADD": "Добавить",
+    "PREVIOUS_DATES": "Предыдущие даты",
+    "NEXT_DATES": "Следующие даты"
   },
   "DIALOG": {
     "DEFAULT": "Все верно?",
@@ -70,5 +74,9 @@
   },
   "ALERT": {
     "SUBJECT_TABLE_GRADE_ERROR": "Введите число от 1 до 10 в ячейку или оставьте ее пустой, для того чтобы удалить оценку"
-  }
+  },
+  "TOOLTIPS": {
+    "ADD_DATE": "Добавить новую дату в таблицу"
+  },
+  "OF": "из"
 }

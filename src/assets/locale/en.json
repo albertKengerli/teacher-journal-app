@@ -12,6 +12,7 @@
   "FORM": {
     "SEARCH": "Search",
     "DATEPICKER_LABEL": "Date for a new column",
+    "ADD_DATE_HEADING": "Choose new date",
     "ADD_STUDENT_HEADING": "Add new student",
     "STUDENT_NAME_LABEL": "Name",
     "STUDENT_NAME_PLACEHOLDER": "Jack",
@@ -59,8 +60,10 @@
   "BUTTONS": {
     "GO_BACK": "Go back",
     "SAVE": "Save",
-    "ADD_NEW_DATE": "Add new date",
-    "ADD": "Add"
+    "CANCEL": "Cancel",
+    "ADD": "Add",
+    "PREVIOUS_DATES": "Previous dates",
+    "NEXT_DATES": "Next dates"
   },
   "DIALOG": {
     "DEFAULT": "Is it ok?",
@@ -70,5 +73,9 @@
   },
   "ALERT": {
     "SUBJECT_TABLE_GRADE_ERROR": "Put a number from 1 to 10 to the cell or leave it empty to delete the grade"
-  }
+  },
+  "TOOLTIPS": {
+    "ADD_DATE": "Add new date to the table"
+  },
+  "OF": "of"
 }

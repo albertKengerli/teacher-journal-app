@@ -1,0 +1,13 @@
+<h1 class="datepickerDialog-header" mat-dialog-title>{{ 'FORM.ADD_DATE_HEADING' | translate }}</h1>
+<mat-dialog-content class="datepickerDialog">
+  <mat-form-field>
+    <mat-label>{{ 'FORM.DATEPICKER_LABEL' | translate }}</mat-label>
+    <input matInput [matDatepickerFilter]="filterExistingDates" [matDatepicker]="picker" [formControl]="datePickControl">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions class="datepickerDialog" align="end">
+  <button class="datepickerDialog" mat-button (click)="cancelDialog()">{{ 'BUTTONS.CANCEL' | translate }}</button>
+  <button class="datepickerDialog" mat-button [mat-dialog-close]="datePickControl.value">{{ 'BUTTONS.ADD' | translate }}</button>
+</mat-dialog-actions>

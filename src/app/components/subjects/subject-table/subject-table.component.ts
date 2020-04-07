@@ -3,8 +3,11 @@ import { DatePipe } from "@angular/common";
 import { FormControl } from "@angular/forms";
 
 import { MatTableDataSource } from "@angular/material/table";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 
 import { Subscription, Observable } from "rxjs";
+
+import { DatepickerDialogComponent } from "../../../shared/components/datepicker-dialog/datepicker-dialog.component";
 
 import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
 import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
@@ -55,6 +58,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     private gradesSenderService: GradesSenderService,
     private translateService: TranslateService,
     private datePipe: DatePipe,
+    private dialog: MatDialog,
   ) { }
 
   private updateDataSource(data: Student[]): void {
@@ -233,8 +237,8 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   public addDate(): void {
-    const newDate: Date = this.datePickControl.value;
-    const dateString: string = this.datePipe.transform(newDate, "LL/dd");
+    // const newDate: Date = this.datePickControl.value;
+    // const dateString: string = this.datePipe.transform(newDate, "LL/dd");
 
     // if (this.columnsNamesList.includes(dateString)) {
     //   const errorMessage: string = "This date exists already! Choose different date";
@@ -242,12 +246,27 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     //   throw errorMessage;
     // }
 
-    this.datesToRender.push({
-      string: dateString,
-      number: newDate.getTime(),
-    });
+    // this.datesToRender.push({
+    //   string: dateString,
+    //   number: newDate.getTime(),
+    // });
     // this.columnsNamesList.push(dateString);
-    this.datePickControl.setValue(new Date());
+    // this.datePickControl.setValue(new Date());
+  }
+
+  public openDatepickerDialog(): void {
+    const datesAsNumbers: number[] = this.dates.map(currentDate => currentDate.getTime());
+    const dialogRef: MatDialogRef<DatepickerDialogComponent> = this.dialog.open(DatepickerDialogComponent, {
+      height: "215px",
+      width: "300px",
+      data: { dates: [...datesAsNumbers] },
+    });
+
+    dialogRef.afterClosed().subscribe(newDate => {
+      if (newDate) {
+        console.log(newDate);
+      }
+    });
   }
 
   public ngOnDestroy(): void {

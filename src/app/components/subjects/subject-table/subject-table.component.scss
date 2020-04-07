@@ -1,12 +1,17 @@
 .component {
   margin: 2rem auto;
+
+  &-tableWrapper {
+    display: flex;
+    margin: 0 auto 2rem auto;
+    width: 52rem;
+  }
 }
 
 .subjectsTable {
   font-size: 1.2rem;
 
   &-container {
-    margin: 2rem auto;
     width: 50rem;
     height: 30rem;
     overflow: auto;
@@ -61,17 +66,6 @@
   }
 }
 
-// .newColumn {
-//   &-container {
-//     margin-top: 1rem;
-//     margin-left: 2rem;
-//   }
-
-//   &-addButton {
-//     display: block;
-//   }
-// }
-
 .pagination {
   &-container {
     display: flex;
@@ -83,4 +77,11 @@
     padding-left: 15px;
     padding-right: 15px;
   }
+}
+
+.newDate {
+  position: relative;
+  top: -15px;
+  left: -28px;
+  z-index: 100;
 }

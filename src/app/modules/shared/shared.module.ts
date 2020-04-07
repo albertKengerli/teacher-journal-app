@@ -17,9 +17,14 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSelectModule } from "@angular/material/select";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 import { FormComponent } from "../../shared/components/form/form.component";
 import { SpinnerComponent } from "../../shared/components/spinner/spinner.component";
+import { DatepickerDialogComponent } from "../../shared/components/datepicker-dialog/datepicker-dialog.component";
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HeaderInterceptor } from "../../common/interceptors/header/header.interceptor";
@@ -35,7 +40,8 @@ import { editableGradesReducer } from "../../store/editableGrades";
 @NgModule({
   declarations: [
     FormComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    DatepickerDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +53,10 @@ import { editableGradesReducer } from "../../store/editableGrades";
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    MatTooltipModule,
     StoreModule.forFeature("grades", gradesReducer),
     EffectsModule.forFeature([GradesEffects]),
     StoreModule.forFeature("editableGrades", editableGradesReducer),
@@ -71,6 +81,10 @@ import { editableGradesReducer } from "../../store/editableGrades";
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatTooltipModule,
   ],
   providers: [
     MatDatepickerModule,
@@ -80,5 +94,8 @@ import { editableGradesReducer } from "../../store/editableGrades";
       multi: true,
     },
   ],
+  entryComponents: [
+    DatepickerDialogComponent,
+  ]
 })
 export class SharedModule { }
