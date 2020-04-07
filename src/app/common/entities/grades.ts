@@ -1,7 +1,7 @@
 export interface Grade {
   id?: number;
-  studentID: number;
-  subjectID: number;
+  studentId: number;
+  subjectId: number;
   date: number;
   grade: number;
 }

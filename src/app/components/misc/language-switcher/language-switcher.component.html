@@ -1,0 +1,13 @@
+<button mat-flat-button
+  class="switch-button"
+  [ngClass]=""
+  color="accent"
+  [ngClass]="{'switch-button_active': isLanguageActive('en')}"
+  (click)="setLanguage('en')"
+  >EN</button>
+<button mat-flat-button
+  class="switch-button"
+  color="accent"
+  [ngClass]="{'switch-button_active': isLanguageActive('ru')}"
+  (click)="setLanguage('ru')"
+  >RU</button>

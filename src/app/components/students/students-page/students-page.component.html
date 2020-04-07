@@ -1,4 +1,8 @@
-<app-students-table></app-students-table>
-<a routerLink="/students/add" mat-fab>
-  <mat-icon>add</mat-icon>
-</a>
+<app-spinner *ngIf="!studentsLoaded"></app-spinner>
+
+<ng-container *ngIf="studentsLoaded">
+  <app-students-table></app-students-table>
+  <a routerLink="/students/add" mat-fab>
+    <mat-icon>add</mat-icon>
+  </a>
+</ng-container>

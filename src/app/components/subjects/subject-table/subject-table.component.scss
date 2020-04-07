@@ -1,27 +1,62 @@
 .component {
-  display: flex;
-  justify-content: center;
+  margin: 2rem auto;
+
+  &-tableWrapper {
+    display: flex;
+    margin: 0 auto 2rem auto;
+    width: 52rem;
+  }
 }
 
 .subjectsTable {
   font-size: 1.2rem;
 
   &-container {
-    margin: 1rem;
-    max-width: 60rem;
+    width: 50rem;
+    height: 30rem;
+    overflow: auto;
   }
 
-  &-averageCell {
-    justify-content: space-around;
+  &-header {
+    &__name {
+      flex: 0 0 100px;
+    }
+
+    &__surname {
+      flex: 0 0 100px;
+    }
+
+    &__averageGrade {
+      flex: 0 0 140px;
+      border-right: 1px solid;
+    }
+
+    &__grade {
+      justify-content: space-around;
+      flex: 0 0 76px;
+    }
   }
 
-  &-gradeHeader {
-    justify-content: space-around;
-  }
+  &-cell {
+    height: 70px;
+    &__name {
+      flex: 0 0 100px;
+    }
 
-  &-gradeCell {
-    justify-content: space-around;
-    text-align: center;
+    &__surname {
+      flex: 0 0 100px;
+    }
+
+    &__averageGrade {
+      flex: 0 0 140px;
+      justify-content: space-around;
+      border-right: 1px solid;
+    }
+
+    &__grade {
+      flex: 0 0 76px;
+      text-align: center;
+    }
   }
 
   &-gradeText {
@@ -29,19 +64,24 @@
     display: inline-block;
     width: 7rem;
   }
+}
 
-  &-gradeDelete {
-    margin: 1rem 1rem;
+.pagination {
+  &-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-label {
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
-.newColumn {
-  &-container {
-    margin-top: 1rem;
-    margin-left: 2rem;
-  }
-
-  &-addButton {
-    display: block;
-  }
+.newDate {
+  position: relative;
+  top: -15px;
+  left: -28px;
+  z-index: 100;
 }

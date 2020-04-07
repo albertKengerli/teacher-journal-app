@@ -12,7 +12,7 @@ const subjectsRoutes: Routes = [
   {
     path: "subjects",
     component: SubjectsRootComponent,
-    data: { breadcrumb: "Subjects"},
+    data: { breadcrumb: "SUBJECTS.TITLE"},
     children: [
       {
         path: "",
@@ -21,12 +21,12 @@ const subjectsRoutes: Routes = [
       {
         path: "add",
         component: SubjectFormComponent,
-        data: { breadcrumb: "Add subject"},
+        data: { breadcrumb: "SUBJECTS.ADD_SUBJECT"},
       },
       {
         path: ":name",
         component: SubjectDetailsComponent,
-        data: { breadcrumb: "Subject page"},
+        data: { breadcrumb: "SUBJECTS.SUBJECT_PAGE"},
         canDeactivate: [CanDeactivateGuard],
       },
     ],

@@ -4,7 +4,7 @@ import { Action } from "@ngrx/store";
 import { Actions , Effect, ofType } from "@ngrx/effects";
 
 import { Observable } from "rxjs";
-import { switchMap, map } from "rxjs/operators";
+import { switchMap, map, pluck } from "rxjs/operators";
 
 import * as StudentsActions from "./students.actions";
 
@@ -15,33 +15,35 @@ export class StudentsEffects {
 
   @Effect()
   public getStudents$: Observable<Action> = this.actions$.pipe(
-    ofType<StudentsActions.GetStudents>(StudentsActions.StudentsActionNames.GET_STUDENTS),
+    ofType(StudentsActions.getStudents),
     switchMap(() => {
       return this.studentService.getStudents()
         .pipe(
-          map(students => new StudentsActions.GetStudentsSuccess(students))
+          map(students => StudentsActions.getStudentsSuccess({ students }))
         );
     })
   );
 
   @Effect()
   public addStudent$: Observable<Action> = this.actions$.pipe(
-    ofType<StudentsActions.AddStudent>(StudentsActions.StudentsActionNames.ADD_STUDENT),
-    switchMap(action => {
-      return this.studentService.addStudent(action.payload)
+    ofType(StudentsActions.addStudent),
+    pluck("student"),
+    switchMap(student => {
+      return this.studentService.addStudent(student)
         .pipe(
-          map(student => new StudentsActions.AddStudentSuccess(student))
+          map(() => StudentsActions.addStudentSuccess({ student }))
         );
     })
   );
 
   @Effect()
   public deleteStudent$: Observable<Action> = this.actions$.pipe(
-    ofType<StudentsActions.DeleteStudent>(StudentsActions.StudentsActionNames.DELETE_STUDENT),
-    switchMap(action => {
-      return this.studentService.deleteStudent(action.payload)
+    ofType(StudentsActions.deleteStudent),
+    pluck("id"),
+    switchMap(id => {
+      return this.studentService.deleteStudent(id)
         .pipe(
-          map(() => new StudentsActions.DeleteStudentSuccess(action.payload))
+          map(() => StudentsActions.deleteStudentSuccess({ id }))
         );
     })
   );

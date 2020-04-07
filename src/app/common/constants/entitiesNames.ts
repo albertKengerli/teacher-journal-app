@@ -1,5 +1,6 @@
-export enum entitiesNames {
-  students = "students",
-  subjects = "subjects",
-  grades = "grades",
+export enum EntitiesNames {
+  Students = "students",
+  Subjects = "subjects",
+  Grades = "grades",
+  EditableGrades = "editableGrades",
 }

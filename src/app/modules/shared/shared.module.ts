@@ -16,27 +16,55 @@ import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSelectModule } from "@angular/material/select";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 import { FormComponent } from "../../shared/components/form/form.component";
+import { SpinnerComponent } from "../../shared/components/spinner/spinner.component";
+import { DatepickerDialogComponent } from "../../shared/components/datepicker-dialog/datepicker-dialog.component";
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HeaderInterceptor } from "../../common/interceptors/header/header.interceptor";
 
+import { TranslateModule } from "@ngx-translate/core";
+
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+
+import { gradesReducer, GradesEffects } from "../../store/grades";
+import { editableGradesReducer } from "../../store/editableGrades";
+
 @NgModule({
   declarations: [
     FormComponent,
+    SpinnerComponent,
+    DatepickerDialogComponent,
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
     MatCardModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    MatTooltipModule,
+    StoreModule.forFeature("grades", gradesReducer),
+    EffectsModule.forFeature([GradesEffects]),
+    StoreModule.forFeature("editableGrades", editableGradesReducer),
   ],
   exports: [
+    TranslateModule,
     FormComponent,
+    SpinnerComponent,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -53,6 +81,10 @@ import { HeaderInterceptor } from "../../common/interceptors/header/header.inter
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatTooltipModule,
   ],
   providers: [
     MatDatepickerModule,
@@ -62,5 +94,8 @@ import { HeaderInterceptor } from "../../common/interceptors/header/header.inter
       multi: true,
     },
   ],
+  entryComponents: [
+    DatepickerDialogComponent,
+  ]
 })
 export class SharedModule { }

@@ -9,14 +9,14 @@
         color="accent"
         [routerLink]="[route.url]"
       >
-        {{route.displayName}}
+        {{translateBreadcrumb(route.displayName)}}
       </a>
       <a mat-flat-button
         *ngIf="route.terminal"
         class="breadcrumb-item"
         color="primary"
       >
-        {{route.displayName}}
+        {{translateBreadcrumb(route.displayName)}}
       </a>
     </span>
   </breadcrumb>

@@ -1,7 +1,7 @@
 <div class="container" style="background-color: rgba(255,255,255,0.1)">
 
   <mat-tab-group>
-    <mat-tab #studentsTab label="Students">
+    <mat-tab #studentsTab [label]="'STUDENTS.TITLE' | translate">
       <mat-nav-list>
         <mat-list-item
           *ngFor="let student of students"
@@ -13,7 +13,7 @@
       </mat-nav-list>
     </mat-tab>
 
-    <mat-tab #subjectsTab label="Subjects">
+    <mat-tab #subjectsTab [label]="'SUBJECTS.TITLE' | translate">
       <mat-nav-list>
         <mat-list-item
           *ngFor="let subject of subjects"
@@ -33,12 +33,12 @@
 
       <div class="rating-container">
         <img src="./assets/rating-placeholder.png" alt="Student rating">
-        <p class="mat-body-strong">Rating</p>
+        <p class="mat-body-strong">{{ 'STATISTICS.RATING' | translate }}</p>
       </div>
 
       <div class="graph-container">
         <img src="./assets/graph-placeholder.png" alt="Students graph">
-        <p class="mat-body-strong">Graphic</p>
+        <p class="mat-body-strong">{{ 'STATISTICS.GRAPHIC' | translate }}</p>
       </div>
     </ng-container>
   </mat-card>
@@ -48,11 +48,11 @@
       <mat-card-title>{{selectedSubject.name}}</mat-card-title>
       <mat-card-subtitle>{{selectedSubject.description}}</mat-card-subtitle>
       <div>
-        <h3>Best performing student</h3>
+        <h3>{{ 'STATISTICS.BEST_PERFORMING_STUDENT' | translate }}</h3>
         <p>
           Kurt Cobain
         </p>
-        <h3>Worst performing student</h3>
+        <h3>{{ 'STATISTICS.WORST_PERFORMING_STUDENT' | translate }}</h3>
         <p>
           Joe Rogan
         </p>

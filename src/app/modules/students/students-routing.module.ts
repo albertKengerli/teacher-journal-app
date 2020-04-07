@@ -9,7 +9,7 @@ const studentsRoutes: Routes = [
   {
     path: "students",
     component: StudentsRootComponent,
-    data: { breadcrumb: "Students" },
+    data: { breadcrumb: "STUDENTS.TITLE" },
     children: [
       {
         path: "",
@@ -18,7 +18,7 @@ const studentsRoutes: Routes = [
       {
         path: "add",
         component: StudentsFormComponent,
-        data: { breadcrumb: "Add student" },
+        data: { breadcrumb: "STUDENTS.ADD_STUDENT" },
       },
     ]
   }

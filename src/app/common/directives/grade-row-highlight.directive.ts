@@ -1,13 +1,13 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@angular/core";
 
+import * as GradeFunctions from "../helpers/gradeFunctions";
+
 @Directive({
   selector: "[appGradeRowHighlight]"
 })
 export class GradeRowHighlightDirective implements OnInit {
-  @Input() private averageGrade: string;
+  @Input() private averageGrade: number;
   private parentNode: Node;
-  private positiveColor: string = "#388e3c";
-  private negativeColor: string = "#5472d3";
 
   constructor(
     private element: ElementRef,
@@ -15,19 +15,12 @@ export class GradeRowHighlightDirective implements OnInit {
   ) { }
 
   private highlightRow(): void {
-    let color: string = "";
-
-    if (+this.averageGrade > 5) {
-      color = this.positiveColor;
-    } else {
-      color = this.negativeColor;
-    }
+    const color: string = GradeFunctions.getColorForGrade(this.averageGrade);
 
     this.renderer.setStyle(this.parentNode, "backgroundColor", color);
   }
 
   private dehighlightRow(): void {
-    /* tslint:disable-next-line:no-null-keyword*/
     this.renderer.setStyle(this.parentNode, "backgroundColor", null);
   }
 

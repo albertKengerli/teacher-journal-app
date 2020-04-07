@@ -1,0 +1,81 @@
+{
+  "APPNAME": "Teacher Journal",
+  "TABLE": {
+    "NAME": "Name",
+    "SURNAME": "Last name",
+    "ADDRESS": "Address",
+    "DESCRIPTION": "Description",
+    "DELETE_STUDENT": "Delete student",
+    "AVERAGE_GRADE": "Average grade",
+    "PAGINATOR_LABEL": "Students per page"
+  },
+  "FORM": {
+    "SEARCH": "Search",
+    "DATEPICKER_LABEL": "Date for a new column",
+    "ADD_DATE_HEADING": "Choose new date",
+    "ADD_STUDENT_HEADING": "Add new student",
+    "STUDENT_NAME_LABEL": "Name",
+    "STUDENT_NAME_PLACEHOLDER": "Jack",
+    "STUDENT_SURNAME_LABEL": "Last name",
+    "STUDENT_SURNAME_PLACEHOLDER": "Black",
+    "ADDRESS_LABEL": "Address",
+    "ADDRESS_PLACEHOLDER": "pr. Zhukova 2",
+    "STUDENT_DESCRIPTION_LABEL": "Description",
+    "STUDENT_DESCRIPTION_PLACEHOLDER": "Good guy, works hard",
+    "ADD_SUBJECT_HEADING": "Add new subject",
+    "TEACHER_LABEL": "Teacher",
+    "TEACHER_PLACEHOLDER": "M. Ivanovna",
+    "ROOM_LABEL": "Room",
+    "SUBJECT_NAME_LABEL": "Name",
+    "SUBJECT_NAME_PLACEHOLDER": "Mathematics",
+    "SUBJECT_DESCRIPTION_LABEL": "Description",
+    "SUBJECT_DESCRIPTION_PLACEHOLDER": "Will blow your mind...",
+    "VALIDATION_ERRORS": {
+      "REQUIRED_FIELD": "This field is required!",
+      "ONLY_NUMBERS": "Only numbers are allowed",
+      "ONLY_ALPHABET_AND_SPECIALS": "Only a-z, and special characters are allowed"
+    }
+  },
+  "STUDENTS": {
+    "TITLE": "Students",
+    "ADD_STUDENT": "Add student",
+    "SEARCHBAR_HINT": "Enter any info of students"
+  },
+  "SUBJECTS": {
+    "TITLE": "Subjects",
+    "SUBJECT_PAGE": "Subjects page",
+    "ADD_SUBJECT": "Add subject"
+  },
+  "STATISTICS": {
+    "TITLE": "Statistics",
+    "RATING": "Rating",
+    "GRAPHIC": "Graphic",
+    "BEST_PERFORMING_STUDENT": "Best performing student",
+    "WORST_PERFORMING_STUDENT": "Worst performing student"
+  },
+  "EXPORT": {
+    "TITLE": "Export",
+    "HEADING": "Export as files"
+  },
+  "BUTTONS": {
+    "GO_BACK": "Go back",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "ADD": "Add",
+    "PREVIOUS_DATES": "Previous dates",
+    "NEXT_DATES": "Next dates"
+  },
+  "DIALOG": {
+    "DEFAULT": "Is it ok?",
+    "DELETE_STUDENT": "Do you really want to delete {{name}} {{surname}} from students list?",
+    "DELETE_SUBJECT": "Do you really want to delete {{subjectName}} from subjects list?",
+    "DISCARD_SUBJECT_CHANGES": "Do you want to leave {{subjectName}}? All changes will be discarded."
+  },
+  "ALERT": {
+    "SUBJECT_TABLE_GRADE_ERROR": "Put a number from 1 to 10 to the cell or leave it empty to delete the grade"
+  },
+  "TOOLTIPS": {
+    "ADD_DATE": "Add new date to the table"
+  },
+  "OF": "of"
+}

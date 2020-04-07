@@ -8,23 +8,23 @@
       <div class="form-field">
 
         <mat-form-field [ngSwitch]="field.type">
-          <mat-label>{{field.label}}</mat-label>
+          <mat-label>{{field.label | translate}}</mat-label>
           <input matInput
             *ngSwitchCase="'text'"
             [formControlName]="field.name"
             [required]="field.required ? true : false"
-            placeholder={{field.placeholder}}
+            [placeholder]='field.placeholder | translate'
           >
 
           <textarea matInput
             *ngSwitchCase="'text-area'"
             [formControlName]="field.name"
             [required]="field.required ? true : false"
-            placeholder={{field.placeholder}}
+            [placeholder]='field.placeholder | translate'
           ></textarea>
 
-          <mat-error *ngIf="formGroup.get(field.name)?.hasError('required')">This field is required!</mat-error>
-          <mat-error *ngIf="formGroup.get(field.name)?.hasError('pattern')">{{field.errorMessage}}</mat-error>
+          <mat-error *ngIf="formGroup.get(field.name)?.hasError('required')">{{ 'FORM.VALIDATION_ERRORS.REQUIRED_FIELD' | translate }}</mat-error>
+          <mat-error *ngIf="formGroup.get(field.name)?.hasError('pattern')">{{field.errorMessage | translate}}</mat-error>
 
         </mat-form-field>
 
@@ -37,7 +37,7 @@
         [disabled]="formGroup.invalid"
         (click)="submit()"
       >
-        Add
+        {{ 'BUTTONS.ADD' | translate }}
       </button>
 
       <button mat-raised-button
@@ -45,7 +45,7 @@
         color="accent"
         (click)="goBack()"
       >
-        Back
+        {{ 'BUTTONS.GO_BACK' | translate }}
       </button>
     </div>
   </form>

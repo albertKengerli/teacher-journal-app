@@ -20,8 +20,8 @@ export class StudentService {
     return this.http.post<Student>(this.url, student);
   }
 
-  public deleteStudent(studentID: number): Observable<object> {
-    const currentURL: string = `${this.url}/${studentID}`;
+  public deleteStudent(studentId: number): Observable<object> {
+    const currentURL: string = `${this.url}/${studentId}`;
     return this.http.delete<object>(currentURL);
   }
 

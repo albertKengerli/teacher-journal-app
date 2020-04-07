@@ -16,9 +16,9 @@ import { Student } from "../../../common/entities/student";
 import { StudentService } from "../../../common/services/student/student.service";
 import { GradesService } from "../../../common/services/grades/grades.service";
 import { DialogService } from "../../../common/services/dialog/dialog.service";
-import { OverlayService } from "../../../common/services/overlay/overlay.service";
+import { TranslateService } from "@ngx-translate/core";
 
-import { columnNames } from "../../../common/constants/tableColumnNames";
+import { СolumnNames } from "../../../common/constants/tableColumnNames";
 
 @Component({
   selector: "app-students-table",
@@ -33,12 +33,11 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   public dataSource: MatTableDataSource<Student>;
   public dataLoaded: boolean = false;
   public columnsNamesList: String[] = [
-    columnNames.id,
-    columnNames.name,
-    columnNames.surname,
-    columnNames.address,
-    columnNames.description,
-    columnNames.delete,
+    СolumnNames.Name,
+    СolumnNames.Surname,
+    СolumnNames.Address,
+    СolumnNames.Description,
+    СolumnNames.Delete,
   ];
 
   @ViewChild(MatSort, {static: true}) public sort: MatSort;
@@ -49,54 +48,49 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
     private studentService: StudentService,
     private gradesService: GradesService,
     private dialogService: DialogService,
-    private overlayService: OverlayService,
+    private translateService: TranslateService,
     private store: Store<AppState>,
   ) {}
 
   private getStudents(): void {
     this.studentsState$ = this.store.pipe(select(getStudentsState));
-    this.store.dispatch(new StudentsActions.GetStudents());
     this.studentStateSubscription = this.studentsState$
       .subscribe(studentsState => {
-        if (studentsState.loading) {
-          this.overlayService.showSpinner();
-        }
-        this.updateStudents(studentsState.data);
-        if (studentsState.loaded) {
-          this.overlayService.hideSpinner();
-        }
+        this.updateDataSource(studentsState.data);
       });
   }
 
-  private updateStudents(students: Student[]): void {
-    this.dataSource.data = students;
-  }
-
-  private dataSourceInit(): void {
-    this.dataSource = new MatTableDataSource();
+  private updateDataSource(students: Student[]): void {
+    this.dataSource = new MatTableDataSource(students);
     this.dataSource.sort = this.sort;
+    this.paginator._intl.itemsPerPageLabel = this.translateService.instant("TABLE.PAGINATOR_LABEL");
     this.dataSource.paginator = this.paginator;
   }
 
   private searchFieldInit(): void {
     const searchBarObservable: Observable<Student[]> = fromEvent<KeyboardEvent>(this.searchBar.nativeElement, "keyup")
-    .pipe(
-      map(event => (event.target as HTMLInputElement).value),
-      debounceTime(350),
-      distinctUntilChanged(),
-      switchMap(query => this.studentService.searchStudent(query))
+      .pipe(
+        map(event => (event.target as HTMLInputElement).value),
+        debounceTime(350),
+        distinctUntilChanged(),
+        switchMap(query => this.studentService.searchStudent(query))
     );
 
     this.searchBarSubscription = searchBarObservable
-      .subscribe(students => this.updateStudents(students));
+      .subscribe(students => this.updateDataSource(students));
   }
 
   public deleteStudent(student: Student): void {
-    this.dialogService.confirmAction(`Do you really want to delete ${student.name} ${student.surname} from students list?`)
+    const confirmationMessage: string = this.translateService.instant(
+      "DIALOG.DELETE_STUDENT",
+      { name: student.name, surname: student.surname }
+    );
+
+    this.dialogService.confirmAction(confirmationMessage)
       .subscribe( answer => {
         if (answer) {
-          this.store.dispatch(new StudentsActions.DeleteStudent(+student.id));
-          this.gradesService.deleteStudentGrades(+student.id);
+          this.store.dispatch(StudentsActions.deleteStudent({ id: student.id }));
+          this.gradesService.deleteStudentGrades(student.id);
         } else {
           return;
         }
@@ -104,7 +98,6 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   public ngOnInit(): void {
-    this.dataSourceInit();
     this.getStudents();
   }
 

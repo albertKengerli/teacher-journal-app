@@ -1,16 +1,20 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+
 import { Observable, Subscription } from "rxjs";
+import { filter, take } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
 import { AppState, getSubjectByName } from "../../../store";
 import * as SubjectsActions from "../../../store/subjects/subjects.actions";
+import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
 import { DialogService } from "../../../common/services/dialog/dialog.service";
-import { GradesService } from "../../../common/services/grades/grades.service";
+import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
+import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
+import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
-import { Grade } from "../../../common/entities/grades";
 
 @Component({
   selector: "app-subject-details",
@@ -20,46 +24,34 @@ import { Grade } from "../../../common/entities/grades";
 export class SubjectDetailsComponent implements OnInit, OnDestroy {
   private subject$: Observable<Subject>;
   private subjectSubscription: Subscription;
-  private gradesToSend: Grade[] = [];
+  private tableDataReadySubscription: Subscription;
   private newTeacherName: string;
 
   public subject: Subject;
   public teacherChanged: boolean;
   public gradesChanged: boolean;
+  public tableLoaded: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dialogService: DialogService,
-    private gradesService: GradesService,
+    private gradesSenderService: GradesSenderService,
+    private subjectTableService: SubjectTableService,
+    private translateService: TranslateService,
     private store: Store<AppState>,
   ) { }
 
   private getSubject(): void {
-    const name: string = this.route.snapshot.paramMap.get("name");
-    this.subject$ = this.store.pipe(select(getSubjectByName, { name }));
-    this.subjectSubscription = this.subject$.subscribe(subject => this.subject = subject);
-  }
-
-  private sendGrades(): void {
-    this.gradesToSend.forEach(grade => {
-      if (grade.grade === 0) {
-        return this.gradesService.getGradeByStudentSubjectDate(grade.studentID, grade.subjectID, grade.date)
-          .subscribe(answer => {
-            if (answer.length !== 0) {
-              this.gradesService.deleteGrade(answer[0].id).subscribe();
-            }
-          });
-      }
-
-      this.gradesService.getGradeByStudentSubjectDate(grade.studentID, grade.subjectID, grade.date)
-        .subscribe(answer => {
-          if (answer.length === 0) {
-            this.gradesService.addGrade(grade).subscribe();
-          } else {
-            this.gradesService.updateGrade(answer[0].id, grade).subscribe();
-          }
-        });
+    const subjectName: string = this.route.snapshot.paramMap.get("name");
+    this.subject$ = this.store.pipe(
+      select(getSubjectByName, { subjectName }),
+      filter( subject => subject !== undefined),
+      take(1),
+    );
+    this.subjectSubscription = this.subject$.subscribe(subject => {
+      this.subject = subject;
+      this.subjectTableService.initService(this.subject.id);
     });
   }
 
@@ -70,24 +62,13 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    this.store.dispatch(SubjectsActions.getSubjects());
     this.getSubject();
+    this.tableDataReadySubscription = this.subjectTableService.getDataReadyObservable()
+      .subscribe( dataReady => this.tableLoaded = dataReady);
   }
 
-  public addGradeToSend(newGrade: Grade): void {
-    let gradeNotAdded: boolean = true;
-    this.gradesToSend.forEach( (grade, index, array) => {
-      if (grade.studentID === newGrade.studentID && grade.date === newGrade.date) {
-        array[index] = newGrade;
-        gradeNotAdded = false;
-      } else if (index === array.length - 1 ) {
-        gradeNotAdded = true;
-      }
-    });
-
-    if (gradeNotAdded) {
-      this.gradesToSend.push(newGrade);
-    }
-
+  public onGradesChange(): void {
     this.gradesChanged = true;
   }
 
@@ -102,7 +83,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
 
   public save(): void {
     if (this.gradesChanged) {
-      this.sendGrades();
+      this.gradesSenderService.sendPreparedGrades();
     }
 
     if (this.teacherChanged) {
@@ -114,6 +95,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   public cancel(): void {
+    this.gradesSenderService.emptyPreparedGrades();
     this.router.navigate(["subjects"]);
   }
 
@@ -121,11 +103,17 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     if (!this.teacherChanged && !this.gradesChanged) {
       return true;
     } else {
-      return this.dialogService.confirmAction(`Do you want to leave ${this.subject.name}? All changes will be discarded.`);
+      const confirmationMessage: string = this.translateService.instant("DIALOG.DISCARD_SUBJECT_CHANGES", {
+        subjectName: this.subject.name
+      });
+      return this.dialogService.confirmAction(confirmationMessage);
     }
   }
 
   public ngOnDestroy(): void {
+    this.store.dispatch(EditableGradesActions.resetEditableGrades());
     this.subjectSubscription.unsubscribe();
+    this.tableDataReadySubscription.unsubscribe();
+    this.subjectTableService.resetService();
   }
 }

@@ -1,4 +1,8 @@
-<app-subjects-list></app-subjects-list>
-<a routerLink="/subjects/add" mat-fab>
-  <mat-icon>add</mat-icon>
-</a>
+<app-spinner *ngIf="!subjectsLoaded"></app-spinner>
+
+<ng-container *ngIf="subjectsLoaded">
+  <app-subjects-list></app-subjects-list>
+  <a routerLink="/subjects/add" mat-fab>
+    <mat-icon>add</mat-icon>
+  </a>
+</ng-container>

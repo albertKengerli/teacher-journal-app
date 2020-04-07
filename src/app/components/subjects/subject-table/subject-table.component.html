@@ -1,67 +1,75 @@
 <div class="component">
-  <div class="subjectsTable-container">
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <div class="component-tableWrapper">
 
-      <mat-header-row *matHeaderRowDef="columnsNamesList"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: columnsNamesList"></mat-row>
+    <div class="subjectsTable-container">
+      <mat-table [dataSource]="dataSource" class="subjectsTable-table mat-elevation-z8">
 
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef class="subjectsTable">Name</mat-header-cell>
-        <mat-cell *matCellDef="let student" class="subjectsTable">{{student.name}}</mat-cell>
-      </ng-container>
+        <mat-header-row *matHeaderRowDef="columnsNamesList; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsNamesList"></mat-row>
 
-      <ng-container matColumnDef="surname">
-        <mat-header-cell *matHeaderCellDef class="subjectsTable">Surname</mat-header-cell>
-        <mat-cell *matCellDef="let student" class="subjectsTable">{{student.surname}}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="name" sticky>
+          <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-header subjectsTable-header__name">{{ 'TABLE.NAME' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let student" class="subjectsTable subjectsTable-cell subjectsTable-cell__name">{{student.name}}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="averageGrade" >
-        <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-averageHeader">Average Grade</mat-header-cell>
-        <mat-cell
-          class="subjectsTable subjectsTable-averageCell"
-          *matCellDef="let student"
-          appGradeRowHighlight
-          [averageGrade]="student.averageGrade"
-        >
-          {{student.averageGrade}}
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="surname" sticky>
+          <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-header subjectsTable-header__surname">{{ 'TABLE.SURNAME' | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let student" class="subjectsTable subjectsTable-cell subjectsTable-cell__surname">{{student.surname}}</mat-cell>
+        </ng-container>
 
-      <ng-container *ngFor="let date of datesToRender" [matColumnDef]="date.string">
-        <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-gradeHeader">{{date.string}}</mat-header-cell>
-        <mat-cell
-          class="subjectsTable subjectsTable-gradeCell"
-          *matCellDef="let student"
-        >
-          <span
-            appGradeHighlight
-            [grade]="student[date.number]"
-            class="subjectsTable-gradeText"
-            contenteditable="true"
-            (focus)="saveEditingCell($event)"
-            (keydown.enter)="handleEnter($event)"
-            (blur)="handleGradeChange(student.id, date.number, $event)"
+        <ng-container matColumnDef="averageGrade" sticky>
+          <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-header subjectsTable-header__averageGrade">{{ 'TABLE.AVERAGE_GRADE' | translate }}</mat-header-cell>
+          <mat-cell
+            class="subjectsTable subjectsTable-cell subjectsTable-cell__averageGrade"
+            *matCellDef="let student"
+            appGradeRowHighlight
+            [averageGrade]="student.averageGrade"
           >
-            {{student[date.number]}}</span>
-        </mat-cell>
-      </ng-container>
+            {{student.averageGrade}}
+          </mat-cell>
+        </ng-container>
 
-    </mat-table>
-    <mat-paginator class="mat-elevation-z8" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
-  </div>
-  <div class="subjectsTable newColumn-container">
-    <mat-form-field class="newColumn-datepicker">
-      <mat-label>Date for a new column</mat-label>
-      <input matInput [matDatepicker]="picker" [formControl]="datePickControl">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <button mat-flat-button
-      class="subjectsTable newColumn-addButton"
+        <ng-container *ngFor="let date of selectedDates" [matColumnDef]="date.string">
+          <mat-header-cell *matHeaderCellDef class="subjectsTable subjectsTable-header subjectsTable-header__grade ">{{date.string}}</mat-header-cell>
+          <mat-cell
+            class="subjectsTable subjectsTable-cell subjectsTable-cell__grade"
+            *matCellDef="let student"
+          >
+            <span
+              appGradeHighlight
+              [initialGrade]="student[date.number]"
+              class="subjectsTable-gradeText"
+              contenteditable="true"
+              (focus)="saveEditingCell($event)"
+              (keydown.enter)="handleEnter($event)"
+              (blur)="handleGradeChange(student.id, date.number, $event)"
+            >
+              {{student[date.number]}}</span>
+          </mat-cell>
+        </ng-container>
+
+      </mat-table>
+    </div>
+
+    <button
+      class="newDate"
+      mat-mini-fab
       color="accent"
-      (click)="addColumn()"
-    >
-       Add new date
+      [matTooltip]="'TOOLTIPS.ADD_DATE' | translate"
+      (click)="openDatepickerDialog()">
+      <mat-icon>add</mat-icon>
     </button>
+  </div>
+
+  <div class="pagination pagination-container">
+    <button mat-flat-button color="primary" class="pagination pagination-button"
+      (click)="paginatorShowPrevious()"
+    >{{ 'BUTTONS.PREVIOUS_DATES' | translate }}</button>
+    <span class="pagination pagination-label">
+      {{paginatorSelection.start + 1}} - {{paginatorSelection.end}} {{ 'OF' | translate}} {{datesToRender.length}}
+    </span>
+    <button mat-flat-button color="primary" class="pagination pagination-button"
+      (click)="paginatorShowNext()"
+    >{{ 'BUTTONS.NEXT_DATES' | translate }}</button>
   </div>
 </div>
