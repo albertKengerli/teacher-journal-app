@@ -66,7 +66,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   private manageDates(dates: Date[]): void {
-    this.dates = dates;
+    this.dates = [...dates];
     this.dates.sort(compareDates);
     this.datesToRender = this.dates.map(date => {
       const current: SubjectTableDateObject = {
@@ -236,22 +236,9 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     target.blur();
   }
 
-  public addDate(): void {
-    // const newDate: Date = this.datePickControl.value;
-    // const dateString: string = this.datePipe.transform(newDate, "LL/dd");
-
-    // if (this.columnsNamesList.includes(dateString)) {
-    //   const errorMessage: string = "This date exists already! Choose different date";
-    //   window.alert(errorMessage);
-    //   throw errorMessage;
-    // }
-
-    // this.datesToRender.push({
-    //   string: dateString,
-    //   number: newDate.getTime(),
-    // });
-    // this.columnsNamesList.push(dateString);
-    // this.datePickControl.setValue(new Date());
+  public addDate(newDate: Date): void {
+    const newDates: Date[] = [...this.dates, newDate];
+    this.manageDates(newDates);
   }
 
   public openDatepickerDialog(): void {
@@ -264,7 +251,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(newDate => {
       if (newDate) {
-        console.log(newDate);
+        this.addDate(newDate);
       }
     });
   }
