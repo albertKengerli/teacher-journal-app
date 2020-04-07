@@ -10,7 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
   styleUrls: ["./datepicker-dialog.component.scss"]
 })
 export class DatepickerDialogComponent {
-  public datePickControl: FormControl = new FormControl(new Date());
+  public datePickControl: FormControl = new FormControl();
 
   constructor(
     public dialogRef: MatDialogRef<DatepickerDialogComponent>,
