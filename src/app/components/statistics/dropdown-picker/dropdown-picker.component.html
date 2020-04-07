@@ -1,0 +1,31 @@
+<div class="dropdown">
+
+  <div class="dropdown-header">
+    <mat-form-field class="dropdown-output">
+      <input matInput disabled [value]="test">
+      <button mat-icon-button matSuffix color="accent"
+        (click)="toggleDropdown()">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="dropdownOpened">
+    <div class="dropdown-top">
+    </div>
+
+    <div class="dropdown-content" *ngFor="let subject of (subjectsState$ | async)?.data">
+      <mat-checkbox>{{subject.name}}</mat-checkbox>
+    </div>
+
+    <div class="dropdown-bottom">
+    </div>
+
+  </div>
+</div>
+
+<ul>
+  <ng-container *ngFor="let subject of (subjectsState$ | async)?.data">
+    <li>{{subject.name}}</li>
+  </ng-container>
+</ul>
