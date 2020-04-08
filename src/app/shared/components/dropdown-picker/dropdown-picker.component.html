@@ -14,8 +14,16 @@
     <div class="dropdown-top">
     </div>
 
-    <div class="dropdown-content" *ngFor="let subject of (subjectsState$ | async)?.data">
-      <mat-checkbox>{{subject.name}}</mat-checkbox>
+    <div class="dropdown-content" *ngFor="let dropdownElement of dropdownData">
+      <mat-checkbox>{{dropdownElement.subject.name}}</mat-checkbox>
+      <button mat-icon-button color="accent">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+
+      <div class="dropdown-dates" *ngFor="let date of dropdownElement.subjectDates">
+        <mat-checkbox>{{date | date: 'dd/LL/yyyy'}}</mat-checkbox>
+      </div>
+
     </div>
 
     <div class="dropdown-bottom">
@@ -23,9 +31,3 @@
 
   </div>
 </div>
-
-<ul>
-  <ng-container *ngFor="let subject of (subjectsState$ | async)?.data">
-    <li>{{subject.name}}</li>
-  </ng-container>
-</ul>

@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -25,6 +25,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { FormComponent } from "../../shared/components/form/form.component";
 import { SpinnerComponent } from "../../shared/components/spinner/spinner.component";
 import { DatepickerDialogComponent } from "../../shared/components/datepicker-dialog/datepicker-dialog.component";
+import { DropdownPickerComponent } from "../../shared/components/dropdown-picker/dropdown-picker.component";
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HeaderInterceptor } from "../../common/interceptors/header/header.interceptor";
@@ -42,6 +43,7 @@ import { editableGradesReducer } from "../../store/editableGrades";
     FormComponent,
     SpinnerComponent,
     DatepickerDialogComponent,
+    DropdownPickerComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +59,8 @@ import { editableGradesReducer } from "../../store/editableGrades";
     MatNativeDateModule,
     MatDialogModule,
     MatTooltipModule,
+    MatCheckboxModule,
+    MatIconModule,
     StoreModule.forFeature("grades", gradesReducer),
     EffectsModule.forFeature([GradesEffects]),
     StoreModule.forFeature("editableGrades", editableGradesReducer),
@@ -65,6 +69,7 @@ import { editableGradesReducer } from "../../store/editableGrades";
     TranslateModule,
     FormComponent,
     SpinnerComponent,
+    DropdownPickerComponent,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -93,6 +98,7 @@ import { editableGradesReducer } from "../../store/editableGrades";
       useClass: HeaderInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   entryComponents: [
     DatepickerDialogComponent,
