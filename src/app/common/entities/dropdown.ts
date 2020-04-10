@@ -1,4 +1,4 @@
-export interface DropdownEntity {
+export interface DropdownGroup {
   groupName: string;
   subgroups: DropdownSubgroup[];
   opened: boolean;
@@ -9,4 +9,9 @@ export interface DropdownEntity {
 export interface DropdownSubgroup {
   value: string;
   selected: boolean;
+}
+
+export interface DropdownOutputEntity {
+  groupName: string;
+  selectedValues: string[];
 }
