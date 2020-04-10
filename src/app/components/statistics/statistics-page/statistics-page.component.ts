@@ -7,7 +7,7 @@ import { Subject } from "../../../common/entities/subject";
 import { StudentService } from "../../../common/services/student/student.service";
 import { SubjectService } from "../../../common/services/subject/subject.service";
 import { DropdownService } from "../../../common/services/dropdown/dropdown.service";
-import { DropdownEntity } from "../../../common/entities/dropdown";
+import { DropdownGroup } from "../../../common/entities/dropdown";
 
 @Component({
   selector: "app-statistics-page",
@@ -23,7 +23,7 @@ export class StatisticsPageComponent implements OnInit, OnDestroy {
   public students: Student[];
   public subjects: Subject[];
 
-  public dropdownData: DropdownEntity[];
+  public dropdownData: DropdownGroup[];
 
   constructor(
     private studentService: StudentService,
@@ -33,7 +33,7 @@ export class StatisticsPageComponent implements OnInit, OnDestroy {
 
   private getDropdownData(): void {
     this.dropdownService.initService();
-    this.dropdownService.getDropdownData()
+    this.dropdownService.getSubjectDatesDropdownData()
       .subscribe(data => {
         this.dropdownData = [...data];
       });

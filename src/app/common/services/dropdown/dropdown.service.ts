@@ -9,7 +9,7 @@ import { AppState, getSubjectsData, getGradesData } from "../../../store";
 import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 import * as GradesActions from "../../../store/grades/grades.actions";
 
-import { DropdownEntity, DropdownSubgroup } from "../../entities/dropdown";
+import { DropdownGroup, DropdownSubgroup } from "../../entities/dropdown";
 import { Grade } from "../../entities/grades";
 import { Subject } from "../../entities/subject";
 
@@ -19,14 +19,14 @@ import { Subject } from "../../entities/subject";
 export class DropdownService {
   private isServiceInited: boolean = false;
   private isDataReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private dropdownData: ReplaySubject<DropdownEntity[]> = new ReplaySubject();
+  private subjectGradesDropdownData: ReplaySubject<DropdownGroup[]> = new ReplaySubject();
 
   constructor(
     private store: Store<AppState>,
     private datePipe: DatePipe,
     ) { }
 
-  private prepareDropdownData([subjects, grades]: [Subject[], Grade[]]): void {
+  private prepareSubjectGradesData([subjects, grades]: [Subject[], Grade[]]): void {
     const datesForSubjects: { [subjectId: number]: number[] } = grades.reduce(
       (acc, currentGrade) => {
         const currentSubjectId: number = currentGrade.subjectId;
@@ -43,7 +43,7 @@ export class DropdownService {
       {}
     );
 
-    const dropdownEntities: DropdownEntity[] = subjects.map(currentSubject => {
+    const dropdownEntities: DropdownGroup[] = subjects.map(currentSubject => {
       const currentSubgroup: DropdownSubgroup[] = datesForSubjects[currentSubject.id].map(currentDate => {
         return {
           value: this.datePipe.transform(currentDate, "dd/LL/yyyy"),
@@ -60,7 +60,7 @@ export class DropdownService {
       };
     });
 
-    this.dropdownData.next(dropdownEntities);
+    this.subjectGradesDropdownData.next(dropdownEntities);
     this.isDataReady.next(true);
   }
 
@@ -68,6 +68,10 @@ export class DropdownService {
     this.store.dispatch(SubjectsActions.getSubjects());
     this.store.dispatch(GradesActions.getGrades());
 
+    this.isServiceInited = true;
+  }
+
+  public getSubjectDatesDropdownData(): Observable<DropdownGroup[]> {
     combineLatest(
       this.store.pipe(
         select(getSubjectsData),
@@ -79,12 +83,8 @@ export class DropdownService {
         filter(grades => grades.length !== 0),
         take(1),
       ),
-    ).subscribe(data => this.prepareDropdownData(data));
+    ).subscribe(data => this.prepareSubjectGradesData(data));
 
-    this.isServiceInited = true;
-  }
-
-  public getDropdownData(): Observable<DropdownEntity[]> {
-    return this.dropdownData.asObservable();
+    return this.subjectGradesDropdownData.asObservable();
   }
 }
