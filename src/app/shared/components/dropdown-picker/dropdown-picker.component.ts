@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 
 import { MAT_CHECKBOX_CLICK_ACTION } from "@angular/material/checkbox";
 
-import { DropdownEntity, DropdownSubgroup } from "../../../common/entities/dropdown";
+import { DropdownGroup, DropdownSubgroup, DropdownOutputEntity } from "../../../common/entities/dropdown";
 
 @Component({
   selector: "app-dropdown-picker",
@@ -16,36 +16,59 @@ import { DropdownEntity, DropdownSubgroup } from "../../../common/entities/dropd
   ]
 })
 export class DropdownPickerComponent {
-  @Input()public dropdownData: DropdownEntity[];
+  @Input()public dropdownData: DropdownGroup[];
 
   public dropdownOpened: boolean = false;
 
-  get value(): number[] {
-    let result: number[] = [];
+  get value(): DropdownOutputEntity[] {
+    return this.dropdownData?.reduce(
+      (groupAcc, currentGroup) => {
+        const currentGroupName: string = currentGroup.groupName;
+        const currentGroupSelectedValues: string[] = this.getSelectedValuesFromGroup(currentGroup);
 
-    this.dropdownData?.forEach(group => {
-      const selectedSubgroups: number[] = group.subgroups.reduce(
-        (acc, subgroup) => {
-          if (subgroup.selected) {
-            acc.push(subgroup.value);
-          }
-          return acc;
-        },
-        []
-      );
-      result = [...result, ...selectedSubgroups];
-    });
+        groupAcc.push({
+          groupName: currentGroupName,
+          selectedValues: currentGroupSelectedValues,
+        });
 
-    return result;
+        return groupAcc;
+      },
+      [],
+    );
   }
 
-  private getGroupBySubjectId(groupName: string): DropdownEntity {
+  get stringValue(): string[] {
+    return this.dropdownData?.reduce(
+      (groupAcc, currentGroup) => {
+        const currentGroupSelectedValues: string[] = this.getSelectedValuesFromGroup(currentGroup);
+
+        groupAcc = [...groupAcc, ...currentGroupSelectedValues];
+        return groupAcc;
+      },
+      [],
+    );
+  }
+
+  private getGroupBySubjectId(groupName: string): DropdownGroup {
     return this.dropdownData.find(dropdownElement => dropdownElement.groupName === groupName);
   }
 
   private getSubgroup(groupName: string, subgroupValue: string): DropdownSubgroup {
-    const currentGroup: DropdownEntity = this.getGroupBySubjectId(groupName);
+    const currentGroup: DropdownGroup = this.getGroupBySubjectId(groupName);
     return currentGroup.subgroups.find(subgroup => subgroup.value === subgroupValue);
+  }
+
+  private getSelectedValuesFromGroup(group: DropdownGroup): string[] {
+    return group.subgroups.reduce(
+      (acc, currentSubgroup) => {
+        if (currentSubgroup.selected) {
+          acc.push(currentSubgroup.value);
+        }
+
+        return acc;
+      },
+      []
+    );
   }
 
   public toggleDropdown(): void {
@@ -53,7 +76,7 @@ export class DropdownPickerComponent {
   }
 
   public setGroupOpeness(groupName: string, value: boolean): void {
-    const groupToSet: DropdownEntity = this.getGroupBySubjectId(groupName);
+    const groupToSet: DropdownGroup = this.getGroupBySubjectId(groupName);
     groupToSet.opened = value;
   }
 
@@ -62,7 +85,7 @@ export class DropdownPickerComponent {
   }
 
   public setGroupSelection(groupName: string, value: boolean): void {
-    const groupToSet: DropdownEntity = this.getGroupBySubjectId(groupName);
+    const groupToSet: DropdownGroup = this.getGroupBySubjectId(groupName);
 
     groupToSet.selected = value;
     groupToSet.partlySelected = false;
@@ -76,9 +99,5 @@ export class DropdownPickerComponent {
   public setSubgroupSelection(groupName: string, subgroupValue: string, value: boolean): void {
     const currentSubgroup: DropdownSubgroup = this.getSubgroup(groupName, subgroupValue);
     currentSubgroup.selected = value;
-  }
-
-  public debug(): void {
-    console.log(this);
   }
 }
