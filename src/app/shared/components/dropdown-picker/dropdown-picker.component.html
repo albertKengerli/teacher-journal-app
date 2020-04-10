@@ -2,7 +2,7 @@
 
   <div class="dropdown-header">
     <mat-form-field class="dropdown-output">
-      <input matInput disabled placeholder="Your chosen dates" [value]="stringValue">
+      <input matInput disabled [placeholder]="'DROPDOWN.OUTPUT_PLACEHOLDER' | translate" [value]="stringValue">
       <button mat-icon-button matSuffix color="accent"
         (click)="toggleDropdown()">
         <mat-icon>keyboard_arrow_down</mat-icon>
@@ -12,8 +12,8 @@
 
   <div class="dropdown-dropdownContainer" *ngIf="dropdownOpened">
     <div class="dropdown-dropdownTop">
-      <button mat-button color="primary" (click)="setAllSelection(true)">Check all</button>
-      <button mat-button color="primary" (click)="setAllSelection(false)">Uncheck all</button>
+      <button mat-button color="primary" (click)="setAllSelection(true)">{{ 'BUTTONS.CHECK_ALL' | translate }}</button>
+      <button mat-button color="primary" (click)="setAllSelection(false)">{{ 'BUTTONS.UNCHECK_ALL' | translate }}</button>
     </div>
 
     <div class="dropdown-dropdownContent">
@@ -53,10 +53,10 @@
 
     <div class="dropdown-dropdownBottom">
       <div>
-        <button mat-button color="primary" (click)="setAllOpeness(true)">Expand all</button>
-        <button mat-button color="primary" (click)="setAllOpeness(false)">Collapse all</button>
+        <button mat-button color="primary" (click)="setAllOpeness(true)">{{ 'BUTTONS.EXPAND_ALL' | translate }}</button>
+        <button mat-button color="primary" (click)="setAllOpeness(false)">{{ 'BUTTONS.COLLAPSE_ALL' | translate }}</button>
       </div>
-      <button mat-button color="warn" (click)="toggleDropdown()">Close</button>
+      <button mat-button color="warn" (click)="toggleDropdown()">{{ 'BUTTONS.CLOSE' | translate }}</button>
     </div>
 
   </div>

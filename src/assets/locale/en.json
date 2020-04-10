@@ -63,7 +63,15 @@
     "CANCEL": "Cancel",
     "ADD": "Add",
     "PREVIOUS_DATES": "Previous dates",
-    "NEXT_DATES": "Next dates"
+    "NEXT_DATES": "Next dates",
+    "CHECK_ALL": "Check all",
+    "UNCHECK_ALL": "Uncheck all",
+    "EXPAND_ALL": "Expand all",
+    "COLLAPSE_ALL": "Collapse all",
+    "CLOSE": "Close"
+  },
+  "DROPDOWN": {
+    "OUTPUT_PLACEHOLDER": "Chosen dates"
   },
   "DIALOG": {
     "DEFAULT": "Is it ok?",
