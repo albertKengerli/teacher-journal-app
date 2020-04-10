@@ -1,25 +1,34 @@
 .dropdown {
   width: 350px;
-  border: solid 1px black;
 
   &-output {
-    width: 100%;
+    width: 300px;
+    margin-top: 5px;
+    margin-left: 30px;
+
     font-size: 1.2rem;
   }
 
-  &-top {
-    width: 100%;
-    height: 30px;
-    background-color: green;
+  &-dropdownContent {
+    height: 250px;
+    overflow: auto;
+    margin-top: 5px;
+    margin-left: 23px;
   }
 
-  &-bottom {
+  &-dropdownTop {
     width: 100%;
-    height: 30px;
-    background-color: red;
+    height: 36px;
   }
 
-  &-dates {
-    padding-left: 10px;
+  &-dropdownSubgroup {
+    margin-left: 23px;
+  }
+
+  &-dropdownBottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 36px;
   }
 }

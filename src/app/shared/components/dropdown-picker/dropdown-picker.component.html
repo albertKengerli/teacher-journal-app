@@ -1,8 +1,8 @@
-<div class="dropdown">
+<div class="dropdown mat-elevation-z8">
 
   <div class="dropdown-header">
     <mat-form-field class="dropdown-output">
-      <input matInput disabled [value]="test">
+      <input matInput disabled [placeholder]="test" [value]="getTextOutput()">
       <button mat-icon-button matSuffix color="accent"
         (click)="toggleDropdown()">
         <mat-icon>keyboard_arrow_down</mat-icon>
@@ -10,24 +10,56 @@
     </mat-form-field>
   </div>
 
-  <div *ngIf="dropdownOpened">
-    <div class="dropdown-top">
+  <div class="dropdown-dropdownContainer" *ngIf="dropdownOpened">
+    <div class="dropdown-dropdownTop">
+      <button mat-button color="primary" (click)="setAllSelection(true)">Check all</button>
+      <button mat-button color="primary" (click)="setAllSelection(false)">Uncheck all</button>
     </div>
 
-    <div class="dropdown-content" *ngFor="let dropdownElement of dropdownData">
-      <mat-checkbox>{{dropdownElement.subject.name}}</mat-checkbox>
-      <button mat-icon-button color="accent">
-        <mat-icon>keyboard_arrow_down</mat-icon>
-      </button>
+    <div class="dropdown-dropdownContent">
 
-      <div class="dropdown-dates" *ngFor="let date of dropdownElement.subjectDates">
-        <mat-checkbox>{{date | date: 'dd/LL/yyyy'}}</mat-checkbox>
+      <div class="dropdown-dropdownGroup" *ngFor="let dropdownElement of dropdownData">
+        <mat-checkbox
+          [(ngModel)]="dropdownElement.selected"
+          [(indeterminate)]="dropdownElement.partlySelected"
+          (click)="setGroupSelection(dropdownElement.subject.id, !dropdownElement.selected)">
+            {{dropdownElement.subject.name}}
+        </mat-checkbox>
+
+        <button mat-icon-button color="accent" (click)="setGroupOpeness(dropdownElement.subject.id, !dropdownElement.opened)">
+          <ng-container *ngIf="dropdownElement.opened; then openedIcon else closedIcon"></ng-container>
+          <ng-template #closedIcon>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </ng-template>
+          <ng-template #openedIcon>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </ng-template>
+        </button>
+
+        <ng-container *ngIf="dropdownElement.opened">
+          <div class="dropdown-dropdownSubgroup"
+            *ngFor="let subgroup of dropdownElement.subgroups">
+            <mat-checkbox
+              [(ngModel)]="subgroup.selected"
+              (click)="setSubgroupSelection(dropdownElement.subject.id, subgroup.value, !subgroup.selected)">
+              {{subgroup.value | date: 'dd/LL/yyyy'}}
+            </mat-checkbox>
+          </div>
+        </ng-container>
+
       </div>
 
     </div>
 
-    <div class="dropdown-bottom">
+    <div class="dropdown-dropdownBottom">
+      <div>
+        <button mat-button color="primary" (click)="setAllOpeness(true)">Expand all</button>
+        <button mat-button color="primary" (click)="setAllOpeness(false)">Collapse all</button>
+      </div>
+      <button mat-button color="warn" (click)="toggleDropdown()">Close</button>
     </div>
 
   </div>
 </div>
+
+<button (click)="debug()">debug</button>

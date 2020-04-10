@@ -8,7 +8,7 @@ import { AppState, getSubjectsData, getGradesData } from "../../../store";
 import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 import * as GradesActions from "../../../store/grades/grades.actions";
 
-import { DropdownEntity } from "../../entities/dropdown";
+import { DropdownEntity, DropdownSubgroup } from "../../entities/dropdown";
 import { Grade } from "../../entities/grades";
 import { Subject } from "../../entities/subject";
 
@@ -40,9 +40,19 @@ export class DropdownService {
     );
 
     const dropdownEntities: DropdownEntity[] = subjects.map(currentSubject => {
+      const currentSubgroup: DropdownSubgroup[] = datesForSubjects[currentSubject.id].map(currentDate => {
+        return {
+          value: currentDate,
+          selected: false,
+        };
+      });
+
       return {
         subject: Object.assign({}, currentSubject),
-        subjectDates: [...datesForSubjects[currentSubject.id]],
+        subgroups: currentSubgroup,
+        opened: false,
+        selected: false,
+        partlySelected: false,
       };
     });
 
