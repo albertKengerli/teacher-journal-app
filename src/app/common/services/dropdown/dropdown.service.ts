@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { DatePipe } from "@angular/common";
 
 import { Observable, combineLatest, BehaviorSubject, ReplaySubject } from "rxjs";
 import { filter, take } from "rxjs/operators";
@@ -20,7 +21,10 @@ export class DropdownService {
   private isDataReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private dropdownData: ReplaySubject<DropdownEntity[]> = new ReplaySubject();
 
-  constructor(private store: Store<AppState>) { }
+  constructor(
+    private store: Store<AppState>,
+    private datePipe: DatePipe,
+    ) { }
 
   private prepareDropdownData([subjects, grades]: [Subject[], Grade[]]): void {
     const datesForSubjects: { [subjectId: number]: number[] } = grades.reduce(
@@ -42,13 +46,13 @@ export class DropdownService {
     const dropdownEntities: DropdownEntity[] = subjects.map(currentSubject => {
       const currentSubgroup: DropdownSubgroup[] = datesForSubjects[currentSubject.id].map(currentDate => {
         return {
-          value: currentDate,
+          value: this.datePipe.transform(currentDate, "dd/LL/yyyy"),
           selected: false,
         };
       });
 
       return {
-        subject: Object.assign({}, currentSubject),
+        groupName: currentSubject.name,
         subgroups: currentSubgroup,
         opened: false,
         selected: false,

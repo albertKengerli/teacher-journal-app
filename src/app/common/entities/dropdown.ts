@@ -1,7 +1,5 @@
-import { Subject } from "./subject";
-
 export interface DropdownEntity {
-  subject: Subject;
+  groupName: string;
   subgroups: DropdownSubgroup[];
   opened: boolean;
   selected: boolean;
@@ -9,6 +7,6 @@ export interface DropdownEntity {
 }
 
 export interface DropdownSubgroup {
-  value: number;
+  value: string;
   selected: boolean;
 }

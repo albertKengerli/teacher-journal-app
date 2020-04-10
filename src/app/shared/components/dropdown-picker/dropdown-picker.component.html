@@ -2,7 +2,7 @@
 
   <div class="dropdown-header">
     <mat-form-field class="dropdown-output">
-      <input matInput disabled [placeholder]="test" [value]="getTextOutput()">
+      <input matInput disabled placeholder="Your chosen dates" [value]="value">
       <button mat-icon-button matSuffix color="accent"
         (click)="toggleDropdown()">
         <mat-icon>keyboard_arrow_down</mat-icon>
@@ -18,16 +18,16 @@
 
     <div class="dropdown-dropdownContent">
 
-      <div class="dropdown-dropdownGroup" *ngFor="let dropdownElement of dropdownData">
+      <div class="dropdown-dropdownGroup" *ngFor="let dropdownGroup of dropdownData">
         <mat-checkbox
-          [(ngModel)]="dropdownElement.selected"
-          [(indeterminate)]="dropdownElement.partlySelected"
-          (click)="setGroupSelection(dropdownElement.subject.id, !dropdownElement.selected)">
-            {{dropdownElement.subject.name}}
+          [(ngModel)]="dropdownGroup.selected"
+          [(indeterminate)]="dropdownGroup.partlySelected"
+          (click)="setGroupSelection(dropdownGroup.groupName, !dropdownGroup.selected)">
+            {{dropdownGroup.groupName}}
         </mat-checkbox>
 
-        <button mat-icon-button color="accent" (click)="setGroupOpeness(dropdownElement.subject.id, !dropdownElement.opened)">
-          <ng-container *ngIf="dropdownElement.opened; then openedIcon else closedIcon"></ng-container>
+        <button mat-icon-button color="accent" (click)="setGroupOpeness(dropdownGroup.groupName, !dropdownGroup.opened)">
+          <ng-container *ngIf="dropdownGroup.opened; then openedIcon else closedIcon"></ng-container>
           <ng-template #closedIcon>
             <mat-icon>keyboard_arrow_right</mat-icon>
           </ng-template>
@@ -36,13 +36,13 @@
           </ng-template>
         </button>
 
-        <ng-container *ngIf="dropdownElement.opened">
+        <ng-container *ngIf="dropdownGroup.opened">
           <div class="dropdown-dropdownSubgroup"
-            *ngFor="let subgroup of dropdownElement.subgroups">
+            *ngFor="let subgroup of dropdownGroup.subgroups">
             <mat-checkbox
               [(ngModel)]="subgroup.selected"
-              (click)="setSubgroupSelection(dropdownElement.subject.id, subgroup.value, !subgroup.selected)">
-              {{subgroup.value | date: 'dd/LL/yyyy'}}
+              (click)="setSubgroupSelection(dropdownGroup.groupName, subgroup.value, !subgroup.selected)">
+              {{subgroup.value}}
             </mat-checkbox>
           </div>
         </ng-container>

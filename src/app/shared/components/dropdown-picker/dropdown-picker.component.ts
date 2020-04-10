@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { DatePipe } from "@angular/common";
 
 import { MAT_CHECKBOX_CLICK_ACTION } from "@angular/material/checkbox";
 
@@ -20,9 +19,6 @@ export class DropdownPickerComponent {
   @Input()public dropdownData: DropdownEntity[];
 
   public dropdownOpened: boolean = false;
-  public test: string = "Your chosen dates";
-
-  constructor(private datePipe: DatePipe) { }
 
   get value(): number[] {
     let result: number[] = [];
@@ -43,21 +39,21 @@ export class DropdownPickerComponent {
     return result;
   }
 
-  private getGroupBySubjectId(subjectId: number): DropdownEntity {
-    return this.dropdownData.find(dropdownElement => dropdownElement.subject.id === subjectId);
+  private getGroupBySubjectId(groupName: string): DropdownEntity {
+    return this.dropdownData.find(dropdownElement => dropdownElement.groupName === groupName);
   }
 
-  private getSubgroup(subjectId: number, value: number): DropdownSubgroup {
-    const currentGroup: DropdownEntity = this.getGroupBySubjectId(subjectId);
-    return currentGroup.subgroups.find(subgroup => subgroup.value === value);
+  private getSubgroup(groupName: string, subgroupValue: string): DropdownSubgroup {
+    const currentGroup: DropdownEntity = this.getGroupBySubjectId(groupName);
+    return currentGroup.subgroups.find(subgroup => subgroup.value === subgroupValue);
   }
 
   public toggleDropdown(): void {
     this.dropdownOpened = !this.dropdownOpened;
   }
 
-  public setGroupOpeness(subjectId: number, value: boolean): void {
-    const groupToSet: DropdownEntity = this.getGroupBySubjectId(subjectId);
+  public setGroupOpeness(groupName: string, value: boolean): void {
+    const groupToSet: DropdownEntity = this.getGroupBySubjectId(groupName);
     groupToSet.opened = value;
   }
 
@@ -65,8 +61,8 @@ export class DropdownPickerComponent {
     this.dropdownData.forEach(dropdownElement => dropdownElement.opened = value);
   }
 
-  public setGroupSelection(subjectId: number, value: boolean): void {
-    const groupToSet: DropdownEntity = this.getGroupBySubjectId(subjectId);
+  public setGroupSelection(groupName: string, value: boolean): void {
+    const groupToSet: DropdownEntity = this.getGroupBySubjectId(groupName);
 
     groupToSet.selected = value;
     groupToSet.partlySelected = false;
@@ -74,16 +70,12 @@ export class DropdownPickerComponent {
   }
 
   public setAllSelection(value: boolean): void {
-    this.dropdownData.forEach(dropdownEntity => this.setGroupSelection(dropdownEntity.subject.id, value));
+    this.dropdownData.forEach(dropdownEntity => this.setGroupSelection(dropdownEntity.groupName, value));
   }
 
-  public setSubgroupSelection(subjectId: number, subgroupValue: number, value: boolean): void {
-    const currentSubgroup: DropdownSubgroup = this.getSubgroup(subjectId, subgroupValue);
+  public setSubgroupSelection(groupName: string, subgroupValue: string, value: boolean): void {
+    const currentSubgroup: DropdownSubgroup = this.getSubgroup(groupName, subgroupValue);
     currentSubgroup.selected = value;
-  }
-
-  public getTextOutput(): string[] {
-    return this.value.map(numberValue => this.datePipe.transform(numberValue, "dd/LL/yyyy"));
   }
 
   public debug(): void {
