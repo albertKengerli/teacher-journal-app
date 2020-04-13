@@ -1,4 +1,5 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, forwardRef } from "@angular/core";
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
 import { MAT_CHECKBOX_CLICK_ACTION } from "@angular/material/checkbox";
 
@@ -12,10 +13,15 @@ import { DropdownGroup, DropdownSubgroup, DropdownOutputEntity } from "../../../
     {
       provide: MAT_CHECKBOX_CLICK_ACTION,
       useValue: "noop"
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DropdownPickerComponent),
+      multi: true
     }
   ]
 })
-export class DropdownPickerComponent {
+export class DropdownPickerComponent implements ControlValueAccessor {
   @Input()public dropdownData: DropdownGroup[];
 
   public dropdownOpened: boolean = false;
@@ -49,12 +55,12 @@ export class DropdownPickerComponent {
     );
   }
 
-  private getGroupBySubjectId(groupName: string): DropdownGroup {
+  private getGroup(groupName: string): DropdownGroup {
     return this.dropdownData.find(dropdownElement => dropdownElement.groupName === groupName);
   }
 
   private getSubgroup(groupName: string, subgroupValue: string): DropdownSubgroup {
-    const currentGroup: DropdownGroup = this.getGroupBySubjectId(groupName);
+    const currentGroup: DropdownGroup = this.getGroup(groupName);
     return currentGroup.subgroups.find(subgroup => subgroup.value === subgroupValue);
   }
 
@@ -71,12 +77,20 @@ export class DropdownPickerComponent {
     );
   }
 
+  public onChange = (dropdownOutput: DropdownOutputEntity[]) => {
+    return;
+  }
+
+  public onTouched = () => {
+    return;
+  }
+
   public toggleDropdown(): void {
     this.dropdownOpened = !this.dropdownOpened;
   }
 
   public setGroupOpeness(groupName: string, value: boolean): void {
-    const groupToSet: DropdownGroup = this.getGroupBySubjectId(groupName);
+    const groupToSet: DropdownGroup = this.getGroup(groupName);
     groupToSet.opened = value;
   }
 
@@ -85,19 +99,47 @@ export class DropdownPickerComponent {
   }
 
   public setGroupSelection(groupName: string, value: boolean): void {
-    const groupToSet: DropdownGroup = this.getGroupBySubjectId(groupName);
+    const groupToSet: DropdownGroup = this.getGroup(groupName);
 
     groupToSet.selected = value;
     groupToSet.partlySelected = false;
     groupToSet.subgroups.forEach(subgroup => subgroup.selected = value);
+
+    this.writeValue(this.value);
   }
 
   public setAllSelection(value: boolean): void {
     this.dropdownData.forEach(dropdownEntity => this.setGroupSelection(dropdownEntity.groupName, value));
+    this.writeValue(this.value);
   }
 
   public setSubgroupSelection(groupName: string, subgroupValue: string, value: boolean): void {
     const currentSubgroup: DropdownSubgroup = this.getSubgroup(groupName, subgroupValue);
     currentSubgroup.selected = value;
+
+    this.writeValue(this.value);
+  }
+
+  public writeValue(newValue: DropdownOutputEntity[]): void {
+    newValue?.forEach(outputEntity => {
+      const currentGroup: DropdownGroup = this.getGroup(outputEntity.groupName);
+
+      currentGroup.subgroups.forEach(subgroup => {
+        if (outputEntity.selectedValues.includes(subgroup.value)) {
+          subgroup.selected = true;
+        } else {
+          subgroup.selected = false;
+        }
+      });
+    });
+    this.onChange(this.value);
+  }
+
+  public registerOnChange(fn: (dropdownOutput: DropdownOutputEntity[]) => void): void {
+    this.onChange = fn;
+  }
+
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
   }
 }

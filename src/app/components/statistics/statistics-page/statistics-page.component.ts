@@ -1,5 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subscription, Observable } from "rxjs";
+import { Subscription } from "rxjs";
+
+import { Store } from "@ngrx/store";
+import { AppState } from "../../../store";
 
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
@@ -7,7 +10,7 @@ import { Subject } from "../../../common/entities/subject";
 import { StudentService } from "../../../common/services/student/student.service";
 import { SubjectService } from "../../../common/services/subject/subject.service";
 import { DropdownService } from "../../../common/services/dropdown/dropdown.service";
-import { DropdownGroup } from "../../../common/entities/dropdown";
+import { DropdownGroup, DropdownOutputEntity } from "../../../common/entities/dropdown";
 
 @Component({
   selector: "app-statistics-page",
@@ -24,11 +27,13 @@ export class StatisticsPageComponent implements OnInit, OnDestroy {
   public subjects: Subject[];
 
   public dropdownData: DropdownGroup[];
+  public dropdownOutput: DropdownOutputEntity[] = [];
 
   constructor(
     private studentService: StudentService,
     private subjectService: SubjectService,
     private dropdownService: DropdownService,
+    private store: Store<AppState>,
   ) { }
 
   private getDropdownData(): void {
@@ -59,5 +64,9 @@ export class StatisticsPageComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.studentSubscription.unsubscribe();
     this.subjectSubscription.unsubscribe();
+  }
+
+  public getStudentsFromDropdown(): void {
+
   }
 }

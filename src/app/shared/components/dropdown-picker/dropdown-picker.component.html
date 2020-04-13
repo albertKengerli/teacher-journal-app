@@ -12,8 +12,8 @@
 
   <div class="dropdown-dropdownContainer" *ngIf="dropdownOpened">
     <div class="dropdown-dropdownTop">
-      <button mat-button color="primary" (click)="setAllSelection(true)">{{ 'BUTTONS.CHECK_ALL' | translate }}</button>
-      <button mat-button color="primary" (click)="setAllSelection(false)">{{ 'BUTTONS.UNCHECK_ALL' | translate }}</button>
+      <button mat-button color="primary" (click)="onTouched(); setAllSelection(true)">{{ 'BUTTONS.CHECK_ALL' | translate }}</button>
+      <button mat-button color="primary" (click)="onTouched(); setAllSelection(false)">{{ 'BUTTONS.UNCHECK_ALL' | translate }}</button>
     </div>
 
     <div class="dropdown-dropdownContent">
@@ -22,7 +22,7 @@
         <mat-checkbox
           [(ngModel)]="dropdownGroup.selected"
           [(indeterminate)]="dropdownGroup.partlySelected"
-          (click)="setGroupSelection(dropdownGroup.groupName, !dropdownGroup.selected)">
+          (click)="onTouched(); setGroupSelection(dropdownGroup.groupName, !dropdownGroup.selected)">
             {{dropdownGroup.groupName}}
         </mat-checkbox>
 
@@ -41,7 +41,7 @@
             *ngFor="let subgroup of dropdownGroup.subgroups">
             <mat-checkbox
               [(ngModel)]="subgroup.selected"
-              (click)="setSubgroupSelection(dropdownGroup.groupName, subgroup.value, !subgroup.selected)">
+              (click)="onTouched(); setSubgroupSelection(dropdownGroup.groupName, subgroup.value, !subgroup.selected)">
               {{subgroup.value}}
             </mat-checkbox>
           </div>

@@ -1,66 +1,68 @@
-<div class="container" style="background-color: rgba(255,255,255,0.1)">
+<div class="component">
+  <div class="dropdown">
+    <app-dropdown-picker [dropdownData]="dropdownData" [(ngModel)]="dropdownOutput" (ngModelChange)="getStudentsFromDropdown()"></app-dropdown-picker>
+  </div>
 
-  <mat-tab-group>
-    <mat-tab #studentsTab [label]="'STUDENTS.TITLE' | translate">
-      <mat-nav-list>
-        <mat-list-item
-          *ngFor="let student of students"
-          [class.active]="student === selectedStudent"
-          (click)="selectStudent(student)"
-        >
-          {{student.name}} {{student.surname}}
-        </mat-list-item>
-      </mat-nav-list>
-    </mat-tab>
+  <div class="container" style="background-color: rgba(255,255,255,0.1)">
 
-    <mat-tab #subjectsTab [label]="'SUBJECTS.TITLE' | translate">
-      <mat-nav-list>
-        <mat-list-item
-          *ngFor="let subject of subjects"
-          [class.active]="subject === selectedSubject"
-          (click)="selectSubject(subject)"
-        >
-          {{subject.name}}
-        </mat-list-item>
-      </mat-nav-list>
-    </mat-tab>
-  </mat-tab-group>
+    <mat-tab-group>
+      <mat-tab #studentsTab [label]="'STUDENTS.TITLE' | translate">
+        <mat-nav-list>
+          <mat-list-item
+            *ngFor="let student of students"
+            [class.active]="student === selectedStudent"
+            (click)="selectStudent(student)"
+          >
+            {{student.name}} {{student.surname}}
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-tab>
 
-  <mat-card *ngIf="studentsTab.isActive">
-    <ng-container *ngIf="selectedStudent">
-      <mat-card-title>{{selectedStudent.name}} {{selectedStudent.surname}}</mat-card-title>
-      <mat-card-subtitle>{{selectedStudent.description}}</mat-card-subtitle>
+      <mat-tab #subjectsTab [label]="'SUBJECTS.TITLE' | translate">
+        <mat-nav-list>
+          <mat-list-item
+            *ngFor="let subject of subjects"
+            [class.active]="subject === selectedSubject"
+            (click)="selectSubject(subject)"
+          >
+            {{subject.name}}
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-tab>
+    </mat-tab-group>
 
-      <div class="rating-container">
-        <img src="./assets/rating-placeholder.png" alt="Student rating">
-        <p class="mat-body-strong">{{ 'STATISTICS.RATING' | translate }}</p>
-      </div>
+    <mat-card *ngIf="studentsTab.isActive">
+      <ng-container *ngIf="selectedStudent">
+        <mat-card-title>{{selectedStudent.name}} {{selectedStudent.surname}}</mat-card-title>
+        <mat-card-subtitle>{{selectedStudent.description}}</mat-card-subtitle>
 
-      <div class="graph-container">
-        <img src="./assets/graph-placeholder.png" alt="Students graph">
-        <p class="mat-body-strong">{{ 'STATISTICS.GRAPHIC' | translate }}</p>
-      </div>
-    </ng-container>
-  </mat-card>
+        <div class="rating-container">
+          <img src="./assets/rating-placeholder.png" alt="Student rating">
+          <p class="mat-body-strong">{{ 'STATISTICS.RATING' | translate }}</p>
+        </div>
 
-  <mat-card *ngIf="subjectsTab.isActive">
-    <ng-container *ngIf="selectedSubject">
-      <mat-card-title>{{selectedSubject.name}}</mat-card-title>
-      <mat-card-subtitle>{{selectedSubject.description}}</mat-card-subtitle>
-      <div>
-        <h3>{{ 'STATISTICS.BEST_PERFORMING_STUDENT' | translate }}</h3>
-        <p>
-          Kurt Cobain
-        </p>
-        <h3>{{ 'STATISTICS.WORST_PERFORMING_STUDENT' | translate }}</h3>
-        <p>
-          Joe Rogan
-        </p>
-      </div>
-    </ng-container>
-  </mat-card>
-</div>
+        <div class="graph-container">
+          <img src="./assets/graph-placeholder.png" alt="Students graph">
+          <p class="mat-body-strong">{{ 'STATISTICS.GRAPHIC' | translate }}</p>
+        </div>
+      </ng-container>
+    </mat-card>
 
-<div class="dropdown">
-  <app-dropdown-picker [dropdownData]="dropdownData"></app-dropdown-picker>
+    <mat-card *ngIf="subjectsTab.isActive">
+      <ng-container *ngIf="selectedSubject">
+        <mat-card-title>{{selectedSubject.name}}</mat-card-title>
+        <mat-card-subtitle>{{selectedSubject.description}}</mat-card-subtitle>
+        <div>
+          <h3>{{ 'STATISTICS.BEST_PERFORMING_STUDENT' | translate }}</h3>
+          <p>
+            Kurt Cobain
+          </p>
+          <h3>{{ 'STATISTICS.WORST_PERFORMING_STUDENT' | translate }}</h3>
+          <p>
+            Joe Rogan
+          </p>
+        </div>
+      </ng-container>
+    </mat-card>
+  </div>
 </div>
