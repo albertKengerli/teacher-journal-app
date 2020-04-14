@@ -1,6 +1,6 @@
 <div class="component">
   <div class="dropdown">
-    <app-dropdown-picker [dropdownData]="dropdownData" [(ngModel)]="dropdownOutput" (ngModelChange)="getStudentsFromDropdown()"></app-dropdown-picker>
+    <app-dropdown-picker [dropdownData]="dropdownData" [(ngModel)]="dropdownOutput" (ngModelChange)="setStudentsForTable()"></app-dropdown-picker>
   </div>
 
   <div class="container" style="background-color: rgba(255,255,255,0.1)">
@@ -9,7 +9,7 @@
       <mat-tab #studentsTab [label]="'STUDENTS.TITLE' | translate">
         <mat-nav-list>
           <mat-list-item
-            *ngFor="let student of students"
+            *ngFor="let student of studentsForTable"
             [class.active]="student === selectedStudent"
             (click)="selectStudent(student)"
           >

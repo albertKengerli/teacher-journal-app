@@ -27,7 +27,11 @@ export class DropdownPickerComponent implements ControlValueAccessor {
   public dropdownOpened: boolean = false;
 
   get value(): DropdownOutputEntity[] {
-    return this.dropdownData?.reduce(
+    if (!this.dropdownData) {
+      return [];
+    }
+
+    return this.dropdownData.reduce(
       (groupAcc, currentGroup) => {
         const currentGroupName: string = currentGroup.groupName;
         const currentGroupSelectedValues: string[] = this.getSelectedValuesFromGroup(currentGroup);

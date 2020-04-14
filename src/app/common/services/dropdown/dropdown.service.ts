@@ -7,6 +7,7 @@ import { filter, take } from "rxjs/operators";
 import { Store, select } from "@ngrx/store";
 import { AppState, getSubjectsData, getGradesData } from "../../../store";
 import * as SubjectsActions from "../../../store/subjects/subjects.actions";
+import * as StudentsActions from "../../../store/students/students.actions";
 import * as GradesActions from "../../../store/grades/grades.actions";
 
 import { DropdownGroup, DropdownSubgroup } from "../../entities/dropdown";
@@ -67,6 +68,7 @@ export class DropdownService {
   public initService(): void {
     this.store.dispatch(SubjectsActions.getSubjects());
     this.store.dispatch(GradesActions.getGrades());
+    this.store.dispatch(StudentsActions.getStudents());
 
     this.isServiceInited = true;
   }
