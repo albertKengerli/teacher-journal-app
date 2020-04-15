@@ -12,6 +12,6 @@ import { StatisticsPageComponent } from "../../components/statistics/statistics-
   imports: [
     CommonModule,
     SharedModule,
-  ]
+  ],
 })
 export class StatisticsModule { }

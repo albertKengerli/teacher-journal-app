@@ -1,0 +1,63 @@
+<div class="dropdown mat-elevation-z8">
+
+  <div class="dropdown-header">
+    <mat-form-field class="dropdown-output">
+      <input matInput disabled [placeholder]="'DROPDOWN.OUTPUT_PLACEHOLDER' | translate" [value]="stringValue">
+      <button mat-icon-button matSuffix color="accent"
+        (click)="toggleDropdown()">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="dropdown-dropdownContainer" *ngIf="dropdownOpened">
+    <div class="dropdown-dropdownTop">
+      <button mat-button color="primary" (click)="onTouched(); setAllSelection(true)">{{ 'BUTTONS.CHECK_ALL' | translate }}</button>
+      <button mat-button color="primary" (click)="onTouched(); setAllSelection(false)">{{ 'BUTTONS.UNCHECK_ALL' | translate }}</button>
+    </div>
+
+    <div class="dropdown-dropdownContent">
+
+      <div class="dropdown-dropdownGroup" *ngFor="let dropdownGroup of dropdownData">
+        <mat-checkbox
+          [(ngModel)]="dropdownGroup.selected"
+          [(indeterminate)]="dropdownGroup.partlySelected"
+          (click)="onTouched(); setGroupSelection(dropdownGroup.groupName, !dropdownGroup.selected)">
+            {{dropdownGroup.groupName}}
+        </mat-checkbox>
+
+        <button mat-icon-button color="accent" (click)="setGroupOpeness(dropdownGroup.groupName, !dropdownGroup.opened)">
+          <ng-container *ngIf="dropdownGroup.opened; then openedIcon else closedIcon"></ng-container>
+          <ng-template #closedIcon>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </ng-template>
+          <ng-template #openedIcon>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </ng-template>
+        </button>
+
+        <ng-container *ngIf="dropdownGroup.opened">
+          <div class="dropdown-dropdownSubgroup"
+            *ngFor="let subgroup of dropdownGroup.subgroups">
+            <mat-checkbox
+              [(ngModel)]="subgroup.selected"
+              (click)="onTouched(); setSubgroupSelection(dropdownGroup.groupName, subgroup.value, !subgroup.selected)">
+              {{subgroup.value}}
+            </mat-checkbox>
+          </div>
+        </ng-container>
+
+      </div>
+
+    </div>
+
+    <div class="dropdown-dropdownBottom">
+      <div>
+        <button mat-button color="primary" (click)="setAllOpeness(true)">{{ 'BUTTONS.EXPAND_ALL' | translate }}</button>
+        <button mat-button color="primary" (click)="setAllOpeness(false)">{{ 'BUTTONS.COLLAPSE_ALL' | translate }}</button>
+      </div>
+      <button mat-button color="warn" (click)="toggleDropdown()">{{ 'BUTTONS.CLOSE' | translate }}</button>
+    </div>
+
+  </div>
+</div>

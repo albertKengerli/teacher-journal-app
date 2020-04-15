@@ -1,3 +1,7 @@
+.component {
+  display: flex;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -19,4 +23,8 @@ mat-card {
 
 img {
   max-width: 200px;
+}
+
+.dropdown {
+  margin: 20px 100px;
 }

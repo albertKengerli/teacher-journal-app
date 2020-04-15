@@ -64,7 +64,15 @@
     "ADD_NEW_DATE": "Добавить новую дату",
     "ADD": "Добавить",
     "PREVIOUS_DATES": "Предыдущие даты",
-    "NEXT_DATES": "Следующие даты"
+    "NEXT_DATES": "Следующие даты",
+    "CHECK_ALL": "Выбрать все",
+    "UNCHECK_ALL": "Отменить все",
+    "EXPAND_ALL": "Открыть все",
+    "COLLAPSE_ALL": "Скрыть все",
+    "CLOSE": "Закрыть"
+  },
+  "DROPDOWN": {
+    "OUTPUT_PLACEHOLDER": "Выбранные даты"
   },
   "DIALOG": {
     "DEFAULT": "Все верно?",
