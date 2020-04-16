@@ -21,6 +21,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { FormComponent } from "../../shared/components/form/form.component";
 import { SpinnerComponent } from "../../shared/components/spinner/spinner.component";
@@ -61,6 +62,7 @@ import { editableGradesReducer } from "../../store/editableGrades";
     MatTooltipModule,
     MatCheckboxModule,
     MatIconModule,
+    MatSnackBarModule,
     StoreModule.forFeature("grades", gradesReducer),
     EffectsModule.forFeature([GradesEffects]),
     StoreModule.forFeature("editableGrades", editableGradesReducer),
@@ -90,6 +92,7 @@ import { editableGradesReducer } from "../../store/editableGrades";
     MatCheckboxModule,
     MatDialogModule,
     MatTooltipModule,
+    MatSnackBarModule,
   ],
   providers: [
     MatDatepickerModule,
