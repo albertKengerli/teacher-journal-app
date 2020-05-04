@@ -28,6 +28,7 @@ import { GradeOperations } from "../../../common/constants/gradesConstants";
 
 import { SubjectTableDateObject, defaultColumnsNames, subjectTablePaginationStep } from "./subject-table.model";
 import { PaginatorSelection } from "../../../shared/components/paginator/paginator.model";
+import { datepickerDimensions } from "../../../common/constants/dialogDimensions";
 
 @Component({
   selector: "app-subject-table",
@@ -218,8 +219,8 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   public openDatepickerDialog(): void {
     const datesAsNumbers: number[] = this.dates.map(currentDate => currentDate.getTime());
     const dialogRef: MatDialogRef<DatepickerDialogComponent> = this.dialog.open(DatepickerDialogComponent, {
-      height: "215px",
-      width: "300px",
+      height: datepickerDimensions.height,
+      width: datepickerDimensions.width,
       data: { dates: [...datesAsNumbers] },
     });
 
