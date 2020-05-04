@@ -1,0 +1,12 @@
+.pagination {
+  &-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-label {
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}

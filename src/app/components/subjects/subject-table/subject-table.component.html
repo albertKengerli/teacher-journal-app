@@ -61,15 +61,9 @@
     </button>
   </div>
 
-  <div class="pagination pagination-container">
-    <button mat-flat-button color="primary" class="pagination pagination-button"
-      (click)="paginatorShowPrevious()"
-    >{{ 'BUTTONS.PREVIOUS_DATES' | translate }}</button>
-    <span class="pagination pagination-label">
-      {{paginatorSelection.start + 1}} - {{paginatorSelection.end}} {{ 'OF' | translate}} {{datesToRender.length}}
-    </span>
-    <button mat-flat-button color="primary" class="pagination pagination-button"
-      (click)="paginatorShowNext()"
-    >{{ 'BUTTONS.NEXT_DATES' | translate }}</button>
-  </div>
+  <app-paginator
+    [paginationStep]="paginationStep"
+    [paginationSize]="datesToRender.length"
+    (paginationChange)="managePaginationChange($event)">
+  </app-paginator>
 </div>

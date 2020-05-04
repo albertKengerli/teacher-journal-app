@@ -27,6 +27,7 @@ import { FormComponent } from "../../shared/components/form/form.component";
 import { SpinnerComponent } from "../../shared/components/spinner/spinner.component";
 import { DatepickerDialogComponent } from "../../shared/components/datepicker-dialog/datepicker-dialog.component";
 import { DropdownPickerComponent } from "../../shared/components/dropdown-picker/dropdown-picker.component";
+import { PaginatorComponent } from "../../shared/components/paginator/paginator.component";
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HeaderInterceptor } from "../../common/interceptors/header/header.interceptor";
@@ -45,6 +46,7 @@ import { editableGradesReducer } from "../../store/editableGrades";
     SpinnerComponent,
     DatepickerDialogComponent,
     DropdownPickerComponent,
+    PaginatorComponent,
   ],
   imports: [
     CommonModule,
@@ -72,6 +74,7 @@ import { editableGradesReducer } from "../../store/editableGrades";
     FormComponent,
     SpinnerComponent,
     DropdownPickerComponent,
+    PaginatorComponent,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
