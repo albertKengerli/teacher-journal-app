@@ -1,21 +1,10 @@
 import { FormField } from "../entities/formField";
 import { ValidationErrorTranslationKeys, validationExpressions } from "../constants/validation";
 
-enum TranslationKeys {
-  NameLabel = "FORM.STUDENT_NAME_LABEL",
-  NamePlaceholder = "FORM.STUDENT_NAME_PLACEHOLDER",
-  SurnameLabel = "FORM.STUDENT_SURNAME_LABEL",
-  SurnamePlaceholder = "FORM.STUDENT_SURNAME_PLACEHOLDER",
-  AddressLabel = "FORM.ADDRESS_LABEL",
-  AddressPlaceholder = "FORM.ADDRESS_PLACEHOLDER",
-  DescriptionLabel = "FORM.STUDENT_DESCRIPTION_LABEL",
-  DescriptionPlaceholder = "FORM.STUDENT_DESCRIPTION_PLACEHOLDER"
-}
-
 const name: FormField = new FormField({
   name: "name",
-  label: TranslationKeys.NameLabel,
-  placeholder: TranslationKeys.NamePlaceholder,
+  label: "FORM.STUDENT_NAME_LABEL",
+  placeholder: "FORM.STUDENT_NAME_PLACEHOLDER",
   required: true,
   validation: true,
   expression: validationExpressions.alphabetAndSpecialCharacters,
@@ -24,8 +13,8 @@ const name: FormField = new FormField({
 
 const surname: FormField = new FormField({
   name: "surname",
-  label: TranslationKeys.SurnameLabel,
-  placeholder: TranslationKeys.SurnamePlaceholder,
+  label: "FORM.STUDENT_SURNAME_LABEL",
+  placeholder: "FORM.STUDENT_SURNAME_PLACEHOLDER",
   required: true,
   validation: true,
   expression: validationExpressions.alphabetAndSpecialCharacters,
@@ -34,15 +23,15 @@ const surname: FormField = new FormField({
 
 const address: FormField = new FormField({
   name: "address",
-  label: TranslationKeys.AddressLabel,
-  placeholder: TranslationKeys.AddressPlaceholder,
+  label: "FORM.ADDRESS_LABEL",
+  placeholder: "FORM.ADDRESS_PLACEHOLDER",
 });
 
 const description: FormField = new FormField({
   name: "description",
   type: "text-area",
-  label: TranslationKeys.DescriptionLabel,
-  placeholder: TranslationKeys.DescriptionPlaceholder,
+  label: "FORM.STUDENT_DESCRIPTION_LABEL",
+  placeholder: "FORM.STUDENT_DESCRIPTION_PLACEHOLDER",
 });
 
 export const studentFormFieldList: FormField[] = [ name, surname, address, description ];
