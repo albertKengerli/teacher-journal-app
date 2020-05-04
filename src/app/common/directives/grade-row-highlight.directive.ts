@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@angular/core";
 
-import * as GradeFunctions from "../helpers/gradeFunctions";
+import * as GradeUtility from "../helpers/GradeUtility";
 
 @Directive({
   selector: "[appGradeRowHighlight]"
@@ -15,7 +15,7 @@ export class GradeRowHighlightDirective implements OnInit {
   ) { }
 
   private highlightRow(): void {
-    const color: string = GradeFunctions.getColorForGrade(this.averageGrade);
+    const color: string = GradeUtility.getColorForGrade(this.averageGrade);
 
     this.renderer.setStyle(this.parentNode, "backgroundColor", color);
   }

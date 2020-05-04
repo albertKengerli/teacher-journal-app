@@ -22,7 +22,7 @@ import { Subject } from "../../../common/entities/subject";
 import { Grade } from "../../../common/entities/grades";
 
 import { compareDates } from "../../../common/helpers/sorting";
-import * as GradesFunctions from "../../../common/helpers/gradeFunctions";
+import * as GradeUtility from "../../../common/helpers/GradeUtility";
 
 import { GradeOperations } from "../../../common/constants/gradesConstants";
 
@@ -79,7 +79,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   private isGradeValidForTable(gradeAsString: string, gradeAsNumber: number): boolean {
-    if ( GradesFunctions.isGradeValid(gradeAsNumber) || gradeAsString === "") {
+    if ( GradeUtility.isGradeValid(gradeAsNumber) || gradeAsString === "") {
       return true;
     } else {
       return false;
@@ -214,7 +214,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
         });
 
       if (!gradeId) {
-        gradeId = GradesFunctions.generateId(studentId, this.subject.id, date);
+        gradeId = GradeUtility.generateId(studentId, this.subject.id, date);
       }
 
       const gradeOperation: string = this.getGradeOperationForSending(gradeAlreadyExists, gradeIsDeleted);

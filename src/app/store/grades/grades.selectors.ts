@@ -5,7 +5,7 @@ import { GradesState } from "./grades.state";
 
 import { EntitiesNames } from "../../common/constants/entitiesNames";
 
-import * as GradesFunctions from "../../common/helpers/gradeFunctions";
+import * as GradeUtility from "../../common/helpers/GradeUtility";
 
 /* tslint:disable:typedef */
 export const getGradesState = createFeatureSelector<GradesState>(EntitiesNames.Grades);
@@ -25,6 +25,6 @@ export const getSubjectGrades = createSelector(
 export const getGradeByProperties = createSelector(
   getGradesState,
   (state: GradesState, props: Grade) => {
-    return state.data.find( grade => GradesFunctions.areGradesInterchangeable(grade, props));
+    return state.data.find( grade => GradeUtility.areGradesInterchangeable(grade, props));
   }
 );
