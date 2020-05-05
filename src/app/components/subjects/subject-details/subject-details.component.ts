@@ -11,7 +11,7 @@ import * as EditableGradesActions from "../../../store/editableGrades/editableGr
 
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
-import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
+import { SubjectTableDataService } from "../../../common/services/subject-table/SubjectTableData/SubjectTableData.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
@@ -37,7 +37,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialogService: DialogService,
     private gradesSenderService: GradesSenderService,
-    private subjectTableService: SubjectTableService,
+    private subjectTableService: SubjectTableDataService,
     private translateService: TranslateService,
     private store: Store<AppState>,
   ) { }

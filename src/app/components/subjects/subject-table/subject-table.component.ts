@@ -9,7 +9,7 @@ import { Subscription, Observable } from "rxjs";
 
 import { DatepickerDialogComponent } from "../../../shared/components/datepicker-dialog/datepicker-dialog.component";
 
-import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
+import { SubjectTableDataService } from "../../../common/services/subject-table/SubjectTableData/SubjectTableData.service";
 import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
 import { TranslateService } from "@ngx-translate/core";
 
@@ -52,7 +52,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private subjectTableService: SubjectTableService,
+    private subjectTableService: SubjectTableDataService,
     private gradesSenderService: GradesSenderService,
     private translateService: TranslateService,
     private datePipe: DatePipe,

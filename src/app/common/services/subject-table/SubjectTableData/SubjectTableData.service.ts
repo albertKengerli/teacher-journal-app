@@ -3,18 +3,18 @@ import { Observable, BehaviorSubject, combineLatest, Subscription } from "rxjs";
 import { filter, take } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
-import { AppState, getStudentsData, getSubjectGrades } from "../../../store";
-import * as StudentsActions from "../../../store/students/students.actions";
-import * as GradesActions from "../../../store/grades/grades.actions";
-import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
+import { AppState, getStudentsData, getSubjectGrades } from "../../../../store";
+import * as StudentsActions from "../../../../store/students/students.actions";
+import * as GradesActions from "../../../../store/grades/grades.actions";
+import * as EditableGradesActions from "../../../../store/editableGrades/editableGrades.actions";
 
-import { Student } from "../../entities/student";
-import { Grade } from "../../entities/grades";
+import { Student } from "../../../entities/student";
+import { Grade } from "../../../entities/grades";
 
 @Injectable({
   providedIn: "root"
 })
-export class SubjectTableService {
+export class SubjectTableDataService {
   private tableDataSubscription: Subscription;
   private studentsWithGrades: BehaviorSubject<Student[]> = new BehaviorSubject([]);
   private isDataReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
