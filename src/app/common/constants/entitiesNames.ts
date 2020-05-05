@@ -3,4 +3,5 @@ export enum EntitiesNames {
   Subjects = "subjects",
   Grades = "grades",
   EditableGrades = "editableGrades",
+  SubjectTableData = "subjectTableData"
 }

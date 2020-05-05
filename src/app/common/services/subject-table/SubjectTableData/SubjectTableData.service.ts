@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject, combineLatest, Subscription } from "rxjs";
+import { combineLatest, Subscription } from "rxjs";
 import { filter, take } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
@@ -7,6 +7,7 @@ import { AppState, getStudentsData, getSubjectGrades } from "../../../../store";
 import * as StudentsActions from "../../../../store/students/students.actions";
 import * as GradesActions from "../../../../store/grades/grades.actions";
 import * as EditableGradesActions from "../../../../store/editableGrades/editableGrades.actions";
+import * as SubjectTableDataActions from "../../../../store/subjectTableData/subjectTableData.actions";
 
 import { Student } from "../../../entities/student";
 import { Grade } from "../../../entities/grades";
@@ -16,13 +17,6 @@ import { Grade } from "../../../entities/grades";
 })
 export class SubjectTableDataService {
   private tableDataSubscription: Subscription;
-  private studentsWithGrades: BehaviorSubject<Student[]> = new BehaviorSubject([]);
-  private isDataReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private subjectId: number;
-  private dates: Date[] = [];
-  private datesList: number[] = [];
-
-  public isInited: boolean = false;
 
   constructor(
     private store: Store<AppState>,
@@ -30,6 +24,10 @@ export class SubjectTableDataService {
 
   private addGradesToStudents([students, subjectGrades]: [Student[], Grade[]]): void {
     this.store.dispatch(EditableGradesActions.addEditableGrades({ grades: subjectGrades }));
+
+    const dates: Date[] = [];
+    const datesList: number[] = [];
+
     const studentsWithGrades: Student[] = students.map( student => {
       const currentStudent: Student = {...student};
 
@@ -37,9 +35,9 @@ export class SubjectTableDataService {
       let gradesSum: number = 0;
 
       studentsGrades.forEach(grade => {
-        if (!this.datesList.includes(grade.date)) {
-          this.dates.push(new Date(grade.date));
-          this.datesList.push(grade.date);
+        if (!datesList.includes(grade.date)) {
+          dates.push(new Date(grade.date));
+          datesList.push(grade.date);
 
         }
         currentStudent[grade.date] = grade.grade;
@@ -55,14 +53,10 @@ export class SubjectTableDataService {
       return currentStudent;
     });
 
-    this.studentsWithGrades.next(studentsWithGrades);
-    this.isDataReady.next(true);
+    this.store.dispatch(SubjectTableDataActions.addStudentsAndDates({ studentsWithGrades, dates }));
   }
 
   public initService(subjectId: number): void {
-    this.isInited = true;
-
-    this.subjectId = subjectId;
     this.store.dispatch(StudentsActions.getStudents());
     this.store.dispatch(GradesActions.getGrades());
 
@@ -73,32 +67,15 @@ export class SubjectTableDataService {
         take(1),
       ),
       this.store.pipe(
-        select(getSubjectGrades, { subjectId: this.subjectId }),
+        select(getSubjectGrades, { subjectId }),
         filter(grades => grades.length !== 0),
         take(1),
       ),
     ).subscribe((data) => this.addGradesToStudents(data));
   }
 
-  public getStudentsWithGrades(): Observable<Student[]> {
-    return this.studentsWithGrades.asObservable();
-  }
-
-  public getDataReadyObservable(): Observable<boolean> {
-    return this.isDataReady.asObservable();
-  }
-
-  public getDates(): Date[] {
-    return this.dates;
-  }
-
   public resetService(): void {
-    this.isInited = false;
     this.tableDataSubscription.unsubscribe();
-    this.isDataReady = new BehaviorSubject(false);
-    this.studentsWithGrades = new BehaviorSubject([]);
-    this.subjectId = null;
-    this.dates = [];
-    this.datesList = [];
+    this.store.dispatch(SubjectTableDataActions.resetSubjectTableData());
   }
 }

@@ -14,7 +14,7 @@ import { GradesSenderService } from "../../../common/services/grades-sender/grad
 import { TranslateService } from "@ngx-translate/core";
 
 import { Store, select } from "@ngrx/store";
-import { AppState, getEditableGradeIdByProperties } from "../../../store";
+import { AppState, getEditableGradeIdByProperties, getSubjectTableDataState } from "../../../store";
 import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
 import { Student } from "../../../common/entities/student";
@@ -29,6 +29,7 @@ import { GradeOperations } from "../../../common/constants/gradesConstants";
 import { SubjectTableDateObject, defaultColumnsNames, subjectTablePaginationStep } from "./subject-table.model";
 import { PaginatorSelection } from "../../../shared/components/paginator/paginator.model";
 import { datepickerDimensions } from "../../../common/constants/dialogDimensions";
+import { filter, take } from "rxjs/operators";
 
 @Component({
   selector: "app-subject-table",
@@ -36,9 +37,9 @@ import { datepickerDimensions } from "../../../common/constants/dialogDimensions
   styleUrls: ["./subject-table.component.scss"]
 })
 export class SubjectTableComponent implements OnInit, OnDestroy {
-  private subjectTableServiceSubscription: Subscription;
   private editingValue: string;
   private dates: Date[];
+  private subjectTableDataSubscription: Subscription;
 
   @Input() public subject: Subject;
   @Output() public gradesChange: EventEmitter<null> = new EventEmitter();
@@ -150,11 +151,14 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.subjectTableServiceSubscription = this.subjectTableService.getStudentsWithGrades()
-      .subscribe( data => {
-        this.updateDataSource(data);
-        this.manageDates(this.subjectTableService.getDates());
-      });
+    this.subjectTableDataSubscription = this.store.pipe(
+      select(getSubjectTableDataState),
+      filter(state => state.students.length !== 0),
+      take(1)
+    ).subscribe( data => {
+      this.updateDataSource(data.students);
+      this.manageDates(data.dates);
+    });
   }
 
   public managePaginationChange(newPagination: PaginatorSelection): void {
@@ -232,6 +236,6 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.subjectTableServiceSubscription.unsubscribe();
+    this.subjectTableDataSubscription.unsubscribe();
   }
 }
