@@ -81,6 +81,6 @@ const reducer = createReducer(
   ),
 );
 
-export function subjectTableDataReducer(state: SubjectTableState | undefined, action: Action) {
+export function subjectTableReducer(state: SubjectTableState | undefined, action: Action) {
   return reducer(state, action);
 }

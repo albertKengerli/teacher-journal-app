@@ -20,7 +20,7 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
 import { subjectsReducer, SubjectsEffects } from "../../store/subjects";
-import { subjectTableDataReducer } from "../../store/subjectTable";
+import { subjectTableReducer } from "../../store/subjectTable";
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { subjectTableDataReducer } from "../../store/subjectTable";
     SharedModule,
     SubjectsRoutingModule,
     StoreModule.forFeature("subjects", subjectsReducer),
-    StoreModule.forFeature("subjectTableData", subjectTableDataReducer),
+    StoreModule.forFeature("subjectTable", subjectTableReducer),
     EffectsModule.forFeature([SubjectsEffects]),
   ],
   providers: [DatePipe],
