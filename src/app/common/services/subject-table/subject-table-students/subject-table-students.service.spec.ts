@@ -1,13 +1,13 @@
 import { TestBed } from "@angular/core/testing";
 
-import { SubjectTableDataService } from "./SubjectTableData.service";
+import { SubjectTableStudentsService } from "./subject-table-students.service";
 
 describe("SubjectTableService", () => {
-  let service: SubjectTableDataService;
+  let service: SubjectTableStudentsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SubjectTableDataService);
+    service = TestBed.inject(SubjectTableStudentsService);
   });
 
   it("should be created", () => {

@@ -7,9 +7,9 @@ import { AppState, getStudentsData, getSubjectGrades } from "../../../../store";
 import * as StudentsActions from "../../../../store/students/students.actions";
 import * as GradesActions from "../../../../store/grades/grades.actions";
 import * as EditableGradesActions from "../../../../store/editableGrades/editableGrades.actions";
-import * as SubjectTableDataActions from "../../../../store/subjectTableData/subjectTableData.actions";
+import * as SubjectTableActions from "../../../../store/subjectTable/subjectTable.actions";
 
-import { SubjectTableDatesService } from "../SubjectTableDates/SubjectTableDates.service";
+import { SubjectTableDatesService } from "../subject-table-dates/subject-table-dates.service";
 
 import { Student } from "../../../entities/student";
 import { Grade } from "../../../entities/grades";
@@ -17,8 +17,8 @@ import { Grade } from "../../../entities/grades";
 @Injectable({
   providedIn: "root"
 })
-export class SubjectTableDataService {
-  private tableDataSubscription: Subscription;
+export class SubjectTableStudentsService {
+  private studentsDataSubscription: Subscription;
 
   constructor(
     private store: Store<AppState>,
@@ -56,7 +56,7 @@ export class SubjectTableDataService {
       return currentStudent;
     });
 
-    this.store.dispatch(SubjectTableDataActions.addStudents({ studentsWithGrades }));
+    this.store.dispatch(SubjectTableActions.addStudents({ studentsWithGrades }));
     this.tableDatesService.addDates(dates);
   }
 
@@ -64,7 +64,7 @@ export class SubjectTableDataService {
     this.store.dispatch(StudentsActions.getStudents());
     this.store.dispatch(GradesActions.getGrades());
 
-    this.tableDataSubscription = combineLatest(
+    this.studentsDataSubscription = combineLatest(
       this.store.pipe(
         select(getStudentsData),
         filter(students => students.length !== 0),
@@ -79,7 +79,7 @@ export class SubjectTableDataService {
   }
 
   public resetService(): void {
-    this.tableDataSubscription.unsubscribe();
-    this.store.dispatch(SubjectTableDataActions.resetSubjectTableData());
+    this.studentsDataSubscription.unsubscribe();
+    this.store.dispatch(SubjectTableActions.resetSubjectTable());
   }
 }

@@ -1,8 +1,8 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { formatDate } from "@angular/common";
 
-import * as SubjectTableDataActions from "./subjectTableData.actions";
-import { SubjectTableDataState, initialSubjectTableDataState } from "./subjectTableData.state";
+import * as SubjectTableDataActions from "./subjectTable.actions";
+import { SubjectTableState, initialSubjectTableState } from "./subjectTable.state";
 
 import { SubjectTableDateObject } from "../../common/entities/subjectTable";
 
@@ -10,7 +10,7 @@ import { defaultColumnsNames } from "../../components/subjects/subject-table/sub
 import { compareDates } from "../../common/helpers/sorting";
 
 const reducer = createReducer(
-  initialSubjectTableDataState,
+  initialSubjectTableState,
 
   on(
     SubjectTableDataActions.addStudents,
@@ -18,7 +18,7 @@ const reducer = createReducer(
       return {
         ...state,
         students: studentsWithGrades,
-        dataReady: true,
+        ready: true,
       };
     }
   ),
@@ -74,13 +74,13 @@ const reducer = createReducer(
   ),
 
   on(
-    SubjectTableDataActions.resetSubjectTableData,
+    SubjectTableDataActions.resetSubjectTable,
     () => ({
-      ...initialSubjectTableDataState
+      ...initialSubjectTableState
     })
   ),
 );
 
-export function subjectTableDataReducer(state: SubjectTableDataState | undefined, action: Action) {
+export function subjectTableDataReducer(state: SubjectTableState | undefined, action: Action) {
   return reducer(state, action);
 }

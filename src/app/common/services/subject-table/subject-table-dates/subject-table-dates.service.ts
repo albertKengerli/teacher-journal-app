@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { Store } from "@ngrx/store";
 import { AppState } from "../../../../store";
-import * as SubjectTableDataActions from "../../../../store/subjectTableData/subjectTableData.actions";
+import * as SubjectTableActions from "../../../../store/subjectTable/subjectTable.actions";
 
 import { subjectTablePaginationStep } from "../../../../components/subjects/subject-table/subject-table.model";
 
@@ -16,13 +16,13 @@ export class SubjectTableDatesService {
   ) { }
 
   public addDates(dates: Date[]): void {
-    this.store.dispatch(SubjectTableDataActions.addDates({ newDates: dates }));
+    this.store.dispatch(SubjectTableActions.addDates({ newDates: dates }));
     this.selectDates(0, subjectTablePaginationStep);
   }
 
   public selectDates(selectionStart: number, selectionEnd: number): void {
-    this.store.dispatch(SubjectTableDataActions.selectDates({ selectionStart, selectionEnd }));
-    this.store.dispatch(SubjectTableDataActions.setColumnNames());
+    this.store.dispatch(SubjectTableActions.selectDates({ selectionStart, selectionEnd }));
+    this.store.dispatch(SubjectTableActions.setColumnNames());
   }
 
 }

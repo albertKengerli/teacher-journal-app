@@ -20,7 +20,7 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
 import { subjectsReducer, SubjectsEffects } from "../../store/subjects";
-import { subjectTableDataReducer } from "../../store/subjectTableData";
+import { subjectTableDataReducer } from "../../store/subjectTable";
 
 @NgModule({
   declarations: [

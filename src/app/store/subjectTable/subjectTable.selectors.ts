@@ -1,14 +1,14 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
-import { SubjectTableDataState } from "./subjectTableData.state";
+import { SubjectTableState } from "./subjectTable.state";
 
 import { EntitiesNames } from "../../common/constants/entitiesNames";
 
-export const getSubjectTableDataState = createFeatureSelector<SubjectTableDataState>(EntitiesNames.SubjectTableData);
+export const getSubjectTableDataState = createFeatureSelector<SubjectTableState>(EntitiesNames.SubjectTable);
 
-export const getIsSubjectTableDataReady = createSelector(
+export const getIsSubjectTableReady = createSelector(
   getSubjectTableDataState,
-  (state) => state.dataReady,
+  (state) => state.ready,
 );
 
 export const getSubjectTableStudents = createSelector(

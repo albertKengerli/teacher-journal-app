@@ -5,12 +5,12 @@ import { Observable, Subscription } from "rxjs";
 import { filter, take } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
-import { AppState, getSubjectByName, getIsSubjectTableDataReady } from "../../../store";
+import { AppState, getSubjectByName, getIsSubjectTableReady } from "../../../store";
 import * as SubjectsActions from "../../../store/subjects/subjects.actions";
 
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
-import { SubjectTableDataService } from "../../../common/services/subject-table/SubjectTableData/SubjectTableData.service";
+import { SubjectTableStudentsService } from "../../../common/services/subject-table/subject-table-students/subject-table-students.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
@@ -35,7 +35,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialogService: DialogService,
     private gradesSenderService: GradesSenderService,
-    private subjectTableService: SubjectTableDataService,
+    private subjectTableStudentsService: SubjectTableStudentsService,
     private translateService: TranslateService,
     private store: Store<AppState>,
   ) { }
@@ -49,7 +49,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
       take(1),
     ).subscribe(subject => {
       this.subject = subject;
-      this.subjectTableService.initService(this.subject.id);
+      this.subjectTableStudentsService.initService(this.subject.id);
     });
   }
 
@@ -64,7 +64,7 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     this.getSubject();
 
     this.isTableLoadedSubscription = this.store.pipe(
-      select(getIsSubjectTableDataReady)
+      select(getIsSubjectTableReady)
     ).subscribe( isDataReady => {
       this.tableLoaded = isDataReady;
     });
@@ -115,6 +115,6 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.subjectSubscription.unsubscribe();
     this.isTableLoadedSubscription.unsubscribe();
-    this.subjectTableService.resetService();
+    this.subjectTableStudentsService.resetService();
   }
 }

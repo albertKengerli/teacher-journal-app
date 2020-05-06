@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 
-import { SubjectTableDatesService } from "./SubjectTableDates.service";
+import { SubjectTableDatesService } from "./subject-table-dates.service";
 
 describe("SubjectTableDatesService", () => {
   let service: SubjectTableDatesService;

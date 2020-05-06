@@ -8,7 +8,7 @@ import { Subscription, Observable } from "rxjs";
 
 import { DatepickerDialogComponent } from "../../../shared/components/datepicker-dialog/datepicker-dialog.component";
 
-import { SubjectTableDatesService } from "../../../common/services/subject-table/SubjectTableDates/SubjectTableDates.service";
+import { SubjectTableDatesService } from "../../../common/services/subject-table/subject-table-dates/subject-table-dates.service";
 import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
 import { TranslateService } from "@ngx-translate/core";
 
@@ -21,7 +21,7 @@ import {
   getSubjectTableColumnNames,
   getSubjectTableDatesQuantity,
   getSubjectTableExistingDates,
-} from "../../../store/subjectTableData/subjectTableData.selectors";
+} from "../../../store/subjectTable/subjectTable.selectors";
 
 import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
