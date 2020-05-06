@@ -21,7 +21,12 @@ export class PaginatorComponent implements OnInit {
 
   private initPaginator(): void {
     this.paginatorSelection.start = 0;
-    this.paginatorSelection.end = this.paginationStep;
+
+    if (this.paginationStep > this.paginationSize) {
+      this.paginatorSelection.end = this.paginationSize;
+    } else {
+      this.paginatorSelection.end = this.paginationStep;
+    }
 
     this.paginationChange.emit(this.paginatorSelection);
   }
