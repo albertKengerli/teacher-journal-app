@@ -35,7 +35,7 @@ export class PaginatorComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    const pagesQuantity: number = div(this.paginationSize, this.paginationStep);
+    const pagesQuantity: number = div(this.paginationSize, this.paginationStep) - 1;
 
     this.lastPage = this.paginationSize % this.paginationStep ?
       pagesQuantity + 1 :
