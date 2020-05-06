@@ -2,7 +2,6 @@ import { createAction, props } from "@ngrx/store";
 
 import { Student } from "../../common/entities/student";
 
-/* tslint:disable:typedef */
 export const getStudents = createAction("[Students] GET_STUDENTS");
 export const getStudentsSuccess = createAction(
   "[Students] GET_STUDENTS_SUCCESS",

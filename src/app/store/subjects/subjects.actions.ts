@@ -2,7 +2,6 @@ import { createAction, props } from "@ngrx/store";
 
 import { Subject } from "../../common/entities/subject";
 
-/* tslint:disable:typedef */
 export const getSubjects = createAction("[Subjects] GET_SUBJECTS");
 export const getSubjectsSuccess = createAction(
   "[Subjects] GET_SUBJECTS_SUCCESS",

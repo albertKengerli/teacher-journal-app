@@ -5,7 +5,6 @@ import * as StudentsActions from "./students.actions";
 
 import { Student } from "../../common/entities/student";
 
-/* tslint:disable:typedef */
 const reducer = createReducer(
   initialStudentsState,
 

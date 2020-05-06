@@ -1,9 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 
 import { Student } from "../../common/entities/student";
-import { SubjectTableDateObject } from "../../common/entities/subjectTable";
 
-/* tslint:disable:typedef */
 export const addStudents = createAction(
   "[Subject-Table Data] ADD_STUDENTS",
   props<{ studentsWithGrades: Student[] }>()

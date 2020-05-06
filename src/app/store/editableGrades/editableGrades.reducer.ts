@@ -5,7 +5,6 @@ import { EditableGradesState, initialEditableGradesState } from "./editableGrade
 
 import { Grade } from "../../common/entities/grades";
 
-/* tslint:disable:typedef */
 const reducer = createReducer(
   initialEditableGradesState,
 

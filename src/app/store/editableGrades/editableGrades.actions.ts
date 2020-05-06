@@ -2,7 +2,6 @@ import { createAction, props } from "@ngrx/store";
 
 import { Grade } from "../../common/entities/grades";
 
-/* tslint:disable:typedef */
 export const addEditableGrades = createAction(
   "[Editable Grades] ADD_GRADES",
   props<{ grades: Grade []}>()
