@@ -1,6 +1,9 @@
-import { Component, OnInit, Output, Input, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, Output, Input, EventEmitter, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
+
+import { BehaviorSubject, Subscription } from "rxjs";
 
 import { PaginatorSelection } from "./paginator.model";
+import { div } from "../../../common/helpers/calculation";
 
 @Component({
   selector: "app-paginator",
@@ -8,7 +11,11 @@ import { PaginatorSelection } from "./paginator.model";
   styleUrls: ["./paginator.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginatorComponent implements OnInit {
+export class PaginatorComponent implements OnInit, OnDestroy {
+  private currentPage$: BehaviorSubject<number> = new BehaviorSubject(0);
+  private currentPageSubscription: Subscription;
+  private lastPage: number;
+
   @Input() public paginationStep: number;
   @Input() public paginationSize: number;
 
@@ -19,40 +26,47 @@ export class PaginatorComponent implements OnInit {
     end: null,
   };
 
-  private initPaginator(): void {
-    this.paginatorSelection.start = 0;
-
-    if (this.paginationStep > this.paginationSize) {
-      this.paginatorSelection.end = this.paginationSize;
+  private calculateEndSelection(newEnd: number): number {
+    if (newEnd > this.paginationSize) {
+      return this.paginationSize;
     } else {
-      this.paginatorSelection.end = this.paginationStep;
+      return newEnd;
     }
-
-    this.paginationChange.emit(this.paginatorSelection);
   }
 
   public ngOnInit(): void {
-    this.initPaginator();
+    const pagesQuantity: number = div(this.paginationSize, this.paginationStep);
+
+    this.lastPage = this.paginationSize % this.paginationStep ?
+      pagesQuantity + 1 :
+      pagesQuantity;
+
+    this.currentPageSubscription = this.currentPage$.subscribe( page => {
+        this.paginatorSelection.start = page * this.paginationStep;
+        this.paginatorSelection.end = this.calculateEndSelection((page + 1) * this.paginationStep);
+
+        this.paginationChange.emit(this.paginatorSelection);
+      }
+    );
   }
 
   public showPrevious(): void {
-    if (this.paginatorSelection.start === 0) {
+    if (this.currentPage$.value === 0) {
       return;
     }
 
-    this.paginatorSelection.start -= this.paginationStep;
-    this.paginatorSelection.end -= this.paginationStep;
-
-    this.paginationChange.emit(this.paginatorSelection);
+    this.currentPage$.next(this.currentPage$.value - 1);
   }
 
   public showNext(): void {
-    if (this.paginatorSelection.start + this.paginationStep >= this.paginationSize) {
+    if (this.currentPage$.value === this.lastPage) {
       return;
     }
-    this.paginatorSelection.start += this.paginationStep;
-    this.paginatorSelection.end += this.paginationStep;
 
-    this.paginationChange.emit(this.paginatorSelection);
+    this.currentPage$.next(this.currentPage$.value + 1);
+  }
+
+  public ngOnDestroy(): void {
+    this.currentPageSubscription.unsubscribe();
   }
 }
