@@ -7,8 +7,3 @@ export const defaultColumnsNames: string[] = [
 ];
 
 export const subjectTablePaginationStep: number = 5;
-
-export interface SubjectTableDateObject {
-  string: string;
-  number: number;
-}

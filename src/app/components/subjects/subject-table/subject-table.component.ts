@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild, Output, EventEmitter } from "@angular/core";
-import { DatePipe } from "@angular/common";
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angular/core";
 import { FormControl } from "@angular/forms";
 
 import { MatTableDataSource } from "@angular/material/table";
@@ -9,24 +8,33 @@ import { Subscription, Observable } from "rxjs";
 
 import { DatepickerDialogComponent } from "../../../shared/components/datepicker-dialog/datepicker-dialog.component";
 
-import { SubjectTableDataService } from "../../../common/services/subject-table/SubjectTableData/SubjectTableData.service";
+import { SubjectTableDatesService } from "../../../common/services/subject-table/SubjectTableDates/SubjectTableDates.service";
 import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Store, select } from "@ngrx/store";
-import { AppState, getEditableGradeIdByProperties, getSubjectTableDataState } from "../../../store";
+import { AppState, getEditableGradeIdByProperties } from "../../../store";
+
+import {
+  getSubjectTableStudents,
+  getSubjectTableSelectedDates,
+  getSubjectTableColumnNames,
+  getSubjectTableDatesQuantity,
+  getSubjectTableExistingDates,
+} from "../../../store/subjectTableData/subjectTableData.selectors";
+
 import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
 import { Student } from "../../../common/entities/student";
 import { Subject } from "../../../common/entities/subject";
 import { Grade } from "../../../common/entities/grades";
+import { SubjectTableDateObject } from "../../../common/entities/subjectTable";
 
-import { compareDates } from "../../../common/helpers/sorting";
 import * as GradeUtility from "../../../common/helpers/GradeUtility";
 
 import { GradeOperations } from "../../../common/constants/gradesConstants";
 
-import { SubjectTableDateObject, defaultColumnsNames, subjectTablePaginationStep } from "./subject-table.model";
+import { subjectTablePaginationStep } from "./subject-table.model";
 import { PaginatorSelection } from "../../../shared/components/paginator/paginator.model";
 import { datepickerDimensions } from "../../../common/constants/dialogDimensions";
 import { filter, take } from "rxjs/operators";
@@ -38,25 +46,31 @@ import { filter, take } from "rxjs/operators";
 })
 export class SubjectTableComponent implements OnInit, OnDestroy {
   private editingValue: string;
-  private dates: Date[];
-  private subjectTableDataSubscription: Subscription;
+  private existingDates: Date[];
+
+  private studentsSubscription: Subscription;
+  private selectedDatesSubscription: Subscription;
+  private columnNamesSubscription: Subscription;
+  private datesQuantitySubscription: Subscription;
+  private existingDatesSubscription: Subscription;
 
   @Input() public subject: Subject;
   @Output() public gradesChange: EventEmitter<null> = new EventEmitter();
 
   public dataSource: MatTableDataSource<Student>;
   public columnsNamesList: string[];
-  public datesToRender: SubjectTableDateObject[];
   public selectedDates: SubjectTableDateObject[];
+
   public datePickControl: FormControl = new FormControl(new Date());
+
+  public datesQuantity: number;
   public paginationStep: number = subjectTablePaginationStep;
 
   constructor(
     private store: Store<AppState>,
-    private subjectTableService: SubjectTableDataService,
+    private tableDatesService: SubjectTableDatesService,
     private gradesSenderService: GradesSenderService,
     private translateService: TranslateService,
-    private datePipe: DatePipe,
     private dialog: MatDialog,
   ) { }
 
@@ -64,16 +78,20 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource(data);
   }
 
-  private manageDates(dates: Date[]): void {
-    this.dates = [...dates];
-    this.dates.sort(compareDates);
-    this.datesToRender = this.dates.map(date => {
-      const current: SubjectTableDateObject = {
-        string: this.datePipe.transform(date, "LL/dd"),
-        number: date.getTime(),
-      };
-      return current;
-    });
+  private setSelectedDates(dates: SubjectTableDateObject[]): void {
+    this.selectedDates = dates;
+  }
+
+  private setColumnNames(columnNames: string[]): void {
+    this.columnsNamesList = columnNames;
+  }
+
+  private setDatesQuantity(quantity: number): void {
+    this.datesQuantity = quantity;
+  }
+
+  private setExistingDates(dates: Date[]): void {
+    this.existingDates = [...dates];
   }
 
   private isGradeValidForTable(gradeAsString: string, gradeAsNumber: number): boolean {
@@ -144,26 +162,32 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  private manageColumnsNamesList(): void {
-    const currentDates: Date[] = this.selectedDates.map(dateObj => new Date(dateObj.number));
-    const datesStringList: string[] = currentDates.map(date => this.datePipe.transform(date, "LL/dd"));
-    this.columnsNamesList = [...defaultColumnsNames, ...datesStringList];
-  }
-
   public ngOnInit(): void {
-    this.subjectTableDataSubscription = this.store.pipe(
-      select(getSubjectTableDataState),
-      filter(state => state.students.length !== 0),
-      take(1)
-    ).subscribe( data => {
-      this.updateDataSource(data.students);
-      this.manageDates(data.dates);
-    });
+    this.studentsSubscription = this.store.pipe(
+      select(getSubjectTableStudents),
+      take(1),
+    ).subscribe( students => this.updateDataSource(students));
+
+    this.selectedDatesSubscription = this.store.pipe(
+      select(getSubjectTableSelectedDates),
+    ).subscribe( selectedDates => this.setSelectedDates(selectedDates));
+
+    this.columnNamesSubscription = this.store.pipe(
+      select(getSubjectTableColumnNames),
+    ).subscribe( columnNames => this.setColumnNames(columnNames));
+
+    this.datesQuantitySubscription = this.store.pipe(
+      select(getSubjectTableDatesQuantity),
+      filter(quantity => quantity >= 1)
+    ).subscribe( quantity => this.setDatesQuantity(quantity));
+
+    this.existingDatesSubscription = this.store.pipe(
+      select(getSubjectTableExistingDates)
+    ).subscribe( existingDates => this.setExistingDates(existingDates));
   }
 
   public managePaginationChange(newPagination: PaginatorSelection): void {
-    this.selectedDates = this.datesToRender.slice(newPagination.start, newPagination.end);
-    this.manageColumnsNamesList();
+    this.tableDatesService.selectDates(newPagination.start, newPagination.end);
   }
 
   public saveEditingCell(event: Event): void {
@@ -215,27 +239,25 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     target.blur();
   }
 
-  public addDate(newDate: Date): void {
-    const newDates: Date[] = [...this.dates, newDate];
-    this.manageDates(newDates);
-  }
-
   public openDatepickerDialog(): void {
-    const datesAsNumbers: number[] = this.dates.map(currentDate => currentDate.getTime());
     const dialogRef: MatDialogRef<DatepickerDialogComponent> = this.dialog.open(DatepickerDialogComponent, {
       height: datepickerDimensions.height,
       width: datepickerDimensions.width,
-      data: { dates: [...datesAsNumbers] },
+      data: { dates: [...this.existingDates] },
     });
 
     dialogRef.afterClosed().subscribe(newDate => {
       if (newDate) {
-        this.addDate(newDate);
+        this.tableDatesService.addDates([newDate]);
       }
     });
   }
 
   public ngOnDestroy(): void {
-    this.subjectTableDataSubscription.unsubscribe();
+    this.studentsSubscription.unsubscribe();
+    this.selectedDatesSubscription.unsubscribe();
+    this.columnNamesSubscription.unsubscribe();
+    this.datesQuantitySubscription.unsubscribe();
+    this.existingDatesSubscription.unsubscribe();
   }
 }

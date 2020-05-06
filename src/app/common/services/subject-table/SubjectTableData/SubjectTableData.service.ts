@@ -9,6 +9,8 @@ import * as GradesActions from "../../../../store/grades/grades.actions";
 import * as EditableGradesActions from "../../../../store/editableGrades/editableGrades.actions";
 import * as SubjectTableDataActions from "../../../../store/subjectTableData/subjectTableData.actions";
 
+import { SubjectTableDatesService } from "../SubjectTableDates/SubjectTableDates.service";
+
 import { Student } from "../../../entities/student";
 import { Grade } from "../../../entities/grades";
 
@@ -20,6 +22,7 @@ export class SubjectTableDataService {
 
   constructor(
     private store: Store<AppState>,
+    private tableDatesService: SubjectTableDatesService,
   ) {}
 
   private addGradesToStudents([students, subjectGrades]: [Student[], Grade[]]): void {
@@ -53,7 +56,8 @@ export class SubjectTableDataService {
       return currentStudent;
     });
 
-    this.store.dispatch(SubjectTableDataActions.addStudentsAndDates({ studentsWithGrades, dates }));
+    this.store.dispatch(SubjectTableDataActions.addStudents({ studentsWithGrades }));
+    this.tableDatesService.addDates(dates);
   }
 
   public initService(subjectId: number): void {
