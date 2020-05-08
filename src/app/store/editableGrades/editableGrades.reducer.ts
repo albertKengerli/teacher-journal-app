@@ -11,7 +11,8 @@ const reducer = createReducer(
   on(EditableGradesActions.addEditableGrades, (state, { grades }) => {
     return {
       ...state,
-      data: grades
+      data: grades,
+      initialData: grades,
     };
   }),
 
@@ -37,10 +38,7 @@ const reducer = createReducer(
   }),
 
   on(EditableGradesActions.resetEditableGrades, (state) => {
-    return {
-      ...state,
-      data: [],
-    };
+    return initialEditableGradesState;
   }),
 );
 

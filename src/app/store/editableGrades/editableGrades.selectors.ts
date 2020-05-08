@@ -16,7 +16,7 @@ export const getEditableGradeIdByProperties = createSelector(
     subjectId: number,
     date: number,
   }) => {
-    const requiredGrade: Grade = state.data.find( grade => {
+    const requiredGrade: Grade = state.initialData.find( grade => {
       if (
         grade.studentId === props.studentId &&
         grade.subjectId === props.subjectId &&
