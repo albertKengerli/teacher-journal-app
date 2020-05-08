@@ -4,10 +4,16 @@ import { formatDate } from "@angular/common";
 import * as SubjectTableDataActions from "./subjectTable.actions";
 import { SubjectTableState, initialSubjectTableState } from "./subjectTable.state";
 
+import { Student } from "../../common/entities/student";
 import { SubjectTableDateObject } from "../../common/entities/subjectTable";
 
 import { defaultColumnsNames } from "../../components/subjects/subject-table/subject-table.model";
 import { compareDates } from "../../common/helpers/sorting";
+import {
+  calculateAverageGrade,
+  GradeSumAndLength,
+  getGradeSumAndLengthForStudent,
+} from "../../common/helpers/GradeUtility";
 
 const reducer = createReducer(
   initialSubjectTableState,
@@ -69,6 +75,33 @@ const reducer = createReducer(
       return {
         ...state,
         columnNames: [...defaultColumnsNames, ...dateColumnNames],
+      };
+    }
+  ),
+
+  on(
+    SubjectTableDataActions.updateStudentsGrade,
+    (state, { studentId, date, newGrade }) => {
+      const students: Student[] = [...state.students];
+
+      const updatedStudentIndex: number = students.findIndex(student => student.id === studentId);
+      const studentToUpdate: Student = students.find(student => student.id === studentId);
+
+      let updatedStudent: Student = Object.assign({}, studentToUpdate);
+
+      if (newGrade === null) {
+        delete updatedStudent[date];
+      } else {
+        updatedStudent[date] = newGrade;
+      }
+      const gradesObject: GradeSumAndLength = getGradeSumAndLengthForStudent(updatedStudent);
+
+      updatedStudent.averageGrade = calculateAverageGrade(gradesObject.gradeSum, gradesObject.gradeQuantity);
+      students[updatedStudentIndex] = updatedStudent;
+
+      return {
+        ...state,
+        students,
       };
     }
   ),

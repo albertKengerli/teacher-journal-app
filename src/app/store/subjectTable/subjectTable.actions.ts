@@ -21,6 +21,11 @@ export const setColumnNames = createAction(
   "[Subject-Table] SET_COLUMN_NAMES"
 );
 
+export const updateStudentsGrade = createAction(
+  "[Subject-Table] UPDATE_STUDENTS_GRADE",
+  props<{ studentId: number, date: number, newGrade: number }>()
+);
+
 export const resetSubjectTable = createAction(
   "[Subject-Table] RESET"
 );
