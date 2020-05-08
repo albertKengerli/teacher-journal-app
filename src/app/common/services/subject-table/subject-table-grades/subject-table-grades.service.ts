@@ -19,12 +19,25 @@ export class SubjectTableGradesService {
     private translateService: TranslateService,
   ) { }
 
-  private validateGrade(grade: number): void {
-    if (!GradeUtility.isGradeValid(grade) || isNaN(grade)) {
-      const alertMessage: string = this.translateService.instant("ALERT.SUBJECT_TABLE_GRADE_ERROR");
-      window.alert(alertMessage);
-      throw alertMessage;
+  private getGradeAsNumber(enteredGrade: string): number {
+    if (enteredGrade === "") {
+      return null;
+    } else {
+      return Number(enteredGrade);
     }
+  }
+
+  private validateEnteredValue(enteredValue: string): boolean {
+    if (enteredValue === "" || GradeUtility.isGradeValid(Number(enteredValue))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private throwValidationError(): void {
+    const alertMessage: string = this.translateService.instant("ALERT.SUBJECT_TABLE_GRADE_ERROR");
+    throw alertMessage;
   }
 
   private updateTableState(studentId: number, date: number, newGrade: number): void {
@@ -32,8 +45,11 @@ export class SubjectTableGradesService {
   }
 
   public updateGrade(studentId: number, date: number, enteredGrade: string): void {
-    const newGrade: number = Number(enteredGrade);
-    this.validateGrade(newGrade);
+    if (!this.validateEnteredValue(enteredGrade)) {
+      this.throwValidationError();
+    }
+
+    const newGrade: number = this.getGradeAsNumber(enteredGrade);
 
     this.updateTableState(studentId, date, newGrade);
   }
