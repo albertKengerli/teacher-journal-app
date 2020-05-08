@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from "@angu
 import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 
-import { Subscription } from "rxjs";
+import { Subscription, Subject as RxSubject } from "rxjs";
 import { filter } from "rxjs/operators";
 
 import { DatepickerDialogComponent } from "../../../shared/components/datepicker-dialog/datepicker-dialog.component";
@@ -54,6 +54,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
 
   public datesQuantity: number;
   public paginationStep: number = subjectTablePaginationStep;
+  public paginationResetEvent$: RxSubject<void> = new RxSubject<void>();
 
   constructor(
     private store: Store<AppState>,
@@ -147,6 +148,7 @@ export class SubjectTableComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(newDate => {
       if (newDate) {
         this.tableDatesService.addDates([newDate]);
+        this.paginationResetEvent$.next();
       }
     });
   }

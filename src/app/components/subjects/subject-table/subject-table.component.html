@@ -64,6 +64,7 @@
   <app-paginator
     [paginationStep]="paginationStep"
     [paginationSize]="datesQuantity"
+    [resetPaginationEvent$]="paginationResetEvent$"
     (paginationChange)="managePaginationChange($event)">
   </app-paginator>
 </div>
