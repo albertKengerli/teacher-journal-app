@@ -41,7 +41,7 @@
               class="subjectsTable-gradeText"
               contenteditable="true"
               (focus)="saveEditingCell($event)"
-              (keydown.enter)="handleEnter($event)"
+              (keydown.enter)="handleEnterKey($event)"
               (blur)="handleGradeChange(student.id, date.number, $event)"
             >
               {{student[date.number]}}</span>
