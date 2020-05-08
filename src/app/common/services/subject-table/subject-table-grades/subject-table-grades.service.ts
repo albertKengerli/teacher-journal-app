@@ -14,7 +14,7 @@ import { TranslateService } from "@ngx-translate/core";
 
 import { Grade } from "../../../entities/grades";
 import * as GradeUtility from "../../../helpers/GradeUtility";
-import { GradeOperations } from "../../../constants/gradesConstants";
+import { GradeOperations, GradesConstants } from "../../../constants/gradesConstants";
 
 @Injectable({
   providedIn: "root"
@@ -44,7 +44,10 @@ export class SubjectTableGradesService {
   }
 
   private throwValidationError(): void {
-    const alertMessage: string = this.translateService.instant("ALERT.SUBJECT_TABLE_GRADE_ERROR");
+    const alertMessage: string = this.translateService.instant(
+      "ALERT.SUBJECT_TABLE_GRADE_ERROR",
+      { min: GradesConstants.MinGrade, max: GradesConstants.MaxGrade}
+    );
     throw alertMessage;
   }
 
