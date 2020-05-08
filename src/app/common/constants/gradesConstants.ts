@@ -1,6 +1,6 @@
 export enum GradesConstants {
   MaxGrade = 10,
-  MinGrade = 0,
+  MinGrade = 1,
   PositivenessBorder = 5,
 }
 
