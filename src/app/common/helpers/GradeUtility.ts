@@ -42,3 +42,11 @@ export function generateId(studentId: number, subjectId: number, date: number): 
   let newId: number = parseInt(`${studentId}${subjectId}${date}`, 10);
   return newId;
 }
+
+export function calculateAverageGrade(gradeSum: number, gradesQuantity: number): number {
+  if (gradeSum === 0) {
+    return null;
+  } else {
+    return Math.ceil(gradeSum / gradesQuantity * 100) / 100;
+  }
+}

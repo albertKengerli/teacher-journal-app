@@ -14,6 +14,8 @@ import { SubjectTableDatesService } from "../subject-table-dates/subject-table-d
 import { Student } from "../../../entities/student";
 import { Grade } from "../../../entities/grades";
 
+import { calculateAverageGrade } from "../../../helpers/GradeUtility";
+
 @Injectable({
   providedIn: "root"
 })
@@ -47,11 +49,7 @@ export class SubjectTableStudentsService {
         gradesSum += grade.grade;
       });
 
-      if (gradesSum === 0) {
-        currentStudent.averageGrade = null;
-      } else {
-        currentStudent.averageGrade = Math.ceil(gradesSum / studentsGrades.length * 100) / 100;
-      }
+      currentStudent.averageGrade = calculateAverageGrade(gradesSum, studentsGrades.length);
 
       return currentStudent;
     });
