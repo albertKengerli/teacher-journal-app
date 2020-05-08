@@ -5,7 +5,6 @@ import { EditableGradesState } from "./editableGrades.state";
 import { EntitiesNames } from "../../common/constants/entitiesNames";
 import { Grade } from "../../common/entities/grades";
 
-/* tslint:disable:typedef */
 export const getEditableGradesState = createFeatureSelector<EditableGradesState>(EntitiesNames.EditableGrades);
 
 export const getEditableGradeIdByProperties = createSelector(

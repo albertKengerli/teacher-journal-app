@@ -7,7 +7,6 @@ import { EntitiesNames } from "../../common/constants/entitiesNames";
 
 import * as GradeUtility from "../../common/helpers/GradeUtility";
 
-/* tslint:disable:typedef */
 export const getGradesState = createFeatureSelector<GradesState>(EntitiesNames.Grades);
 
 export const getGradesData = createSelector(

@@ -4,7 +4,6 @@ import { SubjectsState } from "./subjects.state";
 
 import { EntitiesNames } from "../../common/constants/entitiesNames";
 
-/* tslint:disable:typedef */
 export const getSubjectsState = createFeatureSelector<SubjectsState>(EntitiesNames.Subjects);
 
 export const getSubjectsData = createSelector(
