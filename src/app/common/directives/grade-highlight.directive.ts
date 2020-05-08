@@ -24,8 +24,7 @@ export class GradeHighlightDirective implements OnInit {
   private highlightGrade(newGrade?: number): void {
     const currentGrade: number = this.getCurrentGrade(newGrade);
 
-    if (!GradeUtility.isGradeValid(currentGrade)) {
-      this.renderer.setStyle(this.node, "borderBottom", `solid 10px transparent`);
+    if (isNaN(currentGrade) || !GradeUtility.isGradeValid(currentGrade)) {
       return;
     }
 
