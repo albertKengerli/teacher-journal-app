@@ -1,0 +1,11 @@
+<div class="pagination pagination-container">
+  <button mat-flat-button color="primary" class="pagination pagination-button"
+    (click)="showPrevious()"
+  >{{ 'BUTTONS.PREVIOUS_DATES' | translate }}</button>
+  <span class="pagination pagination-label">
+    {{paginatorSelection.start + 1}} - {{paginatorSelection.end}} {{ 'OF' | translate}} {{paginationSize}}
+  </span>
+  <button mat-flat-button color="primary" class="pagination pagination-button"
+    (click)="showNext()"
+  >{{ 'BUTTONS.NEXT_DATES' | translate }}</button>
+</div>

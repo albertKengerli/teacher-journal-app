@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2, OnInit } from "@angular/core";
 
-import * as GradeFunctions from "../helpers/gradeFunctions";
+import * as GradeUtility from "../helpers/GradeUtility";
 
 @Directive({
   selector: "[appGradeHighlight]"
@@ -24,12 +24,11 @@ export class GradeHighlightDirective implements OnInit {
   private highlightGrade(newGrade?: number): void {
     const currentGrade: number = this.getCurrentGrade(newGrade);
 
-    if (!GradeFunctions.isGradeValid(currentGrade)) {
-      this.renderer.setStyle(this.node, "borderBottom", `solid 10px transparent`);
+    if (isNaN(currentGrade) || !GradeUtility.isGradeValid(currentGrade)) {
       return;
     }
 
-    const color: string = GradeFunctions.getColorForGrade(currentGrade);
+    const color: string = GradeUtility.getColorForGrade(currentGrade);
 
     this.renderer.setStyle(this.node, "borderBottom", `solid 10px ${color}`);
   }

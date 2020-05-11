@@ -6,14 +6,4 @@ export const defaultColumnsNames: string[] = [
   СolumnNames.AverageGrade,
 ];
 
-export const paginationStep: number = 5;
-
-export interface SubjectTableDateObject {
-  string: string;
-  number: number;
-}
-
-export interface PaginatorSelection {
-  start: number;
-  end: number;
-}
+export const subjectTablePaginationStep: number = 5;

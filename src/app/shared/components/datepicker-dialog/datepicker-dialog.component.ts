@@ -10,16 +10,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
   styleUrls: ["./datepicker-dialog.component.scss"]
 })
 export class DatepickerDialogComponent {
+  private existingDatesAsNumbers: number[];
+
   public datePickControl: FormControl = new FormControl();
 
   constructor(
     public dialogRef: MatDialogRef<DatepickerDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { dates: number[] },
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: { dates: Date[] },
+  ) {
+    this.existingDatesAsNumbers = this.data.dates.map( currentDate => currentDate.getTime());
+  }
 
   public filterExistingDates = (date: Date): boolean => {
     const dateAsNumber: number = date.getTime();
-    return !this.data.dates.includes(dateAsNumber);
+    return !this.existingDatesAsNumbers.includes(dateAsNumber);
   }
 
   public cancelDialog(): void {

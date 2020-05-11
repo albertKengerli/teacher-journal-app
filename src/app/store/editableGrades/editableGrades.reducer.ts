@@ -5,14 +5,14 @@ import { EditableGradesState, initialEditableGradesState } from "./editableGrade
 
 import { Grade } from "../../common/entities/grades";
 
-/* tslint:disable:typedef */
 const reducer = createReducer(
   initialEditableGradesState,
 
   on(EditableGradesActions.addEditableGrades, (state, { grades }) => {
     return {
       ...state,
-      data: grades
+      data: grades,
+      initialData: grades,
     };
   }),
 
@@ -38,10 +38,7 @@ const reducer = createReducer(
   }),
 
   on(EditableGradesActions.resetEditableGrades, (state) => {
-    return {
-      ...state,
-      data: [],
-    };
+    return initialEditableGradesState;
   }),
 );
 

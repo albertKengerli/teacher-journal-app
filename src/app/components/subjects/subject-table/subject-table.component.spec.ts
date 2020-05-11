@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
 
 import { SubjectTableComponent } from "./subject-table.component";
 
@@ -22,4 +23,14 @@ describe("SubjectTableComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  it("should call proper method on table cell focus", fakeAsync(() => {
+    spyOn(component, "saveEditingCell");
+
+    const cell: HTMLElement = fixture.debugElement.nativeElement.querySelector(By.css(".subjectsTable-gradeText"));
+
+    cell.focus();
+    tick();
+    expect(component.saveEditingCell).toHaveBeenCalled();
+  }));
 });

@@ -5,13 +5,12 @@ import { Observable, Subscription } from "rxjs";
 import { filter, take } from "rxjs/operators";
 
 import { Store, select } from "@ngrx/store";
-import { AppState, getSubjectByName } from "../../../store";
+import { AppState, getSubjectByName, getIsSubjectTableReady } from "../../../store";
 import * as SubjectsActions from "../../../store/subjects/subjects.actions";
-import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
 import { DialogService } from "../../../common/services/dialog/dialog.service";
 import { GradesSenderService } from "../../../common/services/grades-sender/grades-sender.service";
-import { SubjectTableService } from "../../../common/services/subject-table/subject-table.service";
+import { SubjectTableStudentsService } from "../../../common/services/subject-table/subject-table-students/subject-table-students.service";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Subject } from "../../../common/entities/subject";
@@ -22,9 +21,8 @@ import { Subject } from "../../../common/entities/subject";
   styleUrls: ["./subject-details.component.scss"]
 })
 export class SubjectDetailsComponent implements OnInit, OnDestroy {
-  private subject$: Observable<Subject>;
   private subjectSubscription: Subscription;
-  private tableDataReadySubscription: Subscription;
+  private isTableLoadedSubscription: Subscription;
   private newTeacherName: string;
 
   public subject: Subject;
@@ -37,21 +35,21 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialogService: DialogService,
     private gradesSenderService: GradesSenderService,
-    private subjectTableService: SubjectTableService,
+    private subjectTableStudentsService: SubjectTableStudentsService,
     private translateService: TranslateService,
     private store: Store<AppState>,
   ) { }
 
   private getSubject(): void {
     const subjectName: string = this.route.snapshot.paramMap.get("name");
-    this.subject$ = this.store.pipe(
+
+    this.subjectSubscription = this.store.pipe(
       select(getSubjectByName, { subjectName }),
       filter( subject => subject !== undefined),
       take(1),
-    );
-    this.subjectSubscription = this.subject$.subscribe(subject => {
+    ).subscribe(subject => {
       this.subject = subject;
-      this.subjectTableService.initService(this.subject.id);
+      this.subjectTableStudentsService.initService(this.subject.id);
     });
   }
 
@@ -64,8 +62,12 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.store.dispatch(SubjectsActions.getSubjects());
     this.getSubject();
-    this.tableDataReadySubscription = this.subjectTableService.getDataReadyObservable()
-      .subscribe( dataReady => this.tableLoaded = dataReady);
+
+    this.isTableLoadedSubscription = this.store.pipe(
+      select(getIsSubjectTableReady)
+    ).subscribe( isDataReady => {
+      this.tableLoaded = isDataReady;
+    });
   }
 
   public onGradesChange(): void {
@@ -111,9 +113,8 @@ export class SubjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.store.dispatch(EditableGradesActions.resetEditableGrades());
     this.subjectSubscription.unsubscribe();
-    this.tableDataReadySubscription.unsubscribe();
-    this.subjectTableService.resetService();
+    this.isTableLoadedSubscription.unsubscribe();
+    this.subjectTableStudentsService.resetService();
   }
 }

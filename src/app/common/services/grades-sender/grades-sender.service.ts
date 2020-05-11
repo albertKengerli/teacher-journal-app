@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Store, select } from "@ngrx/store";
 import { AppState, getEditableGradeById } from "../../../store";
 import * as GradesActions from "../../../store/grades/grades.actions";
+import * as EditableGradesActions from "../../../store/editableGrades/editableGrades.actions";
 
 import { Observable } from "rxjs";
 import { take, filter } from "rxjs/operators";
@@ -44,6 +45,8 @@ export class GradesSenderService {
     for (const gradeOperation of Object.keys(this.gradesToSend)) {
       this.gradesToSend[gradeOperation].clear();
     }
+
+    this.store.dispatch(EditableGradesActions.resetEditableGrades());
   }
 
   public sendPreparedGrades(): void {

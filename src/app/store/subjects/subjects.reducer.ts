@@ -5,7 +5,6 @@ import { SubjectsState, initialSubjectsState } from "./subjects.state";
 
 import { Subject } from "../../common/entities/subject";
 
-/* tslint:disable:typedef */
 const reducer = createReducer(
   initialSubjectsState,
 

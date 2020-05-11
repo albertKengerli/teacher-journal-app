@@ -80,7 +80,7 @@
     "DISCARD_SUBJECT_CHANGES": "Do you want to leave {{subjectName}}? All changes will be discarded."
   },
   "ALERT": {
-    "SUBJECT_TABLE_GRADE_ERROR": "Put a number from 1 to 10 to the cell or leave it empty to delete the grade"
+    "SUBJECT_TABLE_GRADE_ERROR": "Put a number from {{min}} to {{max}} to the cell or leave it empty to delete the grade"
   },
   "TOOLTIPS": {
     "ADD_DATE": "Add new date to the table"

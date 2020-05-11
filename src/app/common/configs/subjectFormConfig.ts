@@ -1,20 +1,10 @@
 import { FormField } from "../entities/formField";
 import { ValidationErrorTranslationKeys, validationExpressions } from "../constants/validation";
 
-enum TranslationKeys {
-  NameLabel = "FORM.SUBJECT_NAME_LABEL",
-  NamePlaceholder = "FORM.SUBJECT_NAME_PLACEHOLDER",
-  TeacherLabel = "FORM.TEACHER_LABEL",
-  TeacherPlaceholder = "FORM.TEACHER_PLACEHOLDER",
-  RoomLabel = "FORM.ROOM_LABEL",
-  DescriptionLabel = "FORM.SUBJECT_DESCRIPTION_LABEL",
-  DescriptionPlaceholder = "FORM.SUBJECT_DESCRIPTION_PLACEHOLDER"
-}
-
 const name: FormField = new FormField({
   name: "name",
-  label: TranslationKeys.NameLabel,
-  placeholder: TranslationKeys.NamePlaceholder,
+  label: "FORM.SUBJECT_NAME_LABEL",
+  placeholder: "FORM.SUBJECT_NAME_PLACEHOLDER",
   required: true,
   validation: true,
   expression: validationExpressions.alphabetAndSpecialCharacters,
@@ -23,8 +13,8 @@ const name: FormField = new FormField({
 
 const teacher: FormField = new FormField({
   name: "teacher",
-  label: TranslationKeys.TeacherLabel,
-  placeholder: TranslationKeys.TeacherPlaceholder,
+  label: "FORM.TEACHER_LABEL",
+  placeholder: "FORM.TEACHER_PLACEHOLDER",
   required: true,
   validation: true,
   expression: validationExpressions.alphabetAndSpecialCharacters,
@@ -33,7 +23,7 @@ const teacher: FormField = new FormField({
 
 const room: FormField = new FormField({
   name: "room",
-  label: TranslationKeys.RoomLabel,
+  label: "FORM.ROOM_LABEL",
   placeholder: "402",
   validation: true,
   expression: validationExpressions.numbers,
@@ -43,8 +33,8 @@ const room: FormField = new FormField({
 const description: FormField = new FormField({
   name: "description",
   type: "text-area",
-  label: TranslationKeys.DescriptionLabel,
-  placeholder: TranslationKeys.DescriptionPlaceholder,
+  label: "FORM.SUBJECT_DESCRIPTION_LABEL",
+  placeholder: "FORM.SUBJECT_DESCRIPTION_PLACEHOLDER",
 });
 
 export const subjectFormFieldList: FormField[] = [ name, teacher, room, description ];
