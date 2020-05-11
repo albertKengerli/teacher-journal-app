@@ -4,11 +4,19 @@ import { Action } from "@ngrx/store";
 import { Actions , createEffect, ofType } from "@ngrx/effects";
 
 import { Observable } from "rxjs";
-import { switchMap, map, pluck } from "rxjs/operators";
+import { switchMap, map, pluck, tap } from "rxjs/operators";
 
 import * as SubjectsActions from "./subjects.actions";
 
 import { SubjectService } from "../../common/services/subject/subject.service";
+
+import { MatSnackBar } from "@angular/material/snack-bar";
+
+enum SubjectsNotifications {
+  SubjectAdded = "Subject added!",
+  SubjectDeleted = "Subject deleted!",
+  SubjectUpdated = "Subject updated!",
+}
 
 @Injectable()
 export class SubjectsEffects {
@@ -31,6 +39,7 @@ export class SubjectsEffects {
       switchMap(subject => {
         return this.subjectService.addSubject(subject)
           .pipe(
+            tap(() => this.notificate(SubjectsNotifications.SubjectAdded)),
             map(() => SubjectsActions.addSubjectSuccess({ subject }))
           );
       })
@@ -44,6 +53,7 @@ export class SubjectsEffects {
       switchMap(id => {
         return this.subjectService.deleteSubject(id)
           .pipe(
+            tap(() => this.notificate(SubjectsNotifications.SubjectDeleted)),
             map(() => SubjectsActions.deleteSubjectSuccess({ id }))
           );
       })
@@ -56,6 +66,7 @@ export class SubjectsEffects {
       switchMap( action => {
         return this.subjectService.updateSubject(action.id, action.subject)
           .pipe(
+            tap(() => this.notificate(SubjectsNotifications.SubjectUpdated)),
             map( subject => {
               const id: number = subject.id;
               return SubjectsActions.updateSubjectSuccess({ id, subject });
@@ -68,6 +79,12 @@ export class SubjectsEffects {
   constructor(
     private actions$: Actions,
     private subjectService: SubjectService,
+    private snackbar: MatSnackBar,
   ) { }
 
+  private notificate(notification: string): void {
+    this.snackbar.open(notification, "OK", {
+      duration: 3500,
+    });
+  }
 }

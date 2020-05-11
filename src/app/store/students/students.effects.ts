@@ -4,11 +4,17 @@ import { Action } from "@ngrx/store";
 import { Actions , Effect, ofType } from "@ngrx/effects";
 
 import { Observable } from "rxjs";
-import { switchMap, map, pluck } from "rxjs/operators";
+import { switchMap, map, pluck, tap } from "rxjs/operators";
 
 import * as StudentsActions from "./students.actions";
 
 import { StudentService } from "../../common/services/student/student.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+
+enum StudentsNotifications {
+  StudentAdded = "Student added!",
+  StudentDeleted = "Student deleted!",
+}
 
 @Injectable()
 export class StudentsEffects {
@@ -31,6 +37,7 @@ export class StudentsEffects {
     switchMap(student => {
       return this.studentService.addStudent(student)
         .pipe(
+          tap(() => this.notificate(StudentsNotifications.StudentAdded)),
           map(() => StudentsActions.addStudentSuccess({ student }))
         );
     })
@@ -43,6 +50,7 @@ export class StudentsEffects {
     switchMap(id => {
       return this.studentService.deleteStudent(id)
         .pipe(
+          tap(() => this.notificate(StudentsNotifications.StudentDeleted)),
           map(() => StudentsActions.deleteStudentSuccess({ id }))
         );
     })
@@ -51,6 +59,12 @@ export class StudentsEffects {
   constructor(
     private actions$: Actions,
     private studentService: StudentService,
+    private snackbar: MatSnackBar,
   ) { }
 
+  private notificate(notification: string): void {
+    this.snackbar.open(notification, "OK", {
+      duration: 3500,
+    });
+  }
 }

@@ -130,5 +130,7 @@ export class StatisticsPageComponent implements OnInit, OnDestroy {
     }
 
     this.studentsForTable = this.students.filter(student => includedStudentIds.includes(student.id));
+
+    this.selectedStudent = null;
   }
 }
