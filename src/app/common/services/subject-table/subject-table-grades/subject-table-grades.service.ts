@@ -96,7 +96,7 @@ export class SubjectTableGradesService {
     this.store.dispatch(SubjectTableActions.updateStudentsGrade({ studentId, date, newGrade }));
   }
 
-  private async updateGradesForSending(studentId: number, subjectId: number, date: number, grade: number): void {
+  private async updateGradesForSending(studentId: number, subjectId: number, date: number, grade: number): Promise<void> {
     let gradeId: number;
     let gradeAlreadyExists: boolean;
 
@@ -127,6 +127,8 @@ export class SubjectTableGradesService {
     }
 
     this.gradeSenderService.prepareGradeForSending(gradeId, gradeOperation);
+
+    return;
   }
 
   public updateGrade(studentId: number, subjectId: number, date: number, enteredGrade: string): void {
