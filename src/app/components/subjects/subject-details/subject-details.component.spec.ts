@@ -22,4 +22,9 @@ describe("SubjectDetailsComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  it("should render subject title in h2 tag", () => {
+    const compiled: HTMLElement = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector("h2").textContent).toContain(fixture.componentInstance.subject.name);
+  });
 });
